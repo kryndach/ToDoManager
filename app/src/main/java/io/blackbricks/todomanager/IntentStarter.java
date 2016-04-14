@@ -3,6 +3,7 @@ package io.blackbricks.todomanager;
 import android.content.Context;
 import android.content.Intent;
 
+import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
 
 /**
@@ -18,9 +19,9 @@ public class IntentStarter {
         return context.getResources().getBoolean(R.bool.tablet);
     }
 
-    public void showTaskList(Context context, TaskListActivity.FilterType filterType) {
+    public void showTaskList(Context context, Filter filter) {
         Intent i = new Intent(context, TaskListActivity.class);
-        i.putExtra(TaskListActivity.FILTER_TYPE, filterType);
+        i.putExtra(TaskListActivity.KEY_FILTER, filter);
         context.startActivity(i);
     }
 

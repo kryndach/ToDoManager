@@ -5,11 +5,7 @@ package io.blackbricks.todomanager.taskList;
  */
 public class TaskListActivity {
 
-    public enum FilterType {
-        INBOX, TODAY, TOMORROW, WEEK, HOT, DONE, OVERDUE
-    }
-
-    public static final String FILTER_TYPE =
-            "io.blackbricks.todomanager.taskList.TaskListActivity.FILTER_TYPE";
+    public static final String KEY_FILTER =
+            "io.blackbricks.todomanager.taskList.TaskListActivity.FILTER";
 
 }

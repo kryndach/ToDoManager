@@ -7,6 +7,7 @@ import java.util.Date;
 
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.utils.CursorWrap;
 import rx.functions.Func1;
 
 /**
@@ -15,46 +16,23 @@ import rx.functions.Func1;
 public class CursorToTask implements Func1<Cursor, Task> {
     @Override
     public Task call(Cursor cursor) {
-        int taskId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN));
+        CursorWrap cursorWrap = new CursorWrap(cursor);
+        Integer id = cursorWrap.getInteger(DatabaseHelper.ID_COLUMN);
+        Date dateAlarm = cursorWrap.getDate(DatabaseHelper.TASK_DATE_ALARM_COLUMN);
+        Date dateCreated = cursorWrap.getDate(DatabaseHelper.TASK_DATE_CREATED_COLUMN);
+        Date dateDeadline = cursorWrap.getDate(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN);
+        Date dateStatusUpdated = cursorWrap.getDate(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN);
+        String description = cursorWrap.getString(DatabaseHelper.TASK_DESCRIPTION_COLUMN);
+        Integer iconId = cursorWrap.getInteger(DatabaseHelper.TASK_ICON_ID_COLUMN);
 
-        Date taskDateCreated = new Date(cursor.getLong
-                (cursor.getColumnIndex(DatabaseHelper.TASK_DATE_CREATED_COLUMN))
-        );
+        Integer statusValue = cursorWrap.getInteger(DatabaseHelper.ID_COLUMN);
+        Task.Status status =
+                statusValue == null ? Task.Status.UNDONE : Task.Status.values()[statusValue];
 
-        Date taskDateStatusUpdated = new Date(cursor.
-                getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN))
-        );
+        String title = cursorWrap.getString(DatabaseHelper.TASK_TITLE_COLUMN);
+        Integer groupId = cursorWrap.getInteger(DatabaseHelper.TASK_GROUP_ID_COLUMN);
 
-        Task.TaskStatus taskStatus = Task.TaskStatus
-                .values()[cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TASK_STATUS_COLUMN))];
-
-        String taskTitle = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TASK_TITLE_COLUMN));
-
-        Task task = new Task(taskId, taskDateCreated, taskDateStatusUpdated, taskStatus, taskTitle);
-
-        int iconIdIndex = cursor.getColumnIndex(DatabaseHelper.TASK_ICON_ID_COLUMN);
-        if (!cursor.isNull(iconIdIndex)) {
-            int iconId = cursor.getInt(iconIdIndex);
-            task.setIconId(iconId);
-        }
-
-        int alarmIndex = cursor.getColumnIndex(DatabaseHelper.TASK_DATE_ALARM_COLUMN);
-        if (!cursor.isNull(alarmIndex)) {
-            Date taskDateAlarm = new Date(cursor.getLong(alarmIndex));
-            task.setDateAlarm(taskDateAlarm);
-        }
-
-        int deadlineIndex = cursor.getColumnIndex(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN);
-        if (!cursor.isNull(deadlineIndex)) {
-            Date taskDateDeadline = new Date(cursor.getLong(deadlineIndex));
-            task.setDateDeadline(taskDateDeadline);
-        }
-
-        int descriptionIndex = cursor.getColumnIndex(DatabaseHelper.TASK_DESCRIPTION_COLUMN);
-        if (!cursor.isNull(descriptionIndex)) {
-            String taskDescription = cursor.getString(descriptionIndex);
-            task.setDescription(taskDescription);
-        }
-        return task;
+        return new Task(id, dateAlarm, dateCreated, dateDeadline, dateStatusUpdated,
+                description, iconId, status, title, groupId);
     }
 }

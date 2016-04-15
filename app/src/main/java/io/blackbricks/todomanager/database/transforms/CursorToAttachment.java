@@ -11,6 +11,10 @@ import rx.functions.Func1;
 public class CursorToAttachment implements Func1<Cursor, Attachment> {
     @Override
     public Attachment call(Cursor cursor) {
+        Integer id;
+        String path;
+        Integer taskId;
+
         return null;
     }
 }

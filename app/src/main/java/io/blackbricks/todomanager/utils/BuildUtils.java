@@ -1,10 +1,11 @@
-package com.hannesdorfmann.mosby.sample.mail.utils;
+package io.blackbricks.todomanager.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import com.hannesdorfmann.mosby.sample.mail.R;
+
+import io.blackbricks.todomanager.R;
 
 /**
  * Little helper class to detect current installed  sdk version

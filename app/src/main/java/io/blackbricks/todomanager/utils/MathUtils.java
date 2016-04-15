@@ -1,4 +1,4 @@
-package com.hannesdorfmann.mosby.sample.mail.utils;
+package io.blackbricks.todomanager.utils;
 
 import java.util.Random;
 

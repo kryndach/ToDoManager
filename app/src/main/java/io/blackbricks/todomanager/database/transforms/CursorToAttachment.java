@@ -2,7 +2,9 @@ package io.blackbricks.todomanager.database.transforms;
 
 import android.database.Cursor;
 
+import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.model.Attachment;
+import io.blackbricks.todomanager.utils.CursorWrap;
 import rx.functions.Func1;
 
 /**
@@ -11,10 +13,12 @@ import rx.functions.Func1;
 public class CursorToAttachment implements Func1<Cursor, Attachment> {
     @Override
     public Attachment call(Cursor cursor) {
-        Integer id;
-        String path;
-        Integer taskId;
+        CursorWrap cursorWrap = new CursorWrap(cursor);
 
-        return null;
+        Integer id = cursorWrap.getInteger(DatabaseHelper.ID_COLUMN);
+        String path = cursorWrap.getString(DatabaseHelper.ATTACHMENT_FILE_PATH_COLUMN);
+        Integer taskId = cursorWrap.getInteger(DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN);
+
+        return new Attachment(id, path, taskId);
     }
 }

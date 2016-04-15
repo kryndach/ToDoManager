@@ -17,6 +17,7 @@ public class CursorToTask implements Func1<Cursor, Task> {
     @Override
     public Task call(Cursor cursor) {
         CursorWrap cursorWrap = new CursorWrap(cursor);
+
         Integer id = cursorWrap.getInteger(DatabaseHelper.ID_COLUMN);
         Date dateAlarm = cursorWrap.getDate(DatabaseHelper.TASK_DATE_ALARM_COLUMN);
         Date dateCreated = cursorWrap.getDate(DatabaseHelper.TASK_DATE_CREATED_COLUMN);

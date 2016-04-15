@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.model.Group;
+import io.blackbricks.todomanager.utils.CursorWrap;
 import rx.functions.Func1;
 
 /**
@@ -13,18 +14,13 @@ import rx.functions.Func1;
 public class CursorToGroup implements Func1<Cursor, Group> {
     @Override
     public Group call(Cursor cursor) {
-        Integer id;
-        String name;
-        Integer taskCount;
-        Integer hotTaskCount;
+        CursorWrap cursorWrap = new CursorWrap(cursor);
 
-        int groupId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN));
-        String groupTitle = cursor.getString(cursor.getColumnIndex(DatabaseHelper.GROUP_NAME_COLUMN));
-        int taskCount = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.GROUP_TASK_COUNT_COLUMN));
-        int hotTaskCount = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN));
+        Integer id = cursorWrap.getInteger(DatabaseHelper.ID_COLUMN);
+        String name = cursorWrap.getString(DatabaseHelper.GROUP_NAME_COLUMN);
+        Integer taskCount = cursorWrap.getInteger(DatabaseHelper.GROUP_TASK_COUNT_COLUMN);
+        Integer hotTaskCount = cursorWrap.getInteger(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN);
 
-        Group group = new Group();
-        group
-        return new Group();
+        return new Group(id, name, taskCount, hotTaskCount);
     }
 }

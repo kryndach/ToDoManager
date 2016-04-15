@@ -14,6 +14,15 @@ public class Attachment implements Parcelable {
     String path;
     Integer taskId;
 
+    public Attachment() {
+    }
+
+    public Attachment(Integer id, String path, Integer taskId) {
+        this.id = id;
+        this.path = path;
+        this.taskId = taskId;
+    }
+
     public Integer getId() {
         return id;
     }

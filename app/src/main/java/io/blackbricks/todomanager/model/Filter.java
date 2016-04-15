@@ -12,16 +12,6 @@ public class Filter implements Parcelable {
         INBOX, TODAY, TOMORROW, WEEK, HOT, DONE, OVERDUE, GROUP
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-
 
 
 

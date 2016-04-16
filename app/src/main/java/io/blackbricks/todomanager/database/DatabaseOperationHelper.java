@@ -74,7 +74,7 @@ public class DatabaseOperationHelper {
         } else {
             values.put(DatabaseHelper.TASK_DATE_CREATED_COLUMN, new Date().getTime());
             values.put(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN, new Date().getTime());
-            values.put(DatabaseHelper.TASK_STATUS_COLUMN, Task.TaskStatus.UNDONE.getValue());
+            values.put(DatabaseHelper.TASK_STATUS_COLUMN, Task.Status.UNDONE.getValue());
         }
 
         return values;

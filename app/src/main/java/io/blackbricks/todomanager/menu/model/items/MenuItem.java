@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.model.menu;
+package io.blackbricks.todomanager.menu.model.items;
 
 import android.os.Parcelable;
 

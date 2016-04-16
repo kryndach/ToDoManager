@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.model;
+package io.blackbricks.todomanager.menu.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,9 +7,10 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.List;
 
-import io.blackbricks.todomanager.model.menu.FilterMenuItem;
-import io.blackbricks.todomanager.model.menu.GroupMenuItem;
-import io.blackbricks.todomanager.model.menu.OptionalMenuItem;
+import io.blackbricks.todomanager.model.MenuParcelablePlease;
+import io.blackbricks.todomanager.menu.model.items.FilterMenuItem;
+import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
+import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 
 /**
  * Created by yegorkryndach on 16/04/16.

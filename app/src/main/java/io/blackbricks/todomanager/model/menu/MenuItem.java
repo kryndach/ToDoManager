@@ -9,4 +9,13 @@ public abstract class MenuItem implements Parcelable {
     int iconRes;
     String title;
     String description;
+
+    public MenuItem() {
+    }
+
+    public MenuItem(int iconRes, String title, String description) {
+        this.iconRes = iconRes;
+        this.title = title;
+        this.description = description;
+    }
 }

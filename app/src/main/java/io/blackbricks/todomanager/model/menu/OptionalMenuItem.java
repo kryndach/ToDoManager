@@ -17,8 +17,7 @@ public class OptionalMenuItem extends MenuItem implements Parcelable {
 
     Type type;
 
-    public OptionalMenuItem(int iconRes, String title, String description) {
-        super(iconRes, title, description);
+    public OptionalMenuItem() {
     }
 
     public OptionalMenuItem(int iconRes, String title, String description, Type type) {

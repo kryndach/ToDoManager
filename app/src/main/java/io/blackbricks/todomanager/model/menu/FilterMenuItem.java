@@ -15,7 +15,11 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
 
     Filter filter;
 
-    public FilterMenuItem(Filter filter) {
+    public FilterMenuItem() {
+    }
+
+    public FilterMenuItem(int iconRes, String title, String description, Filter filter) {
+        super(iconRes, title, description);
         this.filter = filter;
     }
 

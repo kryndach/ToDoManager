@@ -17,7 +17,7 @@ public class Filter implements Parcelable {
 
     Type type;
 
-    public Filter() {
+    private Filter() {
     }
 
     public Filter(Type type) {

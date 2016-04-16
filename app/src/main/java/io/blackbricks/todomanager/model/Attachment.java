@@ -14,7 +14,7 @@ public class Attachment implements Parcelable {
     String path;
     Integer taskId;
 
-    public Attachment() {
+    private Attachment() {
     }
 
     public Attachment(Integer id, String path, Integer taskId) {

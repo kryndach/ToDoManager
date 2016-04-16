@@ -7,14 +7,19 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.List;
 
+import io.blackbricks.todomanager.model.menu.FilterMenuItem;
+import io.blackbricks.todomanager.model.menu.GroupMenuItem;
+import io.blackbricks.todomanager.model.menu.OptionalMenuItem;
+
 /**
  * Created by yegorkryndach on 16/04/16.
  */
 @ParcelablePlease
 public class Menu implements Parcelable {
 
-
-    List<Filter> filterList;
+    List<FilterMenuItem> filterMenuItemList;
+    List<OptionalMenuItem> optionalMenuItemList;
+    List<GroupMenuItem> groupMenuItemList;
 
     @Override
     public int describeContents() {

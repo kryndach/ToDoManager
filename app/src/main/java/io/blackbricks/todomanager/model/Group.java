@@ -15,7 +15,7 @@ public class Group implements Parcelable {
     Integer taskCount;
     Integer hotTaskCount;
 
-    public Group() {
+    private Group() {
     }
 
     public Group(Integer id, String name, Integer taskCount, Integer hotTaskCount) {

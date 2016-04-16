@@ -39,7 +39,6 @@ public class Task implements Parcelable {
     Integer groupId;
 
     public Task() {
-
     }
 
     public Task(Integer id, Date dateAlarm, Date dateCreated, Date dateDeadline,

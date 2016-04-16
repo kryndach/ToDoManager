@@ -15,7 +15,7 @@ public class GroupMenuItem extends MenuItem implements Parcelable {
 
     Group group;
 
-    public GroupMenuItem() {
+    private GroupMenuItem() {
     }
 
     public GroupMenuItem(int iconRes, String title, String description, Group group) {

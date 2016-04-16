@@ -10,7 +10,7 @@ public abstract class MenuItem implements Parcelable {
     String title;
     String description;
 
-    public MenuItem() {
+    protected MenuItem() {
     }
 
     public MenuItem(int iconRes, String title, String description) {

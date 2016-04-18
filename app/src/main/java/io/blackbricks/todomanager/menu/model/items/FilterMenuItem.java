@@ -27,6 +27,10 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
         return filter;
     }
 
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
     @Override
     public int describeContents() {
         return 0;

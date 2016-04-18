@@ -21,6 +21,30 @@ public class Menu implements Parcelable {
     List<OptionalMenuItem> optionalMenuItemList;
     List<GroupMenuItem> groupMenuItemList;
 
+    public List<FilterMenuItem> getFilterMenuItemList() {
+        return filterMenuItemList;
+    }
+
+    public void setFilterMenuItemList(List<FilterMenuItem> filterMenuItemList) {
+        this.filterMenuItemList = filterMenuItemList;
+    }
+
+    public List<OptionalMenuItem> getOptionalMenuItemList() {
+        return optionalMenuItemList;
+    }
+
+    public void setOptionalMenuItemList(List<OptionalMenuItem> optionalMenuItemList) {
+        this.optionalMenuItemList = optionalMenuItemList;
+    }
+
+    public List<GroupMenuItem> getGroupMenuItemList() {
+        return groupMenuItemList;
+    }
+
+    public void setGroupMenuItemList(List<GroupMenuItem> groupMenuItemList) {
+        this.groupMenuItemList = groupMenuItemList;
+    }
+
     @Override
     public int describeContents() {
         return 0;

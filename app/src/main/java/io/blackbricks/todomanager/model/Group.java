@@ -29,16 +29,32 @@ public class Group implements Parcelable {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getTaskCount() {
         return taskCount;
     }
 
+    public void setTaskCount(Integer taskCount) {
+        this.taskCount = taskCount;
+    }
+
     public Integer getHotTaskCount() {
         return hotTaskCount;
+    }
+
+    public void setHotTaskCount(Integer hotTaskCount) {
+        this.hotTaskCount = hotTaskCount;
     }
 
     @Override

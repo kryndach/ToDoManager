@@ -12,13 +12,26 @@ import com.hannesdorfmann.annotatedadapter.support.recyclerview.SupportAnnotated
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.menu.model.Menu;
+import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
+import io.blackbricks.todomanager.model.Filter;
+import io.blackbricks.todomanager.model.Group;
 
 /**
  * Created by yegorkryndach on 16/04/16.
  */
 public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterBinder {
 
-    private Menu menu;
+    public interface FilterClickListener {
+        public void onFilterClicked(Filter filter);
+    }
+
+    public interface OptionalClickListener {
+        public void onOptionalClicked(OptionalMenuItem.Type type);
+    }
+
+    public interface GroupClickListener {
+        public void onGroupClicked(Group group);
+    }
 
     @ViewType(layout = R.layout.menu_item_filter,
             initMethod = true,
@@ -50,8 +63,19 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             views = {})
     public final int menuItemSeparator = 3;
 
-    public MenuAdapter(Context context) {
+    private Menu menu;
+    private FilterClickListener filterClickListener;
+    private OptionalClickListener optionalClickListener;
+    private GroupClickListener groupClickListener;
+
+    public MenuAdapter(Context context, Menu menu, FilterClickListener filterClickListener,
+                       OptionalClickListener optionalClickListener,
+                       GroupClickListener groupClickListener) {
         super(context);
+        this.menu = menu;
+        this.filterClickListener = filterClickListener;
+        this.optionalClickListener = optionalClickListener;
+        this.groupClickListener = groupClickListener;
     }
 
     public Menu getMenu() {
@@ -62,11 +86,25 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
         this.menu = menu;
     }
 
+    public void setFilterClickListener(FilterClickListener filterClickListener) {
+        this.filterClickListener = filterClickListener;
+    }
+
+    public void setOptionalClickListener(OptionalClickListener optionalClickListener) {
+        this.optionalClickListener = optionalClickListener;
+    }
+
+    public void setGroupClickListener(GroupClickListener groupClickListener) {
+        this.groupClickListener = groupClickListener;
+    }
+
     @Override
     public int getItemCount() {
         if (menu == null)
             return 0;
 
+        int itemCount = 0;
+        itemCount += menu.
         return 0;
     }
 

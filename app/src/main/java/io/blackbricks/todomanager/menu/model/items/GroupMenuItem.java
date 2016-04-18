@@ -27,6 +27,10 @@ public class GroupMenuItem extends MenuItem implements Parcelable {
         return group;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public int describeContents() {
         return 0;

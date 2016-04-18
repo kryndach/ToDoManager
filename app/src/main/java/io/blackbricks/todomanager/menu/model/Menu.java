@@ -7,7 +7,6 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.List;
 
-import io.blackbricks.todomanager.model.MenuParcelablePlease;
 import io.blackbricks.todomanager.menu.model.items.FilterMenuItem;
 import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;

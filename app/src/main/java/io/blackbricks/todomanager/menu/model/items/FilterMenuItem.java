@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import io.blackbricks.todomanager.model.Filter;
-import io.blackbricks.todomanager.model.menu.FilterMenuItemParcelablePlease;
 
 /**
  * Created by yegorkryndach on 17/04/16.

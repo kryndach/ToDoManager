@@ -97,16 +97,16 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onFilterClicked(Filter filter) {
-
+        intentStarter.showTaskList(getActivity(), filter);
     }
 
     @Override
     public void onGroupClicked(Group group) {
-
+        intentStarter.showTaskList(getActivity(), group);
     }
 
     @Override
     public void onOptionalClicked(OptionalMenuItem.Type type) {
-
+        intentStarter.showTaskList(getActivity(), type);
     }
 }

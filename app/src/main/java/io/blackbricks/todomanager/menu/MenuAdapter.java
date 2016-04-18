@@ -104,10 +104,49 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             return 0;
 
         int itemCount = 0;
-        itemCount += menu.
-        return 0;
+        // add filters count
+        itemCount += menu.getFilterMenuItemList().size();
+        // Add 1 for separator between filter and optional section
+        itemCount++;
+        // add optionals count
+        itemCount += menu.getOptionalMenuItemList().size();
+        // Add 1 for separator between optional and group section
+        itemCount++;
+        // add groups count
+        itemCount += menu.getGroupMenuItemList().size();
+
+        return itemCount;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (menu == null)
+            return 0;
+
+        int itemCount = 0;
+        // add filters count
+        itemCount += menu.getFilterMenuItemList().size();
+        if(position < itemCount)
+            return menuItemFilter;
+        // Add 1 for separator between filter and optional section
+        itemCount++;
+        if(position < itemCount)
+            return menuItemSeparator;
+        // add optionals count
+        itemCount += menu.getOptionalMenuItemList().size();
+        if(position < itemCount)
+            return menuItemOptional;
+        // Add 1 for separator between optional and group section
+        itemCount++;
+        if(position < itemCount)
+            return menuItemSeparator;
+        // add groups count
+        itemCount += menu.getGroupMenuItemList().size();
+        if(position < itemCount)
+            return menuItemGroup;
+
+        return 0;
+    }
 
     @Override
     public void initViewHolder(MenuAdapterHolders.MenuItemFilterViewHolder vh, View view, ViewGroup parent) {

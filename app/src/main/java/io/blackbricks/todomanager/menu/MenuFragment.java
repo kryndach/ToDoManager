@@ -13,6 +13,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
@@ -34,7 +35,9 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     private MenuComponent menuComponent;
     private Menu menu;
     private MenuAdapter menuAdapter;
-    private RecyclerView recyclerView;
+
+    @Bind(R.id.contentView)
+    RecyclerView recyclerView;
 
     @Inject
     IntentStarter intentStarter;
@@ -49,9 +52,9 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         return new RetainingLceViewState<>();
     }
 
-    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.contentView);
         menuAdapter = new MenuAdapter(getActivity(), menu, this, this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(menuAdapter);

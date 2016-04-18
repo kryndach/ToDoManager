@@ -12,6 +12,8 @@ import com.hannesdorfmann.annotatedadapter.support.recyclerview.SupportAnnotated
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.menu.model.Menu;
+import io.blackbricks.todomanager.menu.model.items.FilterMenuItem;
+import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
@@ -36,7 +38,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     @ViewType(layout = R.layout.menu_item_filter,
             initMethod = true,
             views = {
-                    @ViewField(id = R.id.menu_item_filter_icon, name = "image", type = ImageView.class),
+                    @ViewField(id = R.id.menu_item_filter_icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.menu_item_filter_title, name = "title", type = TextView.class),
             })
     public final int menuItemFilter = 0;
@@ -44,7 +46,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     @ViewType(layout = R.layout.menu_item_group,
             initMethod = true,
             views = {
-                    @ViewField(id = R.id.menu_item_group_icon, name = "image", type = ImageView.class),
+                    @ViewField(id = R.id.menu_item_group_icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.menu_item_group_title, name = "title", type = TextView.class),
                     @ViewField(id = R.id.menu_item_group_description, name = "description", type = TextView.class),
             })
@@ -53,7 +55,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     @ViewType(layout = R.layout.menu_item_optional,
             initMethod = true,
             views = {
-                    @ViewField(id = R.id.menu_item_optional_icon, name = "image", type = ImageView.class),
+                    @ViewField(id = R.id.menu_item_optional_icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.menu_item_optional_titile, name = "title", type = TextView.class),
             })
     public final int menuItemOptional = 2;
@@ -155,7 +157,15 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemFilterViewHolder vh, int position) {
-
+        final FilterMenuItem filterMenuItem = menu.getFilterMenuItemList().get(position);
+        vh.icon.setImageResource(filterMenuItem.getIconRes());
+        vh.title.setText(filterMenuItem.getTitle());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterClickListener.onFilterClicked(filterMenuItem.getFilter());
+            }
+        });
     }
 
     @Override
@@ -165,7 +175,16 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemGroupViewHolder vh, int position) {
-
+        final GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(position);
+        vh.icon.setImageResource(groupMenuItem.getIconRes());
+        vh.title.setText(groupMenuItem.getTitle());
+        vh.description.setText(groupMenuItem.getDescription());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupClickListener.onGroupClicked(groupMenuItem.getGroup());
+            }
+        });
     }
 
     @Override
@@ -175,7 +194,15 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemOptionalViewHolder vh, int position) {
-
+        final OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(position);
+        vh.icon.setImageResource(optionalMenuItem.getIconRes());
+        vh.title.setText(optionalMenuItem.getTitle());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionalClickListener.onOptionalClicked(optionalMenuItem.getType());
+            }
+        });
     }
 
     @Override

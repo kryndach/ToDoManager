@@ -35,7 +35,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
         public void onGroupClicked(Group group);
     }
 
-    @ViewType(layout = R.layout.menu_item_filter,
+    @ViewType(layout = R.layout.list_filter_menu_item,
             initMethod = true,
             views = {
                     @ViewField(id = R.id.menu_item_filter_icon, name = "icon", type = ImageView.class),
@@ -43,7 +43,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             })
     public final int menuItemFilter = 0;
 
-    @ViewType(layout = R.layout.menu_item_group,
+    @ViewType(layout = R.layout.list_group_menu_item,
             initMethod = true,
             views = {
                     @ViewField(id = R.id.menu_item_group_icon, name = "icon", type = ImageView.class),
@@ -52,7 +52,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             })
     public final int menuItemGroup = 1;
 
-    @ViewType(layout = R.layout.menu_item_optional,
+    @ViewType(layout = R.layout.list_optional_menu_item,
             initMethod = true,
             views = {
                     @ViewField(id = R.id.menu_item_optional_icon, name = "icon", type = ImageView.class),
@@ -60,7 +60,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             })
     public final int menuItemOptional = 2;
 
-    @ViewType(layout = R.layout.menu_item_separator,
+    @ViewType(layout = R.layout.list_separator_menu_item,
             initMethod = true,
             views = {})
     public final int menuItemSeparator = 3;

@@ -4,7 +4,10 @@ import android.widget.LinearLayout;
 
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.NavigationModule;
@@ -27,12 +30,12 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     protected int getLayoutRes() {
-        return 0;
+        return R.layout.fragment_task_list;
     }
 
     @Override
     public LceViewState<TaskListPresentation, TaskListView> createViewState() {
-        return null;
+        return new ParcelableDataLceViewState<>();
     }
 
     @Override
@@ -47,7 +50,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public TaskListPresenter createPresenter() {
-        return null;
+        return taskListComponent.presenter();
     }
 
     @Override

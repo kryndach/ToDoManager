@@ -175,7 +175,9 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemGroupViewHolder vh, int position) {
-        final GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(position);
+        int positionInItemList = position - menu.getFilterMenuItemList().size() - 1
+                - menu.getOptionalMenuItemList().size() - 1;
+        final GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(positionInItemList);
         vh.icon.setImageResource(groupMenuItem.getIconRes());
         vh.title.setText(groupMenuItem.getTitle());
         vh.description.setText(groupMenuItem.getDescription());
@@ -194,7 +196,8 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemOptionalViewHolder vh, int position) {
-        final OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(position);
+        int positionInItemList = position - menu.getFilterMenuItemList().size() - 1;
+        final OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(positionInItemList);
         vh.icon.setImageResource(optionalMenuItem.getIconRes());
         vh.title.setText(optionalMenuItem.getTitle());
         vh.itemView.setOnClickListener(new View.OnClickListener() {

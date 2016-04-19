@@ -9,6 +9,7 @@ import android.view.View;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 
 import javax.inject.Inject;
@@ -49,7 +50,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public LceViewState<Menu, MenuView> createViewState() {
-        return new RetainingLceViewState<>();
+        return new ParcelableDataLceViewState<>();
     }
 
     @Override

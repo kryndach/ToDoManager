@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import icepick.Icicle;
+import io.blackbricks.todomanager.base.view.BaseActivity;
 import io.blackbricks.todomanager.menu.MenuFragment;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
@@ -19,7 +20,7 @@ import io.blackbricks.todomanager.taskList.TaskListFragment;
 import io.blackbricks.todomanager.taskList.TaskListFragmentBuilder;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Icicle
     String toolbarTitle;

@@ -87,6 +87,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void setData(Menu data) {
         this.menu = data;
+        menuAdapter.setMenu(data);
         menuAdapter.notifyDataSetChanged();
     }
 

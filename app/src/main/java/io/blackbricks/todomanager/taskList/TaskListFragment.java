@@ -8,6 +8,8 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.NavigationModule;
+import io.blackbricks.todomanager.model.Filter;
+import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
 /**
@@ -16,7 +18,10 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter> {
 
     @Arg
-    TaskListPresentation taskList;
+    Filter.Type type;
+
+    @Arg
+    Group group;
 
     private TaskListComponent taskListComponent;
 

@@ -20,6 +20,22 @@ public class TaskListPresentation implements Parcelable {
     String title;
     ArrayList<Task> taskList;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
     @Override
     public int describeContents() {
         return 0;

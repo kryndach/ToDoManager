@@ -1,24 +1,20 @@
-package io.blackbricks.todomanager.taskList;
+package io.blackbricks.todomanager.task;
 
 import android.widget.LinearLayout;
 
-import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.NavigationModule;
-import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
+import io.blackbricks.todomanager.task.model.TaskPresentation;
 
 /**
  * Created by yegorkryndach on 19/04/16.
  */
-public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter> {
+public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation, TaskView, TaskPresenter> {
 
-    @Arg
-    TaskListPresentation taskList;
-
-    private TaskListComponent taskListComponent;
+    private TaskComponent taskComponent;
 
     @Override
     protected int getLayoutRes() {
@@ -26,12 +22,12 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public LceViewState<TaskListPresentation, TaskListView> createViewState() {
+    public LceViewState<TaskPresentation, TaskView> createViewState() {
         return null;
     }
 
     @Override
-    public TaskListPresentation getData() {
+    public TaskPresentation getData() {
         return null;
     }
 
@@ -41,21 +37,21 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public TaskListPresenter createPresenter() {
+    public TaskPresenter createPresenter() {
         return null;
     }
 
     @Override
     protected void injectDependencies() {
-        taskListComponent = DaggerTaskListComponent.builder()
+        taskComponent = DaggerTaskComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
                 .navigationModule(new NavigationModule())
                 .build();
-        taskListComponent.inject(this);
+        taskComponent.inject(this);
     }
 
     @Override
-    public void setData(TaskListPresentation data) {
+    public void setData(TaskPresentation data) {
 
     }
 

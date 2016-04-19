@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.menu;
+package io.blackbricks.todomanager.taskList;
 
 import javax.inject.Singleton;
 
@@ -8,15 +8,15 @@ import io.blackbricks.todomanager.dagger.ToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 
 /**
- * Created by yegorkryndach on 16/04/16.
+ * Created by yegorkryndach on 19/04/16.
  */
 @Singleton
 @Component(
         modules = {ToDoManagerModule.class, NavigationModule.class},
         dependencies = ToDoManagerAppComponent.class
 )
-public interface MenuComponent {
-    MenuPresenter presenter();
+public interface TaskListComponent {
+    TaskListPresenter presenter();
 
-    void inject(MenuFragment menuFragment);
+    void inject(TaskListFragment taskListFragment);
 }

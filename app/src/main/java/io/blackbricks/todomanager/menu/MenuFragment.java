@@ -107,6 +107,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onOptionalClicked(OptionalMenuItem.Type type) {
-        intentStarter.showTaskList(getActivity(), type);
+
     }
 }

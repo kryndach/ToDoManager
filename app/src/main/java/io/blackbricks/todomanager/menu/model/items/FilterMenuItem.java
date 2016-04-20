@@ -18,17 +18,15 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
     private FilterMenuItem() {
     }
 
-    public FilterMenuItem(int iconRes, String title, String description, Filter filter) {
-        super(iconRes, title, description);
-        this.filter = filter;
+    private FilterMenuItem(Builder builder) {
+        iconRes = builder.iconRes;
+        title = builder.title;
+        description = builder.description;
+        filter = builder.filter;
     }
 
     public Filter getFilter() {
         return filter;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
     }
 
     @Override
@@ -52,4 +50,38 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
             return new FilterMenuItem[size];
         }
     };
+
+    public static final class Builder {
+        private int iconRes;
+        private String title;
+        private String description;
+        private Filter filter;
+
+        public Builder() {
+        }
+
+        public Builder iconRes(int val) {
+            iconRes = val;
+            return this;
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder description(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder filter(Filter val) {
+            filter = val;
+            return this;
+        }
+
+        public FilterMenuItem build() {
+            return new FilterMenuItem(this);
+        }
+    }
 }

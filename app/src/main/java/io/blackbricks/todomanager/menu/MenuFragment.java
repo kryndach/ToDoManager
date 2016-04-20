@@ -65,6 +65,14 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         menuAdapter = new MenuAdapter(getActivity(), menu, this, this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(menuAdapter);

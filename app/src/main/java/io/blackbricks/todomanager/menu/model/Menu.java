@@ -21,28 +21,25 @@ public class Menu implements Parcelable {
     List<OptionalMenuItem> optionalMenuItemList;
     List<GroupMenuItem> groupMenuItemList;
 
-    public List<FilterMenuItem> getFilterMenuItemList() {
-        return filterMenuItemList;
+    private Menu() {
     }
 
-    public void setFilterMenuItemList(List<FilterMenuItem> filterMenuItemList) {
-        this.filterMenuItemList = filterMenuItemList;
+    private Menu(Builder builder) {
+        filterMenuItemList = builder.filterMenuItemList;
+        optionalMenuItemList = builder.optionalMenuItemList;
+        groupMenuItemList = builder.groupMenuItemList;
+    }
+
+    public List<FilterMenuItem> getFilterMenuItemList() {
+        return filterMenuItemList;
     }
 
     public List<OptionalMenuItem> getOptionalMenuItemList() {
         return optionalMenuItemList;
     }
 
-    public void setOptionalMenuItemList(List<OptionalMenuItem> optionalMenuItemList) {
-        this.optionalMenuItemList = optionalMenuItemList;
-    }
-
     public List<GroupMenuItem> getGroupMenuItemList() {
         return groupMenuItemList;
-    }
-
-    public void setGroupMenuItemList(List<GroupMenuItem> groupMenuItemList) {
-        this.groupMenuItemList = groupMenuItemList;
     }
 
     @Override
@@ -66,4 +63,32 @@ public class Menu implements Parcelable {
             return new Menu[size];
         }
     };
+
+    public static final class Builder {
+        private List<FilterMenuItem> filterMenuItemList;
+        private List<OptionalMenuItem> optionalMenuItemList;
+        private List<GroupMenuItem> groupMenuItemList;
+
+        public Builder() {
+        }
+
+        public Builder filterMenuItemList(List<FilterMenuItem> val) {
+            filterMenuItemList = val;
+            return this;
+        }
+
+        public Builder optionalMenuItemList(List<OptionalMenuItem> val) {
+            optionalMenuItemList = val;
+            return this;
+        }
+
+        public Builder groupMenuItemList(List<GroupMenuItem> val) {
+            groupMenuItemList = val;
+            return this;
+        }
+
+        public Menu build() {
+            return new Menu(this);
+        }
+    }
 }

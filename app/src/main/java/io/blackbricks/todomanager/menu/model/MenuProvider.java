@@ -17,79 +17,77 @@ import rx.Observable;
 public class MenuProvider {
 
     public Observable<Menu> getMenu() {
-        Menu menu = new Menu();
-
         List<FilterMenuItem> filterMenuItemList = new LinkedList<>();
         List<OptionalMenuItem> optionalMenuItemList = new LinkedList<>();
         List<GroupMenuItem> groupMenuItemList = new LinkedList<>();
-        menu.setFilterMenuItemList(filterMenuItemList);
-        menu.setOptionalMenuItemList(optionalMenuItemList);
-        menu.setGroupMenuItemList(groupMenuItemList);
+        Menu menu = new Menu.Builder()
+                .filterMenuItemList(filterMenuItemList)
+                .groupMenuItemList(groupMenuItemList)
+                .optionalMenuItemList(optionalMenuItemList)
+                .build();
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Inbox",
-                        null,
-                        new Filter(Filter.Type.INBOX)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Inbox")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.INBOX))
+                        .build()
         );
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Today",
-                        null,
-                        new Filter(Filter.Type.TODAY)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Today")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.TODAY))
+                        .build()
         );
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Tomorrow",
-                        null,
-                        new Filter(Filter.Type.TOMORROW)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Tomorrow")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.TOMORROW))
+                        .build()
         );
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Week",
-                        null,
-                        new Filter(Filter.Type.WEEK)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Week")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.WEEK))
+                        .build()
         );
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Overdue",
-                        null,
-                        new Filter(Filter.Type.OVERDUE)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Overdue")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.OVERDUE))
+                        .build()
         );
 
         filterMenuItemList.add(
-                new FilterMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Done",
-                        null,
-                        new Filter(Filter.Type.DONE)
-                )
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Done")
+                        .description(null)
+                        .filter(new Filter(Filter.Type.DONE))
+                        .build()
         );
 
         optionalMenuItemList.add(
-                new OptionalMenuItem(
-                        R.drawable.ic_assignment_turned_in_black_24dp,
-                        "Support",
-                        null,
-                        OptionalMenuItem.Type.SUPPORT
-                )
+                new OptionalMenuItem.Builder()
+                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .title("Inbox")
+                        .description(null)
+                        .type(OptionalMenuItem.Type.SUPPORT)
+                        .build()
         );
-
-
 
         return Observable.just(menu);
     }

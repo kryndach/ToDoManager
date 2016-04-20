@@ -38,102 +38,60 @@ public class Task implements Parcelable {
     String title;
     Integer groupId;
 
-    public Task() {
+    private Task() {
     }
 
-    public Task(Integer id, Date dateAlarm, Date dateCreated, Date dateDeadline,
-                Date dateStatusUpdated, String description, Integer iconId, Status status,
-                String title, Integer groupId) {
-        this.id = id;
-        this.dateAlarm = dateAlarm;
-        this.dateCreated = dateCreated;
-        this.dateDeadline = dateDeadline;
-        this.dateStatusUpdated = dateStatusUpdated;
-        this.description = description;
-        this.iconId = iconId;
-        this.status = status;
-        this.title = title;
-        this.groupId = groupId;
+    private Task(Builder builder) {
+        id = builder.id;
+        dateAlarm = builder.dateAlarm;
+        dateCreated = builder.dateCreated;
+        dateDeadline = builder.dateDeadline;
+        dateStatusUpdated = builder.dateStatusUpdated;
+        description = builder.description;
+        iconId = builder.iconId;
+        status = builder.status;
+        title = builder.title;
+        groupId = builder.groupId;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Date getDateAlarm() {
         return dateAlarm;
-    }
-
-    public void setDateAlarm(Date dateAlarm) {
-        this.dateAlarm = dateAlarm;
     }
 
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public Date getDateDeadline() {
         return dateDeadline;
-    }
-
-    public void setDateDeadline(Date dateDeadline) {
-        this.dateDeadline = dateDeadline;
     }
 
     public Date getDateStatusUpdated() {
         return dateStatusUpdated;
     }
 
-    public void setDateStatusUpdated(Date dateStatusUpdated) {
-        this.dateStatusUpdated = dateStatusUpdated;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Integer getIconId() {
         return iconId;
     }
 
-    public void setIconId(Integer iconId) {
-        this.iconId = iconId;
-    }
-
     public Status getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Integer getGroupId() {
         return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
     }
 
     @Override
@@ -157,4 +115,74 @@ public class Task implements Parcelable {
             return new Task[size];
         }
     };
+
+    public static final class Builder {
+        private Integer id;
+        private Date dateAlarm;
+        private Date dateCreated;
+        private Date dateDeadline;
+        private Date dateStatusUpdated;
+        private String description;
+        private Integer iconId;
+        private Status status;
+        private String title;
+        private Integer groupId;
+
+        public Builder() {
+        }
+
+        public Builder id(Integer val) {
+            id = val;
+            return this;
+        }
+
+        public Builder dateAlarm(Date val) {
+            dateAlarm = val;
+            return this;
+        }
+
+        public Builder dateCreated(Date val) {
+            dateCreated = val;
+            return this;
+        }
+
+        public Builder dateDeadline(Date val) {
+            dateDeadline = val;
+            return this;
+        }
+
+        public Builder dateStatusUpdated(Date val) {
+            dateStatusUpdated = val;
+            return this;
+        }
+
+        public Builder description(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder iconId(Integer val) {
+            iconId = val;
+            return this;
+        }
+
+        public Builder status(Status val) {
+            status = val;
+            return this;
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder groupId(Integer val) {
+            groupId = val;
+            return this;
+        }
+
+        public Task build() {
+            return new Task(this);
+        }
+    }
 }

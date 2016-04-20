@@ -20,20 +20,20 @@ public class TaskListPresentation implements Parcelable {
     String title;
     ArrayList<Task> taskList;
 
+    private TaskListPresentation() {
+    }
+
+    private TaskListPresentation(Builder builder) {
+        title = builder.title;
+        taskList = builder.taskList;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public ArrayList<Task> getTaskList() {
         return taskList;
-    }
-
-    public void setTaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
     }
 
     @Override
@@ -57,4 +57,26 @@ public class TaskListPresentation implements Parcelable {
             return new TaskListPresentation[size];
         }
     };
+
+    public static final class Builder {
+        private String title;
+        private ArrayList<Task> taskList;
+
+        public Builder() {
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder taskList(ArrayList<Task> val) {
+            taskList = val;
+            return this;
+        }
+
+        public TaskListPresentation build() {
+            return new TaskListPresentation(this);
+        }
+    }
 }

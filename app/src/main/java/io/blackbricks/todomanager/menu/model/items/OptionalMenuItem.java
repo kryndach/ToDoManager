@@ -20,17 +20,15 @@ public class OptionalMenuItem extends MenuItem implements Parcelable {
     private OptionalMenuItem() {
     }
 
-    public OptionalMenuItem(int iconRes, String title, String description, Type type) {
-        super(iconRes, title, description);
-        this.type = type;
+    private OptionalMenuItem(Builder builder) {
+        iconRes = builder.iconRes;
+        title = builder.title;
+        description = builder.description;
+        type = builder.type;
     }
 
     public Type getType() {
         return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     @Override
@@ -54,4 +52,38 @@ public class OptionalMenuItem extends MenuItem implements Parcelable {
             return new OptionalMenuItem[size];
         }
     };
+
+    public static final class Builder {
+        private int iconRes;
+        private String title;
+        private String description;
+        private Type type;
+
+        public Builder() {
+        }
+
+        public Builder iconRes(int val) {
+            iconRes = val;
+            return this;
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder description(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder type(Type val) {
+            type = val;
+            return this;
+        }
+
+        public OptionalMenuItem build() {
+            return new OptionalMenuItem(this);
+        }
+    }
 }

@@ -17,34 +17,22 @@ public class Attachment implements Parcelable {
     private Attachment() {
     }
 
-    public Attachment(Integer id, String path, Integer taskId) {
-        this.id = id;
-        this.path = path;
-        this.taskId = taskId;
+    private Attachment(Builder builder) {
+        id = builder.id;
+        path = builder.path;
+        taskId = builder.taskId;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     public Integer getTaskId() {
         return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
     }
 
     @Override
@@ -68,4 +56,32 @@ public class Attachment implements Parcelable {
             return new Attachment[size];
         }
     };
+
+    public static final class Builder {
+        private Integer id;
+        private String path;
+        private Integer taskId;
+
+        public Builder() {
+        }
+
+        public Builder id(Integer val) {
+            id = val;
+            return this;
+        }
+
+        public Builder path(String val) {
+            path = val;
+            return this;
+        }
+
+        public Builder taskId(Integer val) {
+            taskId = val;
+            return this;
+        }
+
+        public Attachment build() {
+            return new Attachment(this);
+        }
+    }
 }

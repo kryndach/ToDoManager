@@ -11,8 +11,6 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 @ParcelablePlease
 public class TaskPresentation implements Parcelable {
 
-
-
     @Override
     public int describeContents() {
         return 0;

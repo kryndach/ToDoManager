@@ -18,43 +18,27 @@ public class Group implements Parcelable {
     private Group() {
     }
 
-    public Group(Integer id, String name, Integer taskCount, Integer hotTaskCount) {
-        this.id = id;
-        this.name = name;
-        this.taskCount = taskCount;
-        this.hotTaskCount = hotTaskCount;
+    private Group(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        taskCount = builder.taskCount;
+        hotTaskCount = builder.hotTaskCount;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getTaskCount() {
         return taskCount;
     }
 
-    public void setTaskCount(Integer taskCount) {
-        this.taskCount = taskCount;
-    }
-
     public Integer getHotTaskCount() {
         return hotTaskCount;
-    }
-
-    public void setHotTaskCount(Integer hotTaskCount) {
-        this.hotTaskCount = hotTaskCount;
     }
 
     @Override
@@ -78,4 +62,38 @@ public class Group implements Parcelable {
             return new Group[size];
         }
     };
+
+    public static final class Builder {
+        private Integer id;
+        private String name;
+        private Integer taskCount;
+        private Integer hotTaskCount;
+
+        public Builder() {
+        }
+
+        public Builder id(Integer val) {
+            id = val;
+            return this;
+        }
+
+        public Builder name(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder taskCount(Integer val) {
+            taskCount = val;
+            return this;
+        }
+
+        public Builder hotTaskCount(Integer val) {
+            hotTaskCount = val;
+            return this;
+        }
+
+        public Group build() {
+            return new Group(this);
+        }
+    }
 }

@@ -18,17 +18,15 @@ public class GroupMenuItem extends MenuItem implements Parcelable {
     private GroupMenuItem() {
     }
 
-    public GroupMenuItem(int iconRes, String title, String description, Group group) {
-        super(iconRes, title, description);
-        this.group = group;
+    private GroupMenuItem(Builder builder) {
+        iconRes = builder.iconRes;
+        title = builder.title;
+        description = builder.description;
+        group = builder.group;
     }
 
     public Group getGroup() {
         return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
     @Override
@@ -52,4 +50,38 @@ public class GroupMenuItem extends MenuItem implements Parcelable {
             return new GroupMenuItem[size];
         }
     };
+
+    public static final class Builder {
+        private int iconRes;
+        private String title;
+        private String description;
+        private Group group;
+
+        public Builder() {
+        }
+
+        public Builder iconRes(int val) {
+            iconRes = val;
+            return this;
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder description(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder group(Group val) {
+            group = val;
+            return this;
+        }
+
+        public GroupMenuItem build() {
+            return new GroupMenuItem(this);
+        }
+    }
 }

@@ -5,12 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 
 import javax.inject.Inject;
 
@@ -38,7 +41,13 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     private MenuAdapter menuAdapter;
 
     @Bind(R.id.contentView)
+    ViewGroup contentView;
+
+    @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @Bind(R.id.addButton)
+    FloatingActionButton addButton;
 
     @Inject
     IntentStarter intentStarter;

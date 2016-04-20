@@ -33,7 +33,17 @@ public class CursorToTask implements Func1<Cursor, Task> {
         String title = cursorWrap.getString(DatabaseHelper.TASK_TITLE_COLUMN);
         Integer groupId = cursorWrap.getInteger(DatabaseHelper.TASK_GROUP_ID_COLUMN);
 
-        return new Task(id, dateAlarm, dateCreated, dateDeadline, dateStatusUpdated,
-                description, iconId, status, title, groupId);
+        return new Task.Builder()
+                .id(id)
+                .dateAlarm(dateAlarm)
+                .dateCreated(dateCreated)
+                .dateDeadline(dateDeadline)
+                .dateStatusUpdated(dateStatusUpdated)
+                .description(description)
+                .iconId(iconId)
+                .status(status)
+                .title(title)
+                .groupId(groupId)
+                .build();
     }
 }

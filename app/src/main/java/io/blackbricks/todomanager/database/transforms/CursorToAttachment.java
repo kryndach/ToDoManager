@@ -19,6 +19,10 @@ public class CursorToAttachment implements Func1<Cursor, Attachment> {
         String path = cursorWrap.getString(DatabaseHelper.ATTACHMENT_FILE_PATH_COLUMN);
         Integer taskId = cursorWrap.getInteger(DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN);
 
-        return new Attachment(id, path, taskId);
+        return new Attachment.Builder()
+                .id(id)
+                .path(path)
+                .taskId(taskId)
+                .build();
     }
 }

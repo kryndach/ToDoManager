@@ -1,12 +1,19 @@
 package io.blackbricks.todomanager.taskList;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
+import com.melnykov.fab.FloatingActionButton;
 
+import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -26,6 +33,15 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Arg
     Group group;
 
+    @Bind(R.id.contentView)
+    ViewGroup contentView;
+
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    @Bind(R.id.addButton)
+    FloatingActionButton addButton;
+
     private TaskListComponent taskListComponent;
 
     @Override
@@ -36,6 +52,18 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public LceViewState<TaskListPresentation, TaskListView> createViewState() {
         return new ParcelableDataLceViewState<>();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

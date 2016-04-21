@@ -14,8 +14,13 @@ import io.blackbricks.todomanager.menu.model.items.FilterMenuItem;
 import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
+import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.GroupProvider;
 import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func1;
+import rx.internal.operators.OperatorAny;
+import rx.internal.operators.OperatorMap;
 
 /**
  * Created by yegorkryndach on 18/04/16.
@@ -36,15 +41,45 @@ public class MenuProvider {
 
         List<OptionalMenuItem> optionalMenuItemList = getOptionalMenuItems();
 
-        List<GroupMenuItem> groupMenuItemList = new ArrayList<>();
+        final List<GroupMenuItem> groupMenuItemList = new ArrayList<>();
 
-        Menu menu = new Menu.Builder()
+        final Menu menu = new Menu.Builder()
                 .filterMenuItemList(filterMenuItemList)
                 .groupMenuItemList(groupMenuItemList)
                 .optionalMenuItemList(optionalMenuItemList)
                 .build();
 
-        return Observable.just(menu);
+        return groupProvider.getGroups()
+                .flatMap(new Func1<List<Group>, Observable<Group>>() {
+                    @Override
+                    public Observable<Group> call(List<Group> groups) {
+                        return Observable.from(groups);
+                    }
+                })
+                .map(new Func1<Group, GroupMenuItem>() {
+                    @Override
+                    public GroupMenuItem call(Group group) {
+
+                        String description = "Tasks " + group.getTaskCount();
+                        if(group.getHotTaskCount() > 0) {
+                            description = "Hot " + group.getHotTaskCount() + ", " + description;
+                        }
+
+                        return new GroupMenuItem.Builder()
+                                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                                .title(group.getName())
+                                .description(description)
+                                .group(group)
+                                .build();
+                    }
+                })
+                .toList().concatMap(new Func1<List<GroupMenuItem>, Observable<Menu>>() {
+                    @Override
+                    public Observable<Menu> call(List<GroupMenuItem> groupMenuItems) {
+                        menu.getGroupMenuItemList().addAll(groupMenuItemList);
+                        return Observable.just(menu);
+                    }
+                });
     }
 
     @NonNull

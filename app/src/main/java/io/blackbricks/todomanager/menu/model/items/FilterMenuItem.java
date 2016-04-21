@@ -13,7 +13,7 @@ import io.blackbricks.todomanager.model.Filter;
 @ParcelablePlease
 public class FilterMenuItem extends MenuItem implements Parcelable {
 
-    private Filter filter;
+    Filter filter;
 
     private FilterMenuItem() {
     }
@@ -28,28 +28,6 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
     public Filter getFilter() {
         return filter;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        FilterMenuItemParcelablePlease.writeToParcel(this, dest, flags);
-    }
-
-    public static final Creator<FilterMenuItem> CREATOR = new Creator<FilterMenuItem>() {
-        public FilterMenuItem createFromParcel(Parcel source) {
-            FilterMenuItem target = new FilterMenuItem();
-            FilterMenuItemParcelablePlease.readFromParcel(target, source);
-            return target;
-        }
-
-        public FilterMenuItem[] newArray(int size) {
-            return new FilterMenuItem[size];
-        }
-    };
 
     public static final class Builder {
         private int iconRes;
@@ -84,4 +62,26 @@ public class FilterMenuItem extends MenuItem implements Parcelable {
             return new FilterMenuItem(this);
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        FilterMenuItemParcelablePlease.writeToParcel(this, dest, flags);
+    }
+
+    public static final Creator<FilterMenuItem> CREATOR = new Creator<FilterMenuItem>() {
+        public FilterMenuItem createFromParcel(Parcel source) {
+            FilterMenuItem target = new FilterMenuItem();
+            FilterMenuItemParcelablePlease.readFromParcel(target, source);
+            return target;
+        }
+
+        public FilterMenuItem[] newArray(int size) {
+            return new FilterMenuItem[size];
+        }
+    };
 }

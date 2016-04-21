@@ -61,7 +61,7 @@ public class MenuProvider {
                     public GroupMenuItem call(Group group) {
 
                         String description = "Tasks " + group.getTaskCount();
-                        if(group.getHotTaskCount() > 0) {
+                        if (group.getHotTaskCount() > 0) {
                             description = "Hot " + group.getHotTaskCount() + ", " + description;
                         }
 

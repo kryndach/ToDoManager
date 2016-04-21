@@ -26,17 +26,16 @@ public class Task implements Parcelable {
             return value;
         }
     }
-
-    private Integer id;
-    private Date dateAlarm;
-    private Date dateCreated;
-    private Date dateDeadline;
-    private Date dateStatusUpdated;
-    private String description;
-    private Integer iconId;
-    private Status status;
-    private String title;
-    private Integer groupId;
+    Integer id;
+    Date dateAlarm;
+    Date dateCreated;
+    Date dateDeadline;
+    Date dateStatusUpdated;
+    String description;
+    Integer iconId;
+    Status status;
+    String title;
+    Integer groupId;
 
     private Task() {
     }
@@ -93,28 +92,6 @@ public class Task implements Parcelable {
     public Integer getGroupId() {
         return groupId;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        TaskParcelablePlease.writeToParcel(this, dest, flags);
-    }
-
-    public static final Creator<Task> CREATOR = new Creator<Task>() {
-        public Task createFromParcel(Parcel source) {
-            Task target = new Task();
-            TaskParcelablePlease.readFromParcel(target, source);
-            return target;
-        }
-
-        public Task[] newArray(int size) {
-            return new Task[size];
-        }
-    };
 
     public static final class Builder {
         private Integer id;
@@ -185,4 +162,26 @@ public class Task implements Parcelable {
             return new Task(this);
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        TaskParcelablePlease.writeToParcel(this, dest, flags);
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        public Task createFromParcel(Parcel source) {
+            Task target = new Task();
+            TaskParcelablePlease.readFromParcel(target, source);
+            return target;
+        }
+
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 }

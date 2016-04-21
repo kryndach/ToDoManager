@@ -10,9 +10,9 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
  */
 @ParcelablePlease
 public class Attachment implements Parcelable {
-    private Integer id;
-    private String path;
-    private Integer taskId;
+    Integer id;
+    String path;
+    Integer taskId;
 
     private Attachment() {
     }

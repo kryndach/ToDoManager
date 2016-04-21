@@ -6,9 +6,9 @@ import android.os.Parcelable;
  * Created by yegorkryndach on 17/04/16.
  */
 public abstract class MenuItem implements Parcelable {
-    protected int iconRes;
-    protected String title;
-    protected String description;
+    int iconRes;
+    String title;
+    String description;
 
     protected MenuItem() {
     }

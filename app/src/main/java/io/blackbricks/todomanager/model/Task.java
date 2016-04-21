@@ -27,16 +27,16 @@ public class Task implements Parcelable {
         }
     }
 
-    Integer id;
-    Date dateAlarm;
-    Date dateCreated;
-    Date dateDeadline;
-    Date dateStatusUpdated;
-    String description;
-    Integer iconId;
-    Status status;
-    String title;
-    Integer groupId;
+    private Integer id;
+    private Date dateAlarm;
+    private Date dateCreated;
+    private Date dateDeadline;
+    private Date dateStatusUpdated;
+    private String description;
+    private Integer iconId;
+    private Status status;
+    private String title;
+    private Integer groupId;
 
     private Task() {
     }

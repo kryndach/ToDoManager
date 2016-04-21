@@ -10,10 +10,10 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
  */
 @ParcelablePlease
 public class Group implements Parcelable {
-    Integer id;
-    String name;
-    Integer taskCount;
-    Integer hotTaskCount;
+    private Integer id;
+    private String name;
+    private Integer taskCount;
+    private Integer hotTaskCount;
 
     private Group() {
     }

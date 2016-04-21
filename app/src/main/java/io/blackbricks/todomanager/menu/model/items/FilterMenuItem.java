@@ -13,7 +13,7 @@ import io.blackbricks.todomanager.model.Filter;
 @ParcelablePlease
 public class FilterMenuItem extends MenuItem implements Parcelable {
 
-    Filter filter;
+    private Filter filter;
 
     private FilterMenuItem() {
     }

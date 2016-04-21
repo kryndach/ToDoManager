@@ -15,7 +15,7 @@ public class OptionalMenuItem extends MenuItem implements Parcelable {
         SUPPORT
     }
 
-    Type type;
+    private Type type;
 
     private OptionalMenuItem() {
     }

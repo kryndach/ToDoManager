@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.model;
 
+import com.squareup.sqlbrite.BriteDatabase;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -8,6 +10,9 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class AttachmentProvider {
+
+    @Inject
+    BriteDatabase database;
 
     @Inject
     public AttachmentProvider() {

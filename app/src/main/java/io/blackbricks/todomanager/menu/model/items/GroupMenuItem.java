@@ -13,7 +13,7 @@ import io.blackbricks.todomanager.model.Group;
 @ParcelablePlease
 public class GroupMenuItem extends MenuItem implements Parcelable {
 
-    Group group;
+    private Group group;
 
     private GroupMenuItem() {
     }

@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.transforms.CursorToGroup;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -24,8 +25,8 @@ public class GroupProvider {
     public GroupProvider() {
     }
 
-    public rx.Observable<List<Group>> getGroups(){
-        return database.createQuery("groups", "SELECT * FROM ", DatabaseHelper.TABLE_GROUP)
+    public Observable<List<Group>> getGroups(){
+        return database.createQuery(DatabaseHelper.TABLE_GROUP, "SELECT * FROM ", DatabaseHelper.TABLE_GROUP)
                 .mapToList(new CursorToGroup())
                 .observeOn(AndroidSchedulers.mainThread());
     }

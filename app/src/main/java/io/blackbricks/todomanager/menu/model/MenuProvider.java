@@ -73,7 +73,7 @@ public class MenuProvider {
                                 .build();
                     }
                 })
-                .toList().concatMap(new Func1<List<GroupMenuItem>, Observable<Menu>>() {
+                .toList().flatMap(new Func1<List<GroupMenuItem>, Observable<Menu>>() {
                     @Override
                     public Observable<Menu> call(List<GroupMenuItem> groupMenuItems) {
                         menu.getGroupMenuItemList().addAll(groupMenuItemList);

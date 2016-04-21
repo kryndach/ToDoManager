@@ -95,8 +95,8 @@ public class TaskProvider {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<List<Task>> getTasks(Group group) {
-        String condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + group.getId();
+    public Observable<List<Task>> getTasks(String groupId) {
+        String condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
         return database.createQuery(DatabaseHelper.TABLE_TASK,
                 "SELECT * FROM ", DatabaseHelper.TABLE_TASK, condition)
                 .mapToList(new CursorToTask())

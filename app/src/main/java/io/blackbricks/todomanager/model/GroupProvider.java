@@ -30,4 +30,12 @@ public class GroupProvider {
                 .mapToList(new CursorToGroup())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<Group> getGroup(String groupId) {
+        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + groupId;
+        return database.createQuery(DatabaseHelper.TABLE_GROUP,
+                "SELECT * FROM ", DatabaseHelper.TABLE_GROUP, condition)
+                .mapToOne(new CursorToGroup())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

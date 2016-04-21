@@ -102,4 +102,12 @@ public class TaskProvider {
                 .mapToList(new CursorToTask())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<Task> getTask(String taskId) {
+        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + taskId;
+        return database.createQuery(DatabaseHelper.TABLE_TASK,
+                "SELECT * FROM ", DatabaseHelper.TABLE_TASK, condition)
+                .mapToOne(new CursorToTask())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

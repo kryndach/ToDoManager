@@ -32,4 +32,12 @@ public class AttachmentProvider {
                 .mapToList(new CursorToAttachment())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<Attachment> getAttachment(String attachmentId) {
+        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + attachmentId;
+        return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
+                "SELECT * FROM ", DatabaseHelper.TABLE_ATTACHMENT, condition)
+                .mapToOne(new CursorToAttachment())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

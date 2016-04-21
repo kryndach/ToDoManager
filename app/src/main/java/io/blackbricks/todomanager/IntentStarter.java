@@ -3,6 +3,9 @@ package io.blackbricks.todomanager;
 import android.content.Context;
 import android.content.Intent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
@@ -15,8 +18,13 @@ import io.blackbricks.todomanager.taskList.TaskListActivity;
  *
  * @author Hannes Dorfmann
  */
-// TODO make it injectable with dagger
+
+@Singleton
 public class IntentStarter {
+
+    @Inject
+    public IntentStarter() {
+    }
 
     private boolean isTablet(Context context) {
         return context.getResources().getBoolean(R.bool.tablet);

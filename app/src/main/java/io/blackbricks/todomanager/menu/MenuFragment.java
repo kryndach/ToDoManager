@@ -30,7 +30,6 @@ import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.DaggerToDoManagerAppComponent;
-import io.blackbricks.todomanager.dagger.NavigationModule;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.menu.model.Menu;
@@ -143,7 +142,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     protected void injectDependencies() {
         menuComponent = DaggerMenuComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .navigationModule(new NavigationModule())
                 .build();
         menuComponent.inject(this);
     }

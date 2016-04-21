@@ -1,9 +1,12 @@
 package io.blackbricks.todomanager.dagger;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
 
 /**
@@ -13,12 +16,15 @@ import io.blackbricks.todomanager.menu.model.MenuProvider;
 @Module
 public class ToDoManagerModule {
 
-    // Singletons
-    private static MenuProvider menuProvider = new MenuProvider();
+    private final ToDoManagerApp app;
 
-    @Singleton @Provides
-    public MenuProvider providesMenuProvider() {
-        return menuProvider;
+    public ToDoManagerModule(ToDoManagerApp app) {
+        this.app = app;
     }
 
+    @Provides
+    @Singleton
+    Context provideContext() {
+        return app;
+    }
 }

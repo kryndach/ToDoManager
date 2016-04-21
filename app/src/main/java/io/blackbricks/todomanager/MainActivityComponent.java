@@ -3,7 +3,6 @@ package io.blackbricks.todomanager;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import io.blackbricks.todomanager.dagger.NavigationModule;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 
 /**
@@ -11,7 +10,7 @@ import io.blackbricks.todomanager.dagger.ToDoManagerModule;
  */
 @Singleton
 @Component(
-        modules = {ToDoManagerModule.class, NavigationModule.class}
+        modules = {ToDoManagerModule.class}
 )
 public interface MainActivityComponent {
     void inject(MainActivity activity);

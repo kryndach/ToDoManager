@@ -6,7 +6,6 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.NavigationModule;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
 
 /**
@@ -45,7 +44,6 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
     protected void injectDependencies() {
         taskComponent = DaggerTaskComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .navigationModule(new NavigationModule())
                 .build();
         taskComponent.inject(this);
     }

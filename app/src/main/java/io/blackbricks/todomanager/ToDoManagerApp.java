@@ -37,4 +37,8 @@ public class ToDoManagerApp extends Application {
     public static ToDoManagerAppComponent getAppComponent() {
         return appComponent;
     }
+
+    public static ToDoManagerApp get(Context context) {
+        return (ToDoManagerApp) context.getApplicationContext();
+    }
 }

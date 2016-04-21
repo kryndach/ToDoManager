@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.menu;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.DaggerToDoManagerAppComponent;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.menu.model.Menu;
@@ -142,6 +144,8 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     protected void injectDependencies() {
         menuComponent = DaggerMenuComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         menuComponent.inject(this);
     }

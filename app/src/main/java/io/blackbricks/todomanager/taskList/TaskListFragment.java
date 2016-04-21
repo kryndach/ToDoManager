@@ -17,6 +17,8 @@ import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
@@ -84,6 +86,8 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     protected void injectDependencies() {
         taskListComponent = DaggerTaskListComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         taskListComponent.inject(this);
     }

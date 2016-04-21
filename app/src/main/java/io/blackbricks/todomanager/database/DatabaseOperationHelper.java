@@ -1,16 +1,21 @@
 package io.blackbricks.todomanager.database;
 
 import android.content.ContentValues;
+import android.database.Observable;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.blackbricks.todomanager.database.transforms.CursorToGroup;
+import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by yegorkryndach on 08/04/16.
@@ -24,6 +29,8 @@ public class DatabaseOperationHelper {
     public DatabaseOperationHelper() {
     }
 
+    // Group
+
     public void updateGroupTaskCount() {
         database.executeAndTrigger("groups", "UPDATE " + DatabaseHelper.TABLE_GROUP
                 + " SET " + DatabaseHelper.GROUP_TASK_COUNT_COLUMN + " = "
@@ -34,6 +41,8 @@ public class DatabaseOperationHelper {
                 + DatabaseHelper.TABLE_TASK + "." + DatabaseHelper.TASK_GROUP_ID_COLUMN
                 + " )");
     }
+
+    // Task
 
     public void deleteTask(Integer taskId) {
         database.delete("tasks",

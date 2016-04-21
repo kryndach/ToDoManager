@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import io.blackbricks.todomanager.model.Task;
 

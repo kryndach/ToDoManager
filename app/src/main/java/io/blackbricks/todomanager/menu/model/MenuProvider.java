@@ -3,7 +3,7 @@ package io.blackbricks.todomanager.menu.model;
 
 import android.support.annotation.NonNull;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ public class MenuProvider {
 
         List<OptionalMenuItem> optionalMenuItemList = getOptionalMenuItems();
 
-        List<GroupMenuItem> groupMenuItemList = new LinkedList<>();
+        List<GroupMenuItem> groupMenuItemList = new ArrayList<>();
 
         Menu menu = new Menu.Builder()
                 .filterMenuItemList(filterMenuItemList)
@@ -49,7 +49,7 @@ public class MenuProvider {
 
     @NonNull
     private List<OptionalMenuItem> getOptionalMenuItems() {
-        List<OptionalMenuItem> optionalMenuItemList = new LinkedList<>();
+        List<OptionalMenuItem> optionalMenuItemList = new ArrayList<>();
 
         optionalMenuItemList.add(
                 new OptionalMenuItem.Builder()
@@ -64,7 +64,7 @@ public class MenuProvider {
 
     @NonNull
     private List<FilterMenuItem> getFilterMenuItems() {
-        List<FilterMenuItem> filterMenuItemList = new LinkedList<>();
+        List<FilterMenuItem> filterMenuItemList = new ArrayList<>();
 
         filterMenuItemList.add(
                 new FilterMenuItem.Builder()

@@ -33,7 +33,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     Filter.Type type;
 
     @Arg
-    String groupId;
+    Integer groupId;
 
     @Bind(R.id.contentView)
     ViewGroup contentView;

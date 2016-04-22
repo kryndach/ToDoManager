@@ -18,7 +18,7 @@ public class TaskListPresentationProvider {
     public TaskListPresentationProvider() {
     }
 
-    public Observable<TaskListPresentation> getTaskListPresentation(Filter.Type type, String groupId) {
+    public Observable<TaskListPresentation> getTaskListPresentation(Filter.Type type, Integer groupId) {
         return null;
     }
 }

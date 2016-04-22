@@ -90,7 +90,7 @@ public class TaskProvider {
             }
         }
         return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM ", DatabaseHelper.TABLE_TASK, condition)
+                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToList(new CursorToTask())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -98,7 +98,7 @@ public class TaskProvider {
     public Observable<List<Task>> getTasks(String groupId) {
         String condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
         return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM ", DatabaseHelper.TABLE_TASK, condition)
+                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToList(new CursorToTask())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -106,7 +106,7 @@ public class TaskProvider {
     public Observable<Task> getTask(String taskId) {
         String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + taskId;
         return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM ", DatabaseHelper.TABLE_TASK, condition)
+                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToOne(new CursorToTask())
                 .observeOn(AndroidSchedulers.mainThread());
     }

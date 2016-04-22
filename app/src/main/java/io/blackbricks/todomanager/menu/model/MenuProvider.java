@@ -2,6 +2,7 @@ package io.blackbricks.todomanager.menu.model;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.GroupProvider;
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.internal.operators.OperatorAny;
 import rx.internal.operators.OperatorMap;
@@ -50,6 +54,7 @@ public class MenuProvider {
                 .build();
 
         return groupProvider.getGroups()
+                .first()
                 .flatMap(new Func1<List<Group>, Observable<Group>>() {
                     @Override
                     public Observable<Group> call(List<Group> groups) {
@@ -73,11 +78,12 @@ public class MenuProvider {
                                 .build();
                     }
                 })
-                .toList().flatMap(new Func1<List<GroupMenuItem>, Observable<Menu>>() {
+                .toList()
+                .map(new Func1<List<GroupMenuItem>, Menu>() {
                     @Override
-                    public Observable<Menu> call(List<GroupMenuItem> groupMenuItems) {
-                        menu.getGroupMenuItemList().addAll(groupMenuItemList);
-                        return Observable.just(menu);
+                    public Menu call(List<GroupMenuItem> groupMenuItems) {
+                        menu.getGroupMenuItemList().addAll(groupMenuItems);
+                        return menu;
                     }
                 });
     }

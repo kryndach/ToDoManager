@@ -27,8 +27,8 @@ public class AttachmentProvider {
 
     public Observable<List<Attachment>> getAttachments(String taskId){
         return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
-                "SELECT * FROM ", DatabaseHelper.TABLE_ATTACHMENT,
-                " WHERE ", DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN + " = " + taskId)
+                "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT +
+                " WHERE " + DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN + " = " + taskId)
                 .mapToList(new CursorToAttachment())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -36,7 +36,7 @@ public class AttachmentProvider {
     public Observable<Attachment> getAttachment(String attachmentId) {
         String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + attachmentId;
         return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
-                "SELECT * FROM ", DatabaseHelper.TABLE_ATTACHMENT, condition)
+                "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT + condition)
                 .mapToOne(new CursorToAttachment())
                 .observeOn(AndroidSchedulers.mainThread());
     }

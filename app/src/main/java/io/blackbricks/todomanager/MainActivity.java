@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentView,
-                        new TaskListFragmentBuilder(null, Filter.Type.INBOX).build(),
+                        new TaskListFragmentBuilder(Filter.Type.INBOX).build(),
                         null)
                 .commit();
     }

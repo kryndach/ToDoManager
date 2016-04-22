@@ -23,4 +23,12 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     public void loadMenu() {
         subscribe(menuProvider.getMenu(), false);
     }
+
+    @Override
+    protected void onNext(Menu data) {
+        if (isViewAttached()) {
+            getView().setData(data);
+            getView().showContent();
+        }
+    }
 }

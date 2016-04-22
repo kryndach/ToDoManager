@@ -54,34 +54,34 @@ public class MenuProvider {
                 .build();
 
         return groupProvider.getGroups()
-                .first()
-                .flatMap(new Func1<List<Group>, Observable<Group>>() {
+                .flatMap(new Func1<List<Group>, Observable<List<GroupMenuItem>>>() {
                     @Override
-                    public Observable<Group> call(List<Group> groups) {
-                        return Observable.from(groups);
+                    public Observable<List<GroupMenuItem>> call(List<Group> groups) {
+                        return Observable.from(groups)
+                                .map(new Func1<Group, GroupMenuItem>() {
+                                    @Override
+                                    public GroupMenuItem call(Group group) {
+
+                                        String description = "Tasks " + group.getTaskCount();
+                                        if (group.getHotTaskCount() > 0) {
+                                            description = "Hot " + group.getHotTaskCount() + ", " + description;
+                                        }
+
+                                        return new GroupMenuItem.Builder()
+                                                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                                                .title(group.getName())
+                                                .description(description)
+                                                .group(group)
+                                                .build();
+                                    }
+                                })
+                                .toList();
                     }
                 })
-                .map(new Func1<Group, GroupMenuItem>() {
-                    @Override
-                    public GroupMenuItem call(Group group) {
-
-                        String description = "Tasks " + group.getTaskCount();
-                        if (group.getHotTaskCount() > 0) {
-                            description = "Hot " + group.getHotTaskCount() + ", " + description;
-                        }
-
-                        return new GroupMenuItem.Builder()
-                                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                                .title(group.getName())
-                                .description(description)
-                                .group(group)
-                                .build();
-                    }
-                })
-                .toList()
                 .map(new Func1<List<GroupMenuItem>, Menu>() {
                     @Override
                     public Menu call(List<GroupMenuItem> groupMenuItems) {
+                        menu.getGroupMenuItemList().clear();
                         menu.getGroupMenuItemList().addAll(groupMenuItems);
                         return menu;
                     }

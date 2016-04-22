@@ -36,10 +36,10 @@ public class IntentStarter {
         context.startActivity(i);
     }
 
-    public void showTaskList(Context context, Group group) {
+    public void showTaskList(Context context, String groupId) {
         Intent i = new Intent(context, TaskListActivity.class);
         i.putExtra(TaskListActivity.KEY_FILTER, Filter.Type.GROUP);
-        i.putExtra(TaskListActivity.KEY_GROUP, group);
+        i.putExtra(TaskListActivity.KEY_GROUP_ID, groupId);
         context.startActivity(i);
     }
 

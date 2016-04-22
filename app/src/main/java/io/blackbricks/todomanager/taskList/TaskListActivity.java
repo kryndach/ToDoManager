@@ -12,7 +12,7 @@ public class TaskListActivity extends BaseActivity {
     public static final String KEY_FILTER =
             "io.blackbricks.todomanager.taskList.TaskListActivity.FILTER";
 
-    public static final String KEY_GROUP =
-            "io.blackbricks.todomanager.taskList.TaskListActivity.GROUP";
+    public static final String KEY_GROUP_ID =
+            "io.blackbricks.todomanager.taskList.TaskListActivity.GROUP_ID";
 
 }

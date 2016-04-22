@@ -2,6 +2,7 @@ package io.blackbricks.todomanager.taskList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     Filter.Type type;
 
     @Arg
-    Group group;
+    String groupId;
 
     @Bind(R.id.contentView)
     ViewGroup contentView;
@@ -43,6 +44,8 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Bind(R.id.addButton)
     FloatingActionButton addButton;
 
+    private TaskListPresentation taskListPresentation;
+    private TaskListAdapter taskListAdapter;
     private TaskListComponent taskListComponent;
 
     @Override
@@ -65,11 +68,15 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
             }
         });
+
+        taskListAdapter = new TaskListAdapter(getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(taskListAdapter);
     }
 
     @Override
     public TaskListPresentation getData() {
-        return null;
+        return taskListPresentation;
     }
 
     @Override
@@ -94,11 +101,13 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void setData(TaskListPresentation data) {
-
+        this.taskListPresentation = data;
+        taskListAdapter.setTaskList(data.getTaskList());
+        taskListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void loadData(boolean pullToRefresh) {
-
+        taskListComponent.presenter().loadTaskList(type, groupId);
     }
 }

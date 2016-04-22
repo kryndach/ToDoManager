@@ -37,7 +37,7 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
 
     @Override
     public TaskPresenter createPresenter() {
-        return null;
+        return taskComponent.presenter();
     }
 
     @Override

@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Toolbar Title"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
         <!-- The main content view -->
         <LinearLayout

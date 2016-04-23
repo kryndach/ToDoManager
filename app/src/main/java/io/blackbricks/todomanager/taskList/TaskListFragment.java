@@ -27,7 +27,8 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 /**
  * Created by yegorkryndach on 19/04/16.
  */
-public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter> {
+public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter>
+        implements TaskListView {
 
     @Arg
     Filter.Type type;

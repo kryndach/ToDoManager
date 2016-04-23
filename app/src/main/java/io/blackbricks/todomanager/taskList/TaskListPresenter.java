@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.taskList;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -9,6 +10,7 @@ import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.TaskProvider;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentationProvider;
+import rx.functions.Action1;
 
 /**
  * Created by yegorkryndach on 19/04/16.

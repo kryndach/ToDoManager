@@ -12,7 +12,25 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 public class Filter implements Parcelable {
 
     public enum Type {
-        INBOX, TODAY, TOMORROW, WEEK, HOT, DONE, OVERDUE, GROUP
+        INBOX("Inbox"),
+        TODAY("Today"),
+        TOMORROW("Tomorrow"),
+        WEEK("Week"),
+        HOT("Hot"),
+        DONE("Done"),
+        OVERDUE("Overdue"),
+        GROUP("Group");
+
+        private final String text;
+
+        Type(final String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 
     Type type;

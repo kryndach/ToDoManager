@@ -34,7 +34,7 @@ public class GroupProvider {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Group> getGroup(String groupId) {
+    public Observable<Group> getGroup(Integer groupId) {
         String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + groupId;
         return database.createQuery(DatabaseHelper.TABLE_GROUP,
                 "SELECT * FROM " + DatabaseHelper.TABLE_GROUP + condition)

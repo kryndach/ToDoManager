@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.taskList;
 
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.base.presenter.BaseRxLcePresenter;
@@ -20,7 +22,7 @@ public class TaskListPresenter extends BaseRxLcePresenter<TaskListView, TaskList
         this.taskListPresentationProvider = taskListPresentationProvider;
     }
 
-    public void loadTaskList(Filter.Type type, Integer groupId) {
+    public void loadTaskList(Filter.Type type, @Nullable Integer groupId) {
         subscribe(taskListPresentationProvider.getTaskListPresentation(type, groupId), false);
     }
 

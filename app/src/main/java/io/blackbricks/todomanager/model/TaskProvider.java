@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.model;
 
+import android.support.annotation.Nullable;
+
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.Calendar;
@@ -27,7 +29,7 @@ public class TaskProvider {
     public TaskProvider() {
     }
 
-    public Observable<List<Task>> getTasks(Filter.Type filterType) {
+    public Observable<List<Task>> getTasks(Filter.Type filterType, @Nullable Integer groupId) {
         String condition;
         switch (filterType) {
             case INBOX: {
@@ -84,19 +86,15 @@ public class TaskProvider {
                 condition = " WHERE " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.OVERDUE.getValue();
                 break;
             }
+            case GROUP: {
+                condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
+                break;
+            }
             default: {
                 condition = "";
                 break;
             }
         }
-        return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
-                .mapToList(new CursorToTask())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-    public Observable<List<Task>> getTasks(String groupId) {
-        String condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
         return database.createQuery(DatabaseHelper.TABLE_TASK,
                 "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToList(new CursorToTask())

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -50,6 +52,10 @@ public class TaskListActivity extends BaseActivity {
             postponeEnterTransition();
         }
 
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +72,7 @@ public class TaskListActivity extends BaseActivity {
             Intent intent = getIntent();
             Filter filter = intent.getParcelableExtra(KEY_FILTER);
             Integer groupId = null;
-            if(intent.hasExtra(KEY_GROUP_ID)) {
+            if (intent.hasExtra(KEY_GROUP_ID)) {
                 groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
             }
             String title = intent.getStringExtra(KEY_TITLE);
@@ -74,7 +80,7 @@ public class TaskListActivity extends BaseActivity {
             toolbarTitle.setText(title);
 
             TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
-            if(groupId != null) {
+            if (groupId != null) {
                 fragmentBuilder.groupId(groupId);
             }
             TaskListFragment fragment = fragmentBuilder.build();
@@ -82,6 +88,26 @@ public class TaskListActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentView, fragment)
                     .commit();
+        }
+    }
+
+    private static final int MENU_ITEM_EDIT = 1;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, "Edit");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_ITEM_EDIT:
+                return true;
+
+            default:
+                return false;
         }
     }
 }

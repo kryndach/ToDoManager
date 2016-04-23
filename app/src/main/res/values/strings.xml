@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ToDoManager</string>
+    <string name="drawer_open">Open menu</string>
+    <string name="drawer_close">Close menu</string>
 </resources>

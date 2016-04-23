@@ -164,12 +164,12 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onFilterClicked(Filter filter) {
-        intentStarter.showTaskList(getActivity(), filter);
+        intentStarter.showTaskList(getActivity(), filter, filter.getType().toString());
     }
 
     @Override
     public void onGroupClicked(Group group) {
-        intentStarter.showTaskList(getActivity(), group.getId());
+        intentStarter.showTaskList(getActivity(), group.getId(), group.getName());
     }
 
     @Override

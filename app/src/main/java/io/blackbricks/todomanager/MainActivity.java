@@ -1,5 +1,6 @@
 package io.blackbricks.todomanager;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity {
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                 R.string.drawer_close);
         drawerLayout.setDrawerListener(drawerToggle);
+
+        toolbar.setTitle(Filter.Type.INBOX.toString());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentView,

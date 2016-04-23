@@ -30,16 +30,18 @@ public class IntentStarter {
         return context.getResources().getBoolean(R.bool.tablet);
     }
 
-    public void showTaskList(Context context, Filter filter) {
+    public void showTaskList(Context context, Filter filter, String title) {
         Intent i = new Intent(context, TaskListActivity.class);
         i.putExtra(TaskListActivity.KEY_FILTER, filter);
+        i.putExtra(TaskListActivity.KEY_TITLE, title);
         context.startActivity(i);
     }
 
-    public void showTaskList(Context context, Integer groupId) {
+    public void showTaskList(Context context, Integer groupId, String title) {
         Intent i = new Intent(context, TaskListActivity.class);
         i.putExtra(TaskListActivity.KEY_FILTER, Filter.Type.GROUP);
         i.putExtra(TaskListActivity.KEY_GROUP_ID, groupId);
+        i.putExtra(TaskListActivity.KEY_TITLE, title);
         context.startActivity(i);
     }
 

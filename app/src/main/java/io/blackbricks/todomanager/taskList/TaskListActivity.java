@@ -2,10 +2,13 @@ package io.blackbricks.todomanager.taskList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 
 import butterknife.Bind;
 import io.blackbricks.todomanager.R;
@@ -24,8 +27,15 @@ public class TaskListActivity extends BaseActivity {
     public static final String KEY_GROUP_ID =
             "io.blackbricks.todomanager.taskList.TaskListActivity.GROUP_ID";
 
+    public static final String KEY_TITLE =
+            "io.blackbricks.todomanager.taskList.TaskListActivity.TITLE";
+
+    @Bind(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.contentView)
+    ViewGroup contentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +60,15 @@ public class TaskListActivity extends BaseActivity {
         });
 
         if (savedInstanceState == null) {
-            Filter filter = getIntent().getParcelableExtra(KEY_FILTER);
-            Integer groupId = getIntent().getParcelableExtra(KEY_GROUP_ID);
+            Intent intent = getIntent();
+            Filter filter = intent.getParcelableExtra(KEY_FILTER);
+            Integer groupId = null;
+            if(intent.hasExtra(KEY_GROUP_ID)) {
+                groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
+            }
+            String title = intent.getStringExtra(KEY_TITLE);
+
+            toolbar.setTitle(title);
 
             TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
             if(groupId != null) {

@@ -95,7 +95,7 @@ public class MenuProvider {
         optionalMenuItemList.add(
                 new OptionalMenuItem.Builder()
                         .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Inbox")
+                        .title("Support")
                         .description(null)
                         .type(OptionalMenuItem.Type.SUPPORT)
                         .build()
@@ -107,59 +107,17 @@ public class MenuProvider {
     private List<FilterMenuItem> getFilterMenuItems() {
         List<FilterMenuItem> filterMenuItemList = new ArrayList<>();
 
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Inbox")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.INBOX))
-                        .build()
-        );
+        for (Filter.Type type : Filter.Type.values()) {
+            filterMenuItemList.add(
+                    new FilterMenuItem.Builder()
+                            .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                            .title(type.toString())
+                            .description(null)
+                            .filter(new Filter(type))
+                            .build()
+            );
+        }
 
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Today")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.TODAY))
-                        .build()
-        );
-
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Tomorrow")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.TOMORROW))
-                        .build()
-        );
-
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Week")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.WEEK))
-                        .build()
-        );
-
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Overdue")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.OVERDUE))
-                        .build()
-        );
-
-        filterMenuItemList.add(
-                new FilterMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                        .title("Done")
-                        .description(null)
-                        .filter(new Filter(Filter.Type.DONE))
-                        .build()
-        );
         return filterMenuItemList;
     }
 

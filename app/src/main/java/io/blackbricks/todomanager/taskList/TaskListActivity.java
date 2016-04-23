@@ -10,6 +10,7 @@ import android.view.View;
 import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.base.view.BaseActivity;
+import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.utils.BuildUtils;
 
 /**
@@ -48,17 +49,19 @@ public class TaskListActivity extends BaseActivity {
             }
         });
 
-//        if (savedInstanceState == null) {
-//            Mail mail = getIntent().getParcelableExtra(KEY_MAIL);
-//            Person sender = mail.getSender();
-//
-//            DetailsFragment fragment =
-//                    new DetailsFragmentBuilder(mail.getDate().getTime(), mail.getId(), sender.getEmail(),
-//                            sender.getName(), sender.getImageRes(), mail.isStarred(), mail.getSubject()).build();
-//
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.contentView, fragment)
-//                    .commit();
-//        }
+        if (savedInstanceState == null) {
+            Filter filter = getIntent().getParcelableExtra(KEY_FILTER);
+            Integer groupId = getIntent().getParcelableExtra(KEY_GROUP_ID);
+
+            TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
+            if(groupId != null) {
+                fragmentBuilder.groupId(groupId);
+            }
+            TaskListFragment fragment = fragmentBuilder.build();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentView, fragment)
+                    .commit();
+        }
     }
 }

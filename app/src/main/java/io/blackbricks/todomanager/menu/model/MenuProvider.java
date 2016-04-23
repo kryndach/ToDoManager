@@ -107,7 +107,16 @@ public class MenuProvider {
     private List<FilterMenuItem> getFilterMenuItems() {
         List<FilterMenuItem> filterMenuItemList = new ArrayList<>();
 
-        for (Filter.Type type : Filter.Type.values()) {
+        Filter.Type[] filterList = {
+                Filter.Type.INBOX,
+                Filter.Type.TODAY,
+                Filter.Type.TOMORROW,
+                Filter.Type.WEEK,
+                Filter.Type.HOT,
+                Filter.Type.DONE,
+                Filter.Type.OVERDUE,
+        };
+        for (Filter.Type type : filterList) {
             filterMenuItemList.add(
                     new FilterMenuItem.Builder()
                             .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)

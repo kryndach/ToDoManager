@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -24,9 +25,6 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
 public class MainActivity extends BaseActivity {
 
-    @Icicle
-    String toolbarTitle;
-
     @Inject
     IntentStarter intentStarter;
 
@@ -34,6 +32,8 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitle;
     @Bind(R.id.contentView)
     ViewGroup contentView;
 
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
                 R.string.drawer_close);
         drawerLayout.setDrawerListener(drawerToggle);
 
-        toolbar.setTitle(Filter.Type.INBOX.toString());
+        toolbarTitle.setText(Filter.Type.INBOX.toString());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentView,

@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import io.blackbricks.todomanager.R;
@@ -34,6 +35,8 @@ public class TaskListActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitle;
     @Bind(R.id.contentView)
     ViewGroup contentView;
 
@@ -68,7 +71,7 @@ public class TaskListActivity extends BaseActivity {
             }
             String title = intent.getStringExtra(KEY_TITLE);
 
-            toolbar.setTitle(title);
+            toolbarTitle.setText(title);
 
             TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
             if(groupId != null) {

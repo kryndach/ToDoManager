@@ -7,6 +7,10 @@
 
         <item name="drawerArrowStyle">@style/ToolbarDrawerToggle</item>
 
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextAppearance">@style/MenuTextAppearance</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextAppearance</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
@@ -17,6 +21,11 @@
 
     <style name="ToolbarDrawerToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/toolbar_drawer_color</item>
+    </style>
+
+    <style name="MenuTextAppearance" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

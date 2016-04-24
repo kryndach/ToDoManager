@@ -15,19 +15,13 @@ import io.blackbricks.todomanager.model.Task;
 @ParcelablePlease
 public class TaskListPresentation implements Parcelable {
 
-    String title;
     ArrayList<Task> taskList;
 
     private TaskListPresentation() {
     }
 
     private TaskListPresentation(Builder builder) {
-        title = builder.title;
         taskList = builder.taskList;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public ArrayList<Task> getTaskList() {
@@ -57,15 +51,9 @@ public class TaskListPresentation implements Parcelable {
     };
 
     public static final class Builder {
-        private String title;
         private ArrayList<Task> taskList;
 
         public Builder() {
-        }
-
-        public Builder title(String val) {
-            title = val;
-            return this;
         }
 
         public Builder taskList(ArrayList<Task> val) {

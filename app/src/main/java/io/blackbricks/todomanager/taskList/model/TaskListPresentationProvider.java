@@ -25,38 +25,18 @@ public class TaskListPresentationProvider {
     TaskProvider taskProvider;
 
     @Inject
-    GroupProvider groupProvider;
-
-    @Inject
     public TaskListPresentationProvider() {
     }
 
     public Observable<TaskListPresentation> getTaskListPresentation(final Filter.Type type, @Nullable Integer groupId) {
-        if (groupId == null) {
-            return taskProvider.getTasks(type, null)
-                    .map(new Func1<List<Task>, TaskListPresentation>() {
-                        @Override
-                        public TaskListPresentation call(List<Task> tasks) {
-                            return new TaskListPresentation.Builder()
-                                    .taskList(new ArrayList<>(tasks))
-                                    .title(type.toString())
-                                    .build();
-                        }
-                    });
-        } else {
-            return Observable.combineLatest
-                    (taskProvider.getTasks(type, groupId),
-                            groupProvider.getGroup(groupId),
-                            new Func2<List<Task>, Group, TaskListPresentation>() {
-                                @Override
-                                public TaskListPresentation call(List<Task> tasks, Group group) {
-                                    return new TaskListPresentation.Builder()
-                                            .taskList(new ArrayList<>(tasks))
-                                            .title(group.getName())
-                                            .build();
-                                }
-                            });
-        }
-
+        return taskProvider.getTasks(type, groupId)
+                .map(new Func1<List<Task>, TaskListPresentation>() {
+                    @Override
+                    public TaskListPresentation call(List<Task> tasks) {
+                        return new TaskListPresentation.Builder()
+                                .taskList(new ArrayList<>(tasks))
+                                .build();
+                    }
+                });
     }
 }

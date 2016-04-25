@@ -111,4 +111,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     public void loadData(boolean pullToRefresh) {
         presenter.loadTaskList(type, groupId);
     }
+
+    @Override
+    public void done() {
+
+    }
 }

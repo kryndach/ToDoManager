@@ -106,7 +106,7 @@ public class TaskListActivity extends BaseActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.done) {
-                        fragment.getPresenter();
+                        fragment.done();
                         return true;
                     }
                     return false;

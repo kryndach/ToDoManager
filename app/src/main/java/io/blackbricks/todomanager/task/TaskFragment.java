@@ -6,8 +6,11 @@ import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
 
 /**
@@ -24,7 +27,7 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
 
     @Override
     protected int getLayoutRes() {
-        return 0;
+        return R.layout.fragment_task;
     }
 
     @Override
@@ -51,6 +54,8 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
     protected void injectDependencies() {
         taskComponent = DaggerTaskComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         taskComponent.inject(this);
     }

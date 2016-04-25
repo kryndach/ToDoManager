@@ -52,10 +52,6 @@ public class TaskListActivity extends BaseActivity {
             postponeEnterTransition();
         }
 
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
         toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +61,17 @@ public class TaskListActivity extends BaseActivity {
                 } else {
                     finish();
                 }
+            }
+        });
+        toolbar.inflateMenu(R.menu.task_list_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.done) {
+                    // do stuff on done
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -88,26 +95,6 @@ public class TaskListActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentView, fragment)
                     .commit();
-        }
-    }
-
-    private static final int MENU_ITEM_EDIT = 1;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item = menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, "Edit");
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case MENU_ITEM_EDIT:
-                return true;
-
-            default:
-                return false;
         }
     }
 }

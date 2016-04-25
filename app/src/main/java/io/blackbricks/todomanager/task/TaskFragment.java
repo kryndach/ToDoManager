@@ -1,5 +1,8 @@
 package io.blackbricks.todomanager.task;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
@@ -33,6 +36,12 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
     @Override
     public LceViewState<TaskPresentation, TaskView> createViewState() {
         return new ParcelableDataLceViewState<>();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override

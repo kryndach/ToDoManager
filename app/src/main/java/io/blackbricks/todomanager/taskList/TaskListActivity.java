@@ -73,6 +73,16 @@ public class TaskListActivity extends BaseActivity {
                 title = type.toString();
             }
 
+            TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
+            if (groupId != null) {
+                fragmentBuilder.groupId(groupId);
+            }
+            final TaskListFragment fragment = fragmentBuilder.build();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentView, fragment)
+                    .commit();
+
             if(needBackNavigation) {
                 toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
                 toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -96,23 +106,13 @@ public class TaskListActivity extends BaseActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.done) {
-                        // do stuff on done
+                        fragment.getPresenter();
                         return true;
                     }
                     return false;
                 }
             });
             toolbarTitle.setText(title);
-
-            TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
-            if (groupId != null) {
-                fragmentBuilder.groupId(groupId);
-            }
-            TaskListFragment fragment = fragmentBuilder.build();
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentView, fragment)
-                    .commit();
         }
     }
 

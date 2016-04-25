@@ -15,6 +15,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -42,9 +43,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @Bind(R.id.addButton)
-    FloatingActionButton addButton;
-
     private TaskListPresentation taskListPresentation;
     private TaskListAdapter taskListAdapter;
     private TaskListComponent taskListComponent;
@@ -62,13 +60,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         taskListAdapter = new TaskListAdapter(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -114,6 +105,11 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void done() {
+
+    }
+
+    @OnClick(R.id.addButton)
+    void onAddClick() {
 
     }
 }

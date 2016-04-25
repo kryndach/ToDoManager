@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsLceViewState;
@@ -26,6 +27,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
@@ -56,9 +58,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @Bind(R.id.addButton)
-    FloatingActionButton addButton;
-
     @Inject
     IntentStarter intentStarter;
 
@@ -78,47 +77,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
-                builder.setTitle("Name");
-
-                final EditText input = new EditText(MenuFragment.this.getContext());
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String resultText = input.getText().toString();
-                        if (resultText.length() > 0) {
-                            ContentValues values = new ContentValues();
-                            values.put(DatabaseHelper.GROUP_NAME_COLUMN, resultText);
-                            values.put(DatabaseHelper.GROUP_TASK_COUNT_COLUMN, 0);
-                            values.put(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN, 0);
-                            database.insert("groups", values);
-                        } else {
-                            new AlertDialog.Builder(MenuFragment.this.getContext())
-                                    .setTitle("Error")
-                                    .setMessage("Need some symbols!")
-                                    .show();
-                        }
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                dialog.show();
-            }
-        });
 
         menuAdapter = new MenuAdapter(getActivity(), menu, this, this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -175,5 +133,44 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void onOptionalClicked(OptionalMenuItem.Type type) {
 
+    }
+
+    @OnClick(R.id.addButton)
+    void onAddClick() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
+        builder.setTitle("Name");
+
+        final EditText input = new EditText(MenuFragment.this.getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String resultText = input.getText().toString();
+                if (resultText.length() > 0) {
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseHelper.GROUP_NAME_COLUMN, resultText);
+                    values.put(DatabaseHelper.GROUP_TASK_COUNT_COLUMN, 0);
+                    values.put(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN, 0);
+                    database.insert("groups", values);
+                } else {
+                    new AlertDialog.Builder(MenuFragment.this.getContext())
+                            .setTitle("Error")
+                            .setMessage("Need some symbols!")
+                            .show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
 }

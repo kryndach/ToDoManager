@@ -8,4 +8,5 @@ import io.blackbricks.todomanager.task.model.TaskPresentation;
  * Created by yegorkryndach on 19/04/16.
  */
 public interface TaskView extends MvpLceView<TaskPresentation>{
+    void done();
 }

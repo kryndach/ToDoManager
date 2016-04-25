@@ -10,6 +10,7 @@ import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.task.TaskActivity;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
 
 /**
@@ -42,6 +43,19 @@ public class IntentStarter {
         i.putExtra(TaskListActivity.KEY_FILTER, new Filter(Filter.Type.GROUP));
         i.putExtra(TaskListActivity.KEY_GROUP_ID, groupId);
         i.putExtra(TaskListActivity.KEY_TITLE, title);
+        context.startActivity(i);
+    }
+
+    public void createTask(Context context) {
+        Intent i = new Intent(context, TaskActivity.class);
+        i.putExtra(TaskActivity.KEY_TITLE, "Create task");
+        context.startActivity(i);
+    }
+
+    private void editTask(Context context, Integer taskId) {
+        Intent i = new Intent(context, TaskActivity.class);
+        i.putExtra(TaskActivity.KEY_TASK_ID, taskId);
+        i.putExtra(TaskActivity.KEY_TITLE, "Edit task");
         context.startActivity(i);
     }
 

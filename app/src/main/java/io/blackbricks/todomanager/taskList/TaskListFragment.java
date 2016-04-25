@@ -1,5 +1,6 @@
 package io.blackbricks.todomanager.taskList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +15,11 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewStat
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -42,6 +46,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @Inject
+    IntentStarter intentStarter;
 
     private TaskListPresentation taskListPresentation;
     private TaskListAdapter taskListAdapter;
@@ -110,6 +117,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @OnClick(R.id.addButton)
     void onAddClick() {
-
+        intentStarter.createTask(getActivity());
     }
 }

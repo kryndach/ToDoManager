@@ -101,7 +101,7 @@ public class TaskProvider {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Task> getTask(String taskId) {
+    public Observable<Task> getTask(Integer taskId) {
         String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + taskId;
         return database.createQuery(DatabaseHelper.TABLE_TASK,
                 "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)

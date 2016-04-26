@@ -21,7 +21,7 @@ public class TaskPresentationProvider {
     public TaskPresentationProvider() {
     }
 
-    public Observable<TaskPresentation> getTaskPresentation(@Nullable Integer taskId) {
+    public Observable<TaskPresentation> getTaskPresentation(@Nullable Integer taskId, @Nullable Integer groupId) {
         return taskProvider.getTask(taskId)
                 .map(new Func1<Task, TaskPresentation>() {
                     @Override

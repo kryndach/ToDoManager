@@ -25,6 +25,9 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
     @Arg(required = false)
     Integer taskId;
 
+    @Arg(required = false)
+    Integer groupId;
+
     private TaskComponent taskComponent;
     private TaskPresentation taskPresentation;
 
@@ -76,7 +79,7 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        presenter.loadTask(taskId);
+        presenter.loadTask(taskId, groupId);
     }
 
     @Override

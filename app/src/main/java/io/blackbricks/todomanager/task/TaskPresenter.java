@@ -21,9 +21,7 @@ public class TaskPresenter extends BaseRxLcePresenter<TaskView, TaskPresentation
     public TaskPresenter() {
     }
 
-    public void loadTask(@Nullable Integer taskId) {
-        if(taskId != null) {
-            subscribe(taskPresentationProvider.getTaskPresentation(taskId), false);
-        }
+    public void loadTask(@Nullable Integer taskId, @Nullable Integer groupId) {
+        subscribe(taskPresentationProvider.getTaskPresentation(taskId, groupId), false);
     }
 }

@@ -23,6 +23,9 @@ public class TaskActivity extends BaseActivity {
     public static final String KEY_TASK_ID =
             "io.blackbricks.todomanager.taskList.TaskActivity.TASK_ID";
 
+    public static final String KEY_GROUP_ID =
+            "io.blackbricks.todomanager.taskList.TaskActivity.GROUP_ID";
+
     public static final String KEY_TITLE =
             "io.blackbricks.todomanager.taskList.TaskActivity.TITLE";
 
@@ -46,6 +49,10 @@ public class TaskActivity extends BaseActivity {
             if (intent.hasExtra(KEY_TASK_ID)) {
                 taskId = intent.getIntExtra(KEY_TASK_ID, 0);
             }
+            Integer groupId = null;
+            if (intent.hasExtra(KEY_TASK_ID)) {
+                groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
+            }
             String title = intent.getStringExtra(KEY_TITLE);
 
             // Activity Transitions
@@ -56,6 +63,9 @@ public class TaskActivity extends BaseActivity {
             TaskFragmentBuilder fragmentBuilder = new TaskFragmentBuilder();
             if (taskId != null) {
                 fragmentBuilder.taskId(taskId);
+            }
+            if (groupId != null) {
+                fragmentBuilder.groupId(groupId);
             }
             final TaskFragment fragment = fragmentBuilder.build();
 

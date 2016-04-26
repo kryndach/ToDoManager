@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 
 import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -28,7 +31,7 @@ import io.blackbricks.todomanager.ui.ImageListAdapter;
 /**
  * Created by yegorkryndach on 19/04/16.
  */
-public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation, TaskView, TaskPresenter>
+public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation, TaskView, TaskPresenter>
         implements TaskView {
 
     @Arg(required = false)
@@ -128,8 +131,18 @@ public class TaskFragment extends BaseLceFragment<LinearLayout, TaskPresentation
 
     // User actions
 
+    @OnClick(R.id.title_clear_view)
+    void onClickClearTitle() {
+        presenter.clearTitle(taskPresentation);
+    }
+
+    @OnTextChanged(value = R.id.title_edit_text)
+    void onTextChangedTitle(CharSequence text){
+        presenter.setTitle(taskPresentation, text);
+    }
 
     // View interface implementation
+
     @Override
     public void setData(TaskPresentation data) {
         this.taskPresentation = data;

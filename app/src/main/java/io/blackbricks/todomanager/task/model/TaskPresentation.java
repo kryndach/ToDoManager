@@ -32,6 +32,22 @@ public class TaskPresentation implements Parcelable {
         removedAttachments = builder.removedAttachments;
     }
 
+    public Task getTask() {
+        return task;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public ArrayList<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public ArrayList<Attachment> getRemovedAttachments() {
+        return removedAttachments;
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -245,12 +245,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void updateGroup() {
         Group group = taskPresentation.getGroup();
-        if(group == null) {
-            groupTextView.setText(null);
-            groupClearView.setVisibility(View.GONE);
-        } else {
+        if(group != null) {
             groupTextView.setText(group.getName());
             groupClearView.setVisibility(View.VISIBLE);
+        } else {
+            groupTextView.setText(null);
+            groupClearView.setVisibility(View.GONE);
         }
     }
 
@@ -269,12 +269,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     private void updateAlarm() {
         if (taskPresentation.getTask().getDateAlarm() != null) {
             SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
-            String textAlarm = format.format(presenter.task.getDateAlarm());
-            textViewAlarmText.setText(textAlarm);
-            imageButtonClearAlarm.setVisibility(VISIBLE);
+            String textAlarm = format.format(taskPresentation.getTask().getDateAlarm());
+            alarmTextView.setText(textAlarm);
+            alarmClearView.setVisibility(View.VISIBLE);
         } else {
-            textViewAlarmText.setText(null);
-            imageButtonClearAlarm.setVisibility(GONE);
+            alarmTextView.setText(null);
+            alarmClearView.setVisibility(View.GONE);
         }
     }
 
@@ -291,14 +291,14 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     private void updateDeadline() {
-        if (presenter.task.getDateDeadline() != null) {
+        if (taskPresentation.getTask().getDateDeadline() != null) {
             SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-            String textDeadline = format.format(presenter.task.getDateDeadline());
-            textViewDeadlineText.setText(textDeadline);
-            imageButtonClearDeadline.setVisibility(VISIBLE);
+            String textAlarm = format.format(taskPresentation.getTask().getDateDeadline());
+            deadlineTextView.setText(textAlarm);
+            deadlineClearView.setVisibility(View.VISIBLE);
         } else {
-            textViewDeadlineText.setText(null);
-            imageButtonClearDeadline.setVisibility(GONE);
+            deadlineTextView.setText(null);
+            deadlineClearView.setVisibility(View.GONE);
         }
     }
 
@@ -322,7 +322,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(datePickerYear, datePickerMonth, datePickerDay, hourOfDay, minute);
-            presenter.task.setDateAlarm(calendar.getTime());
+            taskPresentation.getTask().setDateAlarm(calendar.getTime());
             updateAlarm();
         }
     };
@@ -348,7 +348,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, monthOfYear, dayOfMonth);
-            presenter.task.setDateDeadline(calendar.getTime());
+            taskPresentation.getTask().setDateDeadline(calendar.getTime());
             updateDeadline();
         }
     };
@@ -374,19 +374,17 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @OnClick(R.id.icon_clear_view)
     void onClickClearIcon() {
-        presenter.task.setIconId(null);
+        taskPresentation.getTask().setIconId(null);
         updateIcon();
     }
 
     private void updateIcon() {
-        if (presenter.task.getIconId() != null) {
-            imageViewIcon.setVisibility(VISIBLE);
-            imageViewIcon.setImageResource(presenter.task.getIconId());
-            imageButtonClearIcon.setVisibility(VISIBLE);
+        if (taskPresentation.getTask().getIconId() != null) {
+            iconImageView.setImageResource(taskPresentation.getTask().getIconId());
+            iconClearView.setVisibility(View.VISIBLE);
         } else {
             //TODO set default image
-            imageViewIcon.setVisibility(INVISIBLE);
-            imageButtonClearIcon.setVisibility(GONE);
+            iconClearView.setVisibility(View.GONE);
         }
     }
 
@@ -422,15 +420,15 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Override
     public void onGroupClicked(Group group) {
-        presenter.group = group;
-        presenter.task.setGroupId(group.getId());
+        taskPresentation.setGroup(group);
+        taskPresentation.getTask().setGroupId(group.getId());
         updateGroup();
         dialog.dismiss();
     }
 
     @Override
     public void onIconClicked(Integer iconId) {
-        presenter.task.setIconId(imageId);
+        taskPresentation.getTask().setIconId(iconId);
         updateIcon();
         dialog.dismiss();
     }

@@ -18,6 +18,10 @@ import io.blackbricks.todomanager.R;
  */
 public class IconListAdapter extends SupportAnnotatedAdapter implements IconListAdapterBinder {
 
+    public interface IconClickListener {
+        public void onIconClicked(Integer iconId);
+    }
+
     @ViewType(layout = R.layout.list_icon_item,
             initMethod = true,
             views = {
@@ -26,9 +30,13 @@ public class IconListAdapter extends SupportAnnotatedAdapter implements IconList
     public final int iconItem = 0;
 
     ArrayList<Integer> iconList;
+    private IconClickListener iconClickListener;
 
-    public IconListAdapter(Context context) {
+    public IconListAdapter(Context context, ArrayList<Integer> iconList,
+                           IconClickListener iconClickListener) {
         super(context);
+        this.iconList = iconList;
+        this.iconClickListener = iconClickListener;
     }
 
     public int getIconItem() {
@@ -37,7 +45,7 @@ public class IconListAdapter extends SupportAnnotatedAdapter implements IconList
 
     @Override
     public int getItemCount() {
-        return iconList.size();
+        return iconList == null ? 0 : iconList.size();
     }
 
     @Override
@@ -47,7 +55,13 @@ public class IconListAdapter extends SupportAnnotatedAdapter implements IconList
 
     @Override
     public void bindViewHolder(IconListAdapterHolders.IconItemViewHolder vh, int position) {
-        Integer iconId = iconList.get(position);
+        final Integer iconId = iconList.get(position);
         vh.image.setImageResource(iconId);
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iconClickListener.onIconClicked(iconId);
+            }
+        });
     }
 }

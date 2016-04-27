@@ -27,13 +27,14 @@ import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
+import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
 /**
  * Created by yegorkryndach on 19/04/16.
  */
 public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter>
-        implements TaskListView {
+        implements TaskListView, TaskListAdapter.TaskClickListener {
 
     @Arg
     Filter.Type type;
@@ -68,7 +69,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        taskListAdapter = new TaskListAdapter(getActivity());
+        taskListAdapter = new TaskListAdapter(getActivity(), taskListPresentation.getTaskList(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(taskListAdapter);
     }
@@ -118,5 +119,10 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @OnClick(R.id.addButton)
     void onAddClick() {
         intentStarter.createTask(getActivity());
+    }
+
+    @Override
+    public void onTaskClicked(Task task) {
+
     }
 }

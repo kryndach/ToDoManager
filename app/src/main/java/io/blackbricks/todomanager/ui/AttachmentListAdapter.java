@@ -22,6 +22,10 @@ import io.blackbricks.todomanager.task.model.AttachmentPresentation;
  */
 public class AttachmentListAdapter extends SupportAnnotatedAdapter implements AttachmentListAdapterBinder {
 
+    public interface AttachmentClickListener {
+        public void onAttachmentClicked(AttachmentPresentation attachmentPresentation);
+    }
+
     @ViewType(layout = R.layout.list_attachment_item,
             initMethod = true,
             views = {
@@ -30,14 +34,19 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
     public final int attachmentItem = 0;
 
     ArrayList<AttachmentPresentation> attachmentPresentationList;
+    private AttachmentClickListener attachmentClickListener;
 
-    public AttachmentListAdapter(Context context) {
+    public AttachmentListAdapter(Context context,
+                                 ArrayList<AttachmentPresentation> attachmentPresentationList,
+                                 AttachmentClickListener attachmentClickListener) {
         super(context);
+        this.attachmentPresentationList = attachmentPresentationList;
+        this.attachmentClickListener = attachmentClickListener;
     }
 
     @Override
     public int getItemCount() {
-        return attachmentPresentationList.size();
+        return attachmentPresentationList == null ? 0 : attachmentPresentationList.size();
     }
 
     @Override
@@ -49,5 +58,11 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
     public void bindViewHolder(AttachmentListAdapterHolders.AttachmentItemViewHolder vh, int position) {
         final AttachmentPresentation attachmentPresentation = attachmentPresentationList.get(position);
         vh.image.setImageBitmap(attachmentPresentation.getBitmap());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attachmentClickListener.onAttachmentClicked(attachmentPresentation);
+            }
+        });
     }
 }

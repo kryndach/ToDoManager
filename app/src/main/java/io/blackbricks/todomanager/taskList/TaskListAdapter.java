@@ -20,6 +20,10 @@ import io.blackbricks.todomanager.model.Task;
  */
 public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskListAdapterBinder {
 
+    public interface TaskClickListener {
+        public void onTaskClicked(Task task);
+    }
+
     @ViewType(layout = R.layout.list_task_item,
             initMethod = true,
             views = {
@@ -31,8 +35,16 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
     ArrayList<Task> taskList;
 
-    public TaskListAdapter(Context context) {
+    private TaskClickListener taskClickListener;
+
+    public TaskListAdapter(Context context, ArrayList<Task> taskList, TaskClickListener taskClickListener) {
         super(context);
+        this.taskList = taskList;
+        this.taskClickListener = taskClickListener;
+    }
+
+    public void setTaskClickListener(TaskClickListener taskClickListener) {
+        this.taskClickListener = taskClickListener;
     }
 
     public ArrayList<Task> getTaskList() {
@@ -45,7 +57,7 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
     @Override
     public int getItemCount() {
-        return taskList.size();
+        return taskList == null ? 0 : taskList.size();
     }
 
     @Override
@@ -58,5 +70,11 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
         final Task task = taskList.get(position);
         vh.icon.setImageResource(task.getIconId());
         vh.title.setText(task.getTitle());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskClickListener.onTaskClicked(task);
+            }
+        });
     }
 }

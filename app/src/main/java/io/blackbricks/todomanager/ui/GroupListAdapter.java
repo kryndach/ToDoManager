@@ -20,6 +20,10 @@ import io.blackbricks.todomanager.model.Group;
  */
 public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupListAdapterBinder {
 
+    public interface GroupClickListener {
+        public void onGroupClicked(Group group);
+    }
+
     @ViewType(layout = R.layout.list_group_item,
             initMethod = true,
             views = {
@@ -28,9 +32,13 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
     public final int groupItem = 0;
 
     ArrayList<Group> groupList;
+    private GroupClickListener groupClickListener;
 
-    public GroupListAdapter(Context context) {
+    public GroupListAdapter(Context context, ArrayList<Group> groupList,
+                            GroupClickListener groupClickListener) {
         super(context);
+        this.groupList = groupList;
+        this.groupClickListener = groupClickListener;
     }
 
     public int getGroupItem() {
@@ -39,7 +47,7 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
 
     @Override
     public int getItemCount() {
-        return groupList.size();
+        return groupList == null ? 0 : groupList.size();
     }
 
     @Override
@@ -51,5 +59,11 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
     public void bindViewHolder(GroupListAdapterHolders.GroupItemViewHolder vh, int position) {
         final Group group = groupList.get(position);
         vh.title.setText(group.getName());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupClickListener.onGroupClicked(group);
+            }
+        });
     }
 }

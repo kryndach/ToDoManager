@@ -69,7 +69,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        taskListAdapter = new TaskListAdapter(getActivity(), taskListPresentation.getTaskList(), this);
+        taskListAdapter = new TaskListAdapter(getActivity(), null, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(taskListAdapter);
     }

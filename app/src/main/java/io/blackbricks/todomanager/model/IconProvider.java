@@ -18,6 +18,6 @@ public class IconProvider {
     }
 
     public Observable<List<Integer>> getIcons(){
-        return null;
+        return Observable.empty();
     }
 }

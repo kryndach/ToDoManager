@@ -124,9 +124,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        attachmentListAdapter = new AttachmentListAdapter(getActivity(), taskPresentation.getAttachmentPresentations(), this);
-        groupListAdapter = new GroupListAdapter(getActivity(), taskPresentation.getGroupList(), this);
-        iconListAdapter = new IconListAdapter(getActivity(), taskPresentation.getIconList(), this);
+        attachmentListAdapter = new AttachmentListAdapter(getActivity(), null, this);
+        groupListAdapter = new GroupListAdapter(getActivity(), null, this);
+        iconListAdapter = new IconListAdapter(getActivity(), null, this);
 
         final StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
             @Override

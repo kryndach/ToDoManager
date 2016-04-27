@@ -238,9 +238,20 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @OnClick(R.id.group_clear_view)
     void onClickClearGroup() {
-        presenter.group = null;
-        presenter.task.setGroupId(null);
+        taskPresentation.setGroup(null);
+        taskPresentation.getTask().setGroupId(null);
         updateGroup();
+    }
+
+    private void updateGroup() {
+        Group group = taskPresentation.getGroup();
+        if(group == null) {
+            groupTextView.setText(null);
+            groupClearView.setVisibility(View.GONE);
+        } else {
+            groupTextView.setText(group.getName());
+            groupClearView.setVisibility(View.VISIBLE);
+        }
     }
 
     // Alert
@@ -251,8 +262,20 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @OnClick(R.id.alarm_clear_view)
     void onClickClearAlarm() {
-        presenter.task.setDateDeadline(null);
+        taskPresentation.getTask().setDateAlarm(null);
         updateDeadline();
+    }
+
+    private void updateAlarm() {
+        if (taskPresentation.getTask().getDateAlarm() != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
+            String textAlarm = format.format(presenter.task.getDateAlarm());
+            textViewAlarmText.setText(textAlarm);
+            imageButtonClearAlarm.setVisibility(VISIBLE);
+        } else {
+            textViewAlarmText.setText(null);
+            imageButtonClearAlarm.setVisibility(GONE);
+        }
     }
 
     // Deadline
@@ -263,8 +286,20 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @OnClick(R.id.deadline_clear_view)
     void onClickClearDeadline() {
-        presenter.task.setDateDeadline(null);
+        taskPresentation.getTask().setDateDeadline(null);
         updateDeadline();
+    }
+
+    private void updateDeadline() {
+        if (presenter.task.getDateDeadline() != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+            String textDeadline = format.format(presenter.task.getDateDeadline());
+            textViewDeadlineText.setText(textDeadline);
+            imageButtonClearDeadline.setVisibility(VISIBLE);
+        } else {
+            textViewDeadlineText.setText(null);
+            imageButtonClearDeadline.setVisibility(GONE);
+        }
     }
 
     private void showDatePickerDialog(DatePickerDialog.OnDateSetListener onDateSetListener) {
@@ -317,30 +352,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             updateDeadline();
         }
     };
-
-    private void updateDeadline() {
-        if (presenter.task.getDateDeadline() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-            String textDeadline = format.format(presenter.task.getDateDeadline());
-            textViewDeadlineText.setText(textDeadline);
-            imageButtonClearDeadline.setVisibility(VISIBLE);
-        } else {
-            textViewDeadlineText.setText(null);
-            imageButtonClearDeadline.setVisibility(GONE);
-        }
-    }
-
-    private void updateAlarm() {
-        if (presenter.task.getDateAlarm() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
-            String textAlarm = format.format(presenter.task.getDateAlarm());
-            textViewAlarmText.setText(textAlarm);
-            imageButtonClearAlarm.setVisibility(VISIBLE);
-        } else {
-            textViewAlarmText.setText(null);
-            imageButtonClearAlarm.setVisibility(GONE);
-        }
-    }
 
     // Icon
     @OnClick(R.id.icon_view)

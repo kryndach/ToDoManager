@@ -60,6 +60,10 @@ public class TaskPresentation implements Parcelable {
         return iconList;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public int describeContents() {
         return 0;

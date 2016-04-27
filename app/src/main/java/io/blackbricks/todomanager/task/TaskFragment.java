@@ -101,6 +101,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Bind(R.id.photo_list)
     RecyclerView photoList;
 
+    private AlertDialog dialog;
+
     private TaskComponent taskComponent;
     private TaskPresentation taskPresentation;
 
@@ -230,15 +232,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
         builder.setView(groupRecyclerView);
         builder.setTitle("Chose group");
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
-
-        groupListAdapter.setOnClickListener(group -> {
-            presenter.group = group;
-            presenter.task.setGroupId(group.getId());
-            updateGroup();
-            dialog.dismiss();
-        });
     }
 
     @OnClick(R.id.group_clear_view)
@@ -362,14 +357,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
         builder.setView(iconRecyclerView);
         builder.setTitle("Chose icon");
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
-
-        iconListAdapter.setOnClickListener(imageId -> {
-            presenter.task.setIconId(imageId);
-            updateIcon();
-            dialog.dismiss();
-        });
     }
 
     @OnClick(R.id.icon_clear_view)
@@ -422,11 +411,16 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Override
     public void onGroupClicked(Group group) {
-
+        presenter.group = group;
+        presenter.task.setGroupId(group.getId());
+        updateGroup();
+        dialog.dismiss();
     }
 
     @Override
     public void onIconClicked(Integer iconId) {
-
+        presenter.task.setIconId(imageId);
+        updateIcon();
+        dialog.dismiss();
     }
 }

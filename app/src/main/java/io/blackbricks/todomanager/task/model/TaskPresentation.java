@@ -21,6 +21,8 @@ public class TaskPresentation implements Parcelable {
     Group group;
     ArrayList<AttachmentPresentation> attachmentPresentations;
     ArrayList<AttachmentPresentation> removedAttachmentPresentations;
+    ArrayList<Group> groupList;
+    ArrayList<Integer> iconList;
 
     private TaskPresentation() {
     }
@@ -30,6 +32,8 @@ public class TaskPresentation implements Parcelable {
         group = builder.group;
         attachmentPresentations = builder.attachmentPresentations;
         removedAttachmentPresentations = builder.removedAttachmentPresentations;
+        groupList = builder.groupList;
+        iconList = builder.iconList;
     }
 
     public Task getTask() {
@@ -46,6 +50,14 @@ public class TaskPresentation implements Parcelable {
 
     public ArrayList<AttachmentPresentation> getRemovedAttachmentPresentations() {
         return removedAttachmentPresentations;
+    }
+
+    public ArrayList<Group> getGroupList() {
+        return groupList;
+    }
+
+    public ArrayList<Integer> getIconList() {
+        return iconList;
     }
 
     @Override
@@ -75,6 +87,8 @@ public class TaskPresentation implements Parcelable {
         private Group group;
         private ArrayList<AttachmentPresentation> attachmentPresentations;
         private ArrayList<AttachmentPresentation> removedAttachmentPresentations;
+        private ArrayList<Group> groupList;
+        private ArrayList<Integer> iconList;
 
         public Builder() {
         }
@@ -96,6 +110,16 @@ public class TaskPresentation implements Parcelable {
 
         public Builder removedAttachmentPresentations(ArrayList<AttachmentPresentation> val) {
             removedAttachmentPresentations = val;
+            return this;
+        }
+
+        public Builder groupList(ArrayList<Group> val) {
+            groupList = val;
+            return this;
+        }
+
+        public Builder iconList(ArrayList<Integer> val) {
+            iconList = val;
             return this;
         }
 

@@ -14,11 +14,13 @@ import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.AttachmentProvider;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.GroupProvider;
+import io.blackbricks.todomanager.model.IconProvider;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskProvider;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.functions.Func3;
+import rx.functions.Func5;
 
 /**
  * Created by yegorkryndach on 25/04/16.
@@ -33,6 +35,9 @@ public class TaskPresentationProvider {
 
     @Inject
     AttachmentProvider attachmentProvider;
+
+    @Inject
+    IconProvider iconProvider;
 
     @Inject
     public TaskPresentationProvider() {
@@ -84,15 +89,24 @@ public class TaskPresentationProvider {
             groupObservable = Observable.just(new Group.Builder().build());
         }
 
+        Observable<List<Group>> groupListObservable = groupProvider.getGroups();
+        Observable<List<Integer>> iconListObservable = iconProvider.getIcons();
+
         return Observable.combineLatest(taskObservable, groupObservable, attachmentListObservable,
-                new Func3<Task, Group, ArrayList<AttachmentPresentation>, TaskPresentation>() {
+                groupListObservable, iconListObservable,
+                new Func5<Task, Group, ArrayList<AttachmentPresentation>, List<Group>,
+                        List<Integer>, TaskPresentation>() {
                     @Override
-                    public TaskPresentation call(Task task, Group group, ArrayList<AttachmentPresentation> attachments) {
+                    public TaskPresentation call(Task task, Group group,
+                                                 ArrayList<AttachmentPresentation> attachments,
+                                                 List<Group> groups, List<Integer> icons) {
                         return new TaskPresentation.Builder()
                                 .task(task)
                                 .group(group)
                                 .attachmentPresentations(attachments)
                                 .removedAttachmentPresentations(new ArrayList<AttachmentPresentation>())
+                                .groupList(new ArrayList<>(groups))
+                                .iconList(new ArrayList<>(icons))
                                 .build();
                     }
                 });

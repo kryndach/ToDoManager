@@ -93,6 +93,10 @@ public class Task implements Parcelable {
         return groupId;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public static final class Builder {
         private Integer id;
         private Date dateAlarm;

@@ -25,12 +25,4 @@ public class TaskPresenter extends BaseRxLcePresenter<TaskView, TaskPresentation
         subscribe(taskPresentationProvider.getTaskPresentation(taskId, groupId), false);
     }
 
-    public void clearTitle(TaskPresentation taskPresentation) {
-        taskPresentation.getTask().
-        getView().updateTitle();
-    }
-
-    public void setTitle() {
-
-    }
 }

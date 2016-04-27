@@ -133,12 +133,27 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @OnClick(R.id.title_clear_view)
     void onClickClearTitle() {
-        presenter.clearTitle(taskPresentation);
+        taskPresentation.getTask().setTitle(null);
+        titleEditText.setText(null);
+        updateTitleClearButton();
     }
 
     @OnTextChanged(value = R.id.title_edit_text)
     void onTextChangedTitle(CharSequence text){
-        presenter.setTitle(taskPresentation, text);
+        if(text.length() > 0) {
+            taskPresentation.getTask().setTitle(text.toString());
+        } else {
+            taskPresentation.getTask().setTitle(null);
+        }
+        updateTitleClearButton();
+    }
+
+    private void updateTitleClearButton() {
+        if(taskPresentation.getTask().getTitle() == null) {
+            titleClearView.setVisibility(View.GONE);
+        } else {
+            titleClearView.setVisibility(View.VISIBLE);
+        }
     }
 
     // View interface implementation
@@ -146,6 +161,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void setData(TaskPresentation data) {
         this.taskPresentation = data;
+        updateTitleClearButton();
     }
 
     @Override
@@ -154,41 +170,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     public void done() {
-
-    }
-
-    @Override
-    public void updateTitle() {
-
-    }
-
-    @Override
-    public void updateDescription() {
-
-    }
-
-    @Override
-    public void updateGroup() {
-
-    }
-
-    @Override
-    public void updateAlert() {
-
-    }
-
-    @Override
-    public void updateDeadline() {
-
-    }
-
-    @Override
-    public void updateIcon() {
-
-    }
-
-    @Override
-    public void updateAttachments() {
 
     }
 }

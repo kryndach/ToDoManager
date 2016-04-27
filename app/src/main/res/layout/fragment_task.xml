@@ -60,7 +60,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -119,7 +119,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -185,7 +185,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -251,7 +251,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -317,7 +317,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -384,7 +384,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_weight="0"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true">
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
@@ -24,9 +23,6 @@ import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
-import io.blackbricks.todomanager.ui.GroupListAdapter;
-import io.blackbricks.todomanager.ui.IconListAdapter;
-import io.blackbricks.todomanager.ui.ImageListAdapter;
 
 /**
  * Created by yegorkryndach on 19/04/16.

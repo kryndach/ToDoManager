@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.ui;
 
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hannesdorfmann.annotatedadapter.annotation.ViewField;
 import com.hannesdorfmann.annotatedadapter.annotation.ViewType;
@@ -11,13 +12,13 @@ import io.blackbricks.todomanager.R;
 /**
  * Created by yegorkryndach on 26/04/16.
  */
-public class IconListAdapter extends SupportAnnotatedAdapter {
+public class AttachmentListAdapter extends SupportAnnotatedAdapter {
 
-    @ViewType(layout = R.layout.list_icon_item,
+    @ViewType(layout = R.layout.list_attachment_item,
             initMethod = true,
             views = {
                     @ViewField(id = R.id.image, name = "image", type = ImageView.class),
             })
-    public final int iconItem = 0;
+    public final int attachmentItem = 0;
 
 }

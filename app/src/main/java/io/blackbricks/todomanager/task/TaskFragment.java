@@ -129,8 +129,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         taskComponent.inject(this);
     }
 
-    // User actions
+    //// User actions
 
+    // Title
     @OnClick(R.id.title_clear_view)
     void onClickClearTitle() {
         taskPresentation.getTask().setTitle(null);
@@ -156,7 +157,83 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         }
     }
 
-    // View interface implementation
+    // Description
+    @OnClick(R.id.description_clear_view)
+    void onClickClearDescription() {
+        taskPresentation.getTask().setDescription(null);
+        descriptionEditText.setText(null);
+        updateDescriptionClearButton();
+    }
+
+    @OnTextChanged(value = R.id.description_edit_text)
+    void onTextChangedDescription(CharSequence text){
+        if(text.length() > 0) {
+            taskPresentation.getTask().setDescription(text.toString());
+        } else {
+            taskPresentation.getTask().setDescription(null);
+        }
+        updateDescriptionClearButton();
+    }
+
+    private void updateDescriptionClearButton() {
+        if(taskPresentation.getTask().getDescription() == null) {
+            descriptionClearView.setVisibility(View.GONE);
+        } else {
+            descriptionClearView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // Group
+    @OnClick(R.id.group_view)
+    void onClickGroup() {
+
+    }
+
+    @OnClick(R.id.group_clear_view)
+    void onClickClearGroup() {
+
+    }
+
+    // Alert
+    @OnClick(R.id.alarm_view)
+    void onClickAlarm() {
+
+    }
+
+    @OnClick(R.id.alarm_clear_view)
+    void onClickClearAlarm() {
+
+    }
+
+    // Deadline
+    @OnClick(R.id.deadline_view)
+    void onClickDeadline() {
+
+    }
+
+    @OnClick(R.id.deadline_clear_view)
+    void onClickClearDeadline() {
+
+    }
+
+    // Icon
+    @OnClick(R.id.icon_view)
+    void onClickIcon() {
+
+    }
+
+    @OnClick(R.id.icon_clear_view)
+    void onClickClearIcon() {
+
+    }
+
+    // Attachments
+    @OnClick(R.id.photo_view)
+    void onClickAddAttachment() {
+
+    }
+
+    //// View interface implementation
 
     @Override
     public void setData(TaskPresentation data) {

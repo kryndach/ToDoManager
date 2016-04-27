@@ -97,6 +97,42 @@ public class Task implements Parcelable {
         this.title = title;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDateAlarm(Date dateAlarm) {
+        this.dateAlarm = dateAlarm;
+    }
+
+    public void setDateDeadline(Date dateDeadline) {
+        this.dateDeadline = dateDeadline;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setIconId(Integer iconId) {
+        this.iconId = iconId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setDateStatusUpdated(Date dateStatusUpdated) {
+        this.dateStatusUpdated = dateStatusUpdated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     public static final class Builder {
         private Integer id;
         private Date dateAlarm;

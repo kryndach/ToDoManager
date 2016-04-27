@@ -45,7 +45,7 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
     @Override
     public int getItemCount() {
-        return 0;
+        return taskList.size();
     }
 
     @Override

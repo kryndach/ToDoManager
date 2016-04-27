@@ -47,6 +47,7 @@ public class IconListAdapter extends SupportAnnotatedAdapter implements IconList
 
     @Override
     public void bindViewHolder(IconListAdapterHolders.IconItemViewHolder vh, int position) {
-
+        Integer iconId = iconList.get(position);
+        vh.image.setImageResource(iconId);
     }
 }

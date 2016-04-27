@@ -19,8 +19,8 @@ public class TaskPresentation implements Parcelable {
 
     Task task;
     Group group;
-    ArrayList<Attachment> attachments;
-    ArrayList<Attachment> removedAttachments;
+    ArrayList<AttachmentPresentation> attachmentPresentations;
+    ArrayList<AttachmentPresentation> removedAttachmentPresentations;
 
     private TaskPresentation() {
     }
@@ -28,8 +28,8 @@ public class TaskPresentation implements Parcelable {
     private TaskPresentation(Builder builder) {
         task = builder.task;
         group = builder.group;
-        attachments = builder.attachments;
-        removedAttachments = builder.removedAttachments;
+        attachmentPresentations = builder.attachmentPresentations;
+        removedAttachmentPresentations = builder.removedAttachmentPresentations;
     }
 
     public Task getTask() {
@@ -40,12 +40,12 @@ public class TaskPresentation implements Parcelable {
         return group;
     }
 
-    public ArrayList<Attachment> getAttachments() {
-        return attachments;
+    public ArrayList<AttachmentPresentation> getAttachmentPresentations() {
+        return attachmentPresentations;
     }
 
-    public ArrayList<Attachment> getRemovedAttachments() {
-        return removedAttachments;
+    public ArrayList<AttachmentPresentation> getRemovedAttachmentPresentations() {
+        return removedAttachmentPresentations;
     }
 
     @Override
@@ -73,8 +73,8 @@ public class TaskPresentation implements Parcelable {
     public static final class Builder {
         private Task task;
         private Group group;
-        private ArrayList<Attachment> attachments;
-        private ArrayList<Attachment> removedAttachments;
+        private ArrayList<AttachmentPresentation> attachmentPresentations;
+        private ArrayList<AttachmentPresentation> removedAttachmentPresentations;
 
         public Builder() {
         }
@@ -89,13 +89,13 @@ public class TaskPresentation implements Parcelable {
             return this;
         }
 
-        public Builder attachments(ArrayList<Attachment> val) {
-            attachments = val;
+        public Builder attachmentPresentations(ArrayList<AttachmentPresentation> val) {
+            attachmentPresentations = val;
             return this;
         }
 
-        public Builder removedAttachments(ArrayList<Attachment> val) {
-            removedAttachments = val;
+        public Builder removedAttachmentPresentations(ArrayList<AttachmentPresentation> val) {
+            removedAttachmentPresentations = val;
             return this;
         }
 

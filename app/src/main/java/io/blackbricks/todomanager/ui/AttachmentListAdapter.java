@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Attachment;
+import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 
 /**
  * Created by yegorkryndach on 26/04/16.
@@ -27,19 +29,15 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
             })
     public final int attachmentItem = 0;
 
-    ArrayList<Attachment> attachmentList;
+    ArrayList<AttachmentPresentation> attachmentPresentationList;
 
     public AttachmentListAdapter(Context context) {
         super(context);
     }
 
-    public int getAttachmentItem() {
-        return attachmentItem;
-    }
-
     @Override
     public int getItemCount() {
-        return attachmentList.size();
+        return attachmentPresentationList.size();
     }
 
     @Override
@@ -49,6 +47,7 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
 
     @Override
     public void bindViewHolder(AttachmentListAdapterHolders.AttachmentItemViewHolder vh, int position) {
-
+        final AttachmentPresentation attachmentPresentation = attachmentPresentationList.get(position);
+        vh.image.setImageBitmap(attachmentPresentation.getBitmap());
     }
 }

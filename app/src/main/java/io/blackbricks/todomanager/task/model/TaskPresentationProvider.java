@@ -1,7 +1,10 @@
 package io.blackbricks.todomanager.task.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,19 +40,41 @@ public class TaskPresentationProvider {
 
     public Observable<TaskPresentation> getTaskPresentation(@Nullable Integer taskId, @Nullable Integer groupId) {
         Observable<Task> taskObservable;
-        Observable<ArrayList<Attachment>> attachmentListObservable;
+        Observable<ArrayList<AttachmentPresentation>> attachmentListObservable;
         if (taskId != null) {
             taskObservable = taskProvider.getTask(taskId);
             attachmentListObservable = attachmentProvider.getAttachments(taskId)
-                    .map(new Func1<List<Attachment>, ArrayList<Attachment>>() {
+                    .flatMap(new Func1<List<Attachment>, Observable<Attachment>>() {
                         @Override
-                        public ArrayList<Attachment> call(List<Attachment> attachments) {
-                            return new ArrayList<>(attachments);
+                        public Observable<Attachment> call(List<Attachment> attachments) {
+                            return Observable.from(attachments);
+                        }
+                    })
+                    .map(new Func1<Attachment, AttachmentPresentation>() {
+                        @Override
+                        public AttachmentPresentation call(Attachment attachment) {
+                            String path = attachment.getPath();
+                            File file = new File(path);
+                            Bitmap bitmap = null;
+                            if (file.exists()) {
+                                bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            }
+                            return new AttachmentPresentation.Builder()
+                                    .attachment(attachment)
+                                    .bitmap(bitmap)
+                                    .build();
+                        }
+                    })
+                    .toList()
+                    .map(new Func1<List<AttachmentPresentation>, ArrayList<AttachmentPresentation>>() {
+                        @Override
+                        public ArrayList<AttachmentPresentation> call(List<AttachmentPresentation> attachmentPresentations) {
+                            return new ArrayList<>(attachmentPresentations);
                         }
                     });
         } else {
             taskObservable = Observable.just(new Task.Builder().build());
-            attachmentListObservable = Observable.just(new ArrayList<Attachment>());
+            attachmentListObservable = Observable.just(new ArrayList<AttachmentPresentation>());
         }
 
         Observable<Group> groupObservable;
@@ -60,14 +85,14 @@ public class TaskPresentationProvider {
         }
 
         return Observable.combineLatest(taskObservable, groupObservable, attachmentListObservable,
-                new Func3<Task, Group, ArrayList<Attachment>, TaskPresentation>() {
+                new Func3<Task, Group, ArrayList<AttachmentPresentation>, TaskPresentation>() {
                     @Override
-                    public TaskPresentation call(Task task, Group group, ArrayList<Attachment> attachments) {
+                    public TaskPresentation call(Task task, Group group, ArrayList<AttachmentPresentation> attachments) {
                         return new TaskPresentation.Builder()
                                 .task(task)
                                 .group(group)
-                                .attachments(attachments)
-                                .removedAttachments(new ArrayList<Attachment>())
+                                .attachmentPresentations(attachments)
+                                .removedAttachmentPresentations(new ArrayList<AttachmentPresentation>())
                                 .build();
                     }
                 });

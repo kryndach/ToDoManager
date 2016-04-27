@@ -49,6 +49,7 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
 
     @Override
     public void bindViewHolder(GroupListAdapterHolders.GroupItemViewHolder vh, int position) {
-
+        final Group group = groupList.get(position);
+        vh.title.setText(group.getName());
     }
 }

@@ -106,11 +106,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         recreateDatabase(db);
     }
 
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-        recreateDatabase(db);
-    }
-
     private void recreateDatabase(SQLiteDatabase db) {
         // TODO remove this hard reset DB in future
         db.execSQL("PRAGMA writable_schema = 1;" +

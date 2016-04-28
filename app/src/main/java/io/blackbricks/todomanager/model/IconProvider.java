@@ -23,6 +23,14 @@ public class IconProvider {
         ArrayList<Integer> icons = new ArrayList<>();
         icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
         icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+
         return Observable.just((List<Integer>) icons);
     }
 }

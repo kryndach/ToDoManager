@@ -193,6 +193,14 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         }
     }
 
+    private void updateTitle() {
+        if (taskPresentation.getTask().getTitle() == null) {
+            descriptionEditText.setText(null);
+        } else {
+            descriptionEditText.setText(taskPresentation.getTask().getTitle());
+        }
+    }
+
     // Description
     @OnClick(R.id.description_clear_view)
     void onClickClearDescription() {
@@ -216,6 +224,14 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             descriptionClearView.setVisibility(View.GONE);
         } else {
             descriptionClearView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void updateDescription() {
+        if (taskPresentation.getTask().getDescription() == null) {
+            descriptionEditText.setText(null);
+        } else {
+            descriptionEditText.setText(taskPresentation.getTask().getDescription());
         }
     }
 
@@ -399,7 +415,13 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void setData(TaskPresentation data) {
         this.taskPresentation = data;
-        updateTitleClearButton();
+        updateTitle();
+        updateDescription();
+        updateGroup();
+        updateAlarm();
+        updateDeadline();
+        updateIcon();
+        attachmentListAdapter.setAttachmentPresentationList(data.getAttachmentPresentations());
     }
 
     @Override

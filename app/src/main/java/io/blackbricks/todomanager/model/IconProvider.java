@@ -1,5 +1,6 @@
 package io.blackbricks.todomanager.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class IconProvider {
     }
 
     public Observable<List<Integer>> getIcons(){
-        return Observable.empty();
+        List<Integer> icons = new ArrayList<>();
+        return Observable.just(icons);
     }
 }

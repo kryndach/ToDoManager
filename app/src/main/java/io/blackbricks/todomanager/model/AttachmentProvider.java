@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.model;
 
 import com.squareup.sqlbrite.BriteDatabase;
+import com.squareup.sqlbrite.SqlBrite;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.transforms.CursorToAttachment;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 
 /**
  * Created by yegorkryndach on 19/04/16.

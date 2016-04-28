@@ -44,6 +44,14 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
         this.attachmentClickListener = attachmentClickListener;
     }
 
+    public ArrayList<AttachmentPresentation> getAttachmentPresentationList() {
+        return attachmentPresentationList;
+    }
+
+    public void setAttachmentPresentationList(ArrayList<AttachmentPresentation> attachmentPresentationList) {
+        this.attachmentPresentationList = attachmentPresentationList;
+    }
+
     @Override
     public int getItemCount() {
         return attachmentPresentationList == null ? 0 : attachmentPresentationList.size();

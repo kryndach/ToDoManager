@@ -59,9 +59,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @Bind(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
-
     @Inject
     IntentStarter intentStarter;
 

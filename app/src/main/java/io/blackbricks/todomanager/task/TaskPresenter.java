@@ -25,4 +25,11 @@ public class TaskPresenter extends BaseRxLcePresenter<TaskView, TaskPresentation
         subscribe(taskPresentationProvider.getTaskPresentation(taskId, groupId), false);
     }
 
+    @Override
+    protected void onNext(TaskPresentation data) {
+        if (isViewAttached()) {
+            getView().setData(data);
+            getView().showContent();
+        }
+    }
 }

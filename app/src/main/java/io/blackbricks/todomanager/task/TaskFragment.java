@@ -199,6 +199,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         } else {
             descriptionEditText.setText(taskPresentation.getTask().getTitle());
         }
+        updateTitleClearButton();
     }
 
     // Description
@@ -422,6 +423,11 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         updateDeadline();
         updateIcon();
         attachmentListAdapter.setAttachmentPresentationList(data.getAttachmentPresentations());
+        attachmentListAdapter.notifyDataSetChanged();
+        iconListAdapter.setIconList(data.getIconList());
+        iconListAdapter.notifyDataSetChanged();
+        groupListAdapter.setGroupList(data.getGroupList());
+        groupListAdapter.notifyDataSetChanged();
     }
 
     @Override

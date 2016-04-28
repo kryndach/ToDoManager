@@ -41,8 +41,12 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
         this.groupClickListener = groupClickListener;
     }
 
-    public int getGroupItem() {
-        return groupItem;
+    public ArrayList<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(ArrayList<Group> groupList) {
+        this.groupList = groupList;
     }
 
     @Override

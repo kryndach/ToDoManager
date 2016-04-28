@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.blackbricks.todomanager.R;
 import rx.Observable;
 
 /**
@@ -19,7 +20,9 @@ public class IconProvider {
     }
 
     public Observable<List<Integer>> getIcons(){
-        List<Integer> icons = new ArrayList<>();
-        return Observable.just(icons);
+        ArrayList<Integer> icons = new ArrayList<>();
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        icons.add(R.drawable.ic_assignment_turned_in_black_24dp);
+        return Observable.just((List<Integer>) icons);
     }
 }

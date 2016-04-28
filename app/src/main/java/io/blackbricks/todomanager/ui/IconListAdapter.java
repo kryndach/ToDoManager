@@ -39,8 +39,12 @@ public class IconListAdapter extends SupportAnnotatedAdapter implements IconList
         this.iconClickListener = iconClickListener;
     }
 
-    public int getIconItem() {
-        return iconItem;
+    public ArrayList<Integer> getIconList() {
+        return iconList;
+    }
+
+    public void setIconList(ArrayList<Integer> iconList) {
+        this.iconList = iconList;
     }
 
     @Override

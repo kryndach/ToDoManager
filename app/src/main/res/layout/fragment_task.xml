@@ -4,18 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/loadingView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#0F0"
-        android:orientation="vertical"></LinearLayout>
-
-    <TextView
-        android:id="@+id/errorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F00" />
+    <include layout="@layout/view_loading"/>
+    <include layout="@layout/view_error"/>
 
     <ScrollView
         android:id="@+id/contentView"

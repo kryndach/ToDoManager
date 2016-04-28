@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <include layout="@layout/view_loading" />
+
+    <include layout="@layout/view_error" />
 
     <FrameLayout
         android:id="@+id/contentView"
@@ -10,14 +14,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#e222"
-            android:clipToPadding="false"
-            android:paddingBottom="88dp"
-            android:paddingTop="8dp" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e222"
+                android:clipToPadding="false"
+                android:paddingBottom="88dp"
+                android:paddingTop="8dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.melnykov.fab.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/addButton"
@@ -33,19 +43,4 @@
             fab:fab_colorRipple="@color/colorPrimaryDark" />
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/loadingView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#0F0">
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/errorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F00"/>
-
-</LinearLayout>
+</FrameLayout>

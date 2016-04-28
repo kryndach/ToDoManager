@@ -279,7 +279,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.alarm_clear_view)
     void onClickClearAlarm() {
         taskPresentation.getTask().setDateAlarm(null);
-        updateDeadline();
+        updateAlarm();
     }
 
     private void updateAlarm() {

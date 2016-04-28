@@ -87,7 +87,7 @@ public class TaskPresentationProvider {
         if (groupId != null) {
             groupObservable = groupProvider.getGroup(groupId);
         } else {
-            groupObservable = Observable.just(new Group.Builder().build());
+            groupObservable = Observable.just(null);
         }
 
         Observable<List<Group>> groupListObservable = groupProvider.getGroups();

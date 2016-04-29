@@ -2,6 +2,8 @@ package io.blackbricks.todomanager.dagger;
 
 import android.content.Context;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -20,6 +22,10 @@ public class ToDoManagerModule {
 
     public ToDoManagerModule(ToDoManagerApp app) {
         this.app = app;
+    }
+
+    @Singleton @Provides public EventBus providesEventBus() {
+        return EventBus.getDefault();
     }
 
     @Provides

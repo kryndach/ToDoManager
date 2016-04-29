@@ -14,11 +14,11 @@ import io.blackbricks.todomanager.task.model.TaskPresentationProvider;
  */
 public class TaskPresenter extends BaseRxLcePresenter<TaskView, TaskPresentation> {
 
-    @Inject
-    TaskPresentationProvider taskPresentationProvider;
+    private TaskPresentationProvider taskPresentationProvider;
 
     @Inject
-    public TaskPresenter() {
+    public TaskPresenter(TaskPresentationProvider taskPresentationProvider) {
+        this.taskPresentationProvider = taskPresentationProvider;
     }
 
     public void loadTask(@Nullable Integer taskId, @Nullable Integer groupId) {

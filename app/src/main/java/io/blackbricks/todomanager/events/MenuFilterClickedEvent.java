@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.event;
+package io.blackbricks.todomanager.events;
 
 import io.blackbricks.todomanager.model.Filter;
 
@@ -6,25 +6,13 @@ import io.blackbricks.todomanager.model.Filter;
  * Created by yegorkryndach on 25/04/16.
  */
 public class MenuFilterClickedEvent {
-    Filter filter;
-    String groupId;
-    String title;
+    public final Filter filter;
+    public final String groupId;
+    public final String title;
 
     public MenuFilterClickedEvent(Filter filter, String groupId, String title) {
         this.filter = filter;
         this.groupId = groupId;
         this.title = title;
-    }
-
-    public Filter getFilter() {
-        return filter;
-    }
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }

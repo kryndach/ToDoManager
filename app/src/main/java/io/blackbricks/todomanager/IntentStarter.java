@@ -52,7 +52,7 @@ public class IntentStarter {
         context.startActivity(i);
     }
 
-    private void editTask(Context context, Integer taskId) {
+    public void editTask(Context context, Integer taskId) {
         Intent i = new Intent(context, TaskActivity.class);
         i.putExtra(TaskActivity.KEY_TASK_ID, taskId);
         i.putExtra(TaskActivity.KEY_TITLE, "Edit task");

@@ -68,7 +68,9 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
     @Override
     public void bindViewHolder(TaskListAdapterHolders.TaskItemViewHolder vh, int position) {
         final Task task = taskList.get(position);
-        vh.icon.setImageResource(task.getIconId());
+        if (task.getIconId() != null) {
+            vh.icon.setImageResource(task.getIconId());
+        }
         vh.title.setText(task.getTitle());
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

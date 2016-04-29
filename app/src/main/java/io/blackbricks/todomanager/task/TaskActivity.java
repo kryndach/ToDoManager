@@ -85,12 +85,20 @@ public class TaskActivity extends BaseActivity {
                 }
             });
 
-            toolbar.inflateMenu(R.menu.task_menu);
+            if (taskId != null) {
+                toolbar.inflateMenu(R.menu.edit_task_menu);
+            } else {
+                toolbar.inflateMenu(R.menu.create_task_menu);
+            }
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.done) {
                         fragment.done();
+                        return true;
+                    }
+                    if (item.getItemId() == R.id.save) {
+                        fragment.save();
                         return true;
                     }
                     return false;

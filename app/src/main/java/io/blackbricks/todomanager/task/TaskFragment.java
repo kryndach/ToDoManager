@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -36,6 +38,7 @@ import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
+import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
@@ -100,6 +103,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     ViewGroup photoView;
     @Bind(R.id.photo_list)
     RecyclerView photoList;
+
+    @Inject
+    DatabaseOperationHelper dbOperationHelper;
 
     private AlertDialog dialog;
 
@@ -436,7 +442,13 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     public void done() {
+        dbOperationHelper.createTask(taskPresentation.getTask());
+        getActivity().finish();
+    }
 
+    public void save() {
+        dbOperationHelper.updateTask(taskPresentation.getTask());
+        getActivity().finish();
     }
 
     //// Adapters interface

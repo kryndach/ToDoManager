@@ -26,6 +26,7 @@ import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
+import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
@@ -56,6 +57,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Inject
     IntentStarter intentStarter;
+
+    @Inject
+    DatabaseOperationHelper dbOperationHelper;
 
     private TaskListPresentation taskListPresentation;
     private TaskListAdapter taskListAdapter;
@@ -158,13 +162,14 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void onTaskClicked(Task task, int position) {
-        taskListAdapter.closeAllExcept(null);
         intentStarter.editTask(getActivity(), task.getId());
     }
 
     @Override
     public void onTaskDelete(Task task, int position) {
-
+        dbOperationHelper.deleteTask(task.getId());
+        taskListAdapter.closeAllItems();
+        taskListAdapter.notifyItemRemoved(position);
     }
 
     @Override

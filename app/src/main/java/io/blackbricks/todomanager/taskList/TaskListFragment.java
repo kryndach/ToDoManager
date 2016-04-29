@@ -35,7 +35,7 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
  * Created by yegorkryndach on 19/04/16.
  */
 public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter>
-        implements TaskListView, TaskListAdapter.TaskClickListener {
+        implements TaskListView, TaskListAdapter.TaskClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Arg
     Filter.Type type;
@@ -72,6 +72,8 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         taskListAdapter = new TaskListAdapter(getActivity(), null, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -112,7 +114,19 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void loadData(boolean pullToRefresh) {
-        presenter.loadTaskList(type, groupId);
+        presenter.loadTaskList(type, groupId, pullToRefresh);
+    }
+
+    @Override
+    public void showContent() {
+        super.showContent();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showError(Throwable e, boolean pullToRefresh) {
+        super.showError(e, pullToRefresh);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -128,5 +142,10 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onTaskClicked(Task task) {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        loadData(true);
     }
 }

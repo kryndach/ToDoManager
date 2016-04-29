@@ -24,8 +24,8 @@ public class TaskListPresenter extends BaseRxLcePresenter<TaskListView, TaskList
         this.taskListPresentationProvider = taskListPresentationProvider;
     }
 
-    public void loadTaskList(Filter.Type type, @Nullable Integer groupId) {
-        subscribe(taskListPresentationProvider.getTaskListPresentation(type, groupId), false);
+    public void loadTaskList(Filter.Type type, @Nullable Integer groupId, boolean pullToRefresh) {
+        subscribe(taskListPresentationProvider.getTaskListPresentation(type, groupId), pullToRefresh);
     }
 
     @Override

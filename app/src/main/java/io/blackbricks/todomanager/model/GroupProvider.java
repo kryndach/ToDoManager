@@ -31,6 +31,7 @@ public class GroupProvider {
     public Observable<List<Group>> getGroups(){
         return database.createQuery(DatabaseHelper.TABLE_GROUP, "SELECT * FROM " + DatabaseHelper.TABLE_GROUP)
                 .mapToList(new CursorToGroup())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -39,6 +40,7 @@ public class GroupProvider {
         return database.createQuery(DatabaseHelper.TABLE_GROUP,
                 "SELECT * FROM " + DatabaseHelper.TABLE_GROUP + condition)
                 .mapToOne(new CursorToGroup())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

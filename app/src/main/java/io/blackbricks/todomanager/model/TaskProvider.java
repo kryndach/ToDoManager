@@ -98,6 +98,7 @@ public class TaskProvider {
         return database.createQuery(DatabaseHelper.TABLE_TASK,
                 "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToList(new CursorToTask())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -106,6 +107,7 @@ public class TaskProvider {
         return database.createQuery(DatabaseHelper.TABLE_TASK,
                 "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
                 .mapToOne(new CursorToTask())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

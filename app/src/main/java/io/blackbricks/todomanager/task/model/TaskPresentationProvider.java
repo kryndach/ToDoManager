@@ -50,28 +50,28 @@ public class TaskPresentationProvider {
         if (taskId != null) {
             taskObservable = taskProvider.getTask(taskId);
             attachmentListObservable = attachmentProvider.getAttachments(taskId)
-                    .flatMap(new Func1<List<Attachment>, Observable<List<AttachmentPresentation>>>() {
+                    .flatMap(new Func1<List<Attachment>, Observable<Attachment>>() {
                         @Override
-                        public Observable<List<AttachmentPresentation>> call(List<Attachment> attachments) {
-                            return Observable.from(attachments)
-                                    .map(new Func1<Attachment, AttachmentPresentation>() {
-                                        @Override
-                                        public AttachmentPresentation call(Attachment attachment) {
-                                            String path = attachment.getPath();
-                                            File file = new File(path);
-                                            Bitmap bitmap = null;
-                                            if (file.exists()) {
-                                                bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                                            }
-                                            return new AttachmentPresentation.Builder()
-                                                    .attachment(attachment)
-                                                    .bitmap(bitmap)
-                                                    .build();
-                                        }
-                                    })
-                                    .toList();
+                        public Observable<Attachment> call(List<Attachment> attachments) {
+                            return Observable.from(attachments);
                         }
                     })
+                    .map(new Func1<Attachment, AttachmentPresentation>() {
+                        @Override
+                        public AttachmentPresentation call(Attachment attachment) {
+                            String path = attachment.getPath();
+                            File file = new File(path);
+                            Bitmap bitmap = null;
+                            if (file.exists()) {
+                                bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            }
+                            return new AttachmentPresentation.Builder()
+                                    .attachment(attachment)
+                                    .bitmap(bitmap)
+                                    .build();
+                        }
+                    })
+                    .toList()
                     .map(new Func1<List<AttachmentPresentation>, ArrayList<AttachmentPresentation>>() {
                         @Override
                         public ArrayList<AttachmentPresentation> call(List<AttachmentPresentation> attachmentPresentations) {

@@ -32,6 +32,7 @@ public class AttachmentProvider {
                 "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT +
                 " WHERE " + DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN + " = " + taskId)
                 .mapToList(new CursorToAttachment())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -40,6 +41,7 @@ public class AttachmentProvider {
         return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
                 "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT + condition)
                 .mapToOne(new CursorToAttachment())
+                .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

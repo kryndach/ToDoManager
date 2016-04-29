@@ -4,13 +4,20 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl;
+import com.daimajia.swipe.interfaces.SwipeAdapterInterface;
+import com.daimajia.swipe.interfaces.SwipeItemMangerInterface;
+import com.daimajia.swipe.util.Attributes;
 import com.hannesdorfmann.annotatedadapter.annotation.ViewField;
 import com.hannesdorfmann.annotatedadapter.annotation.ViewType;
 import com.hannesdorfmann.annotatedadapter.support.recyclerview.SupportAnnotatedAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Task;
@@ -18,11 +25,26 @@ import io.blackbricks.todomanager.model.Task;
 /**
  * Created by yegorkryndach on 22/04/16.
  */
-public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskListAdapterBinder {
+public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskListAdapterBinder,
+        SwipeItemMangerInterface, SwipeAdapterInterface {
 
     public interface TaskClickListener {
-        public void onTaskClicked(Task task);
+        public void onTaskClicked(Task task, int position);
     }
+
+    public interface TaskDoneListener {
+        public void onTaskDone(Task task, int position);
+    }
+
+    public interface TaskHotListener {
+        public void onTaskHot(Task task, int position);
+    }
+
+    public interface TaskDeleteListener {
+        public void onTaskDelete(Task task, int position);
+    }
+
+    public SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
     @ViewType(layout = R.layout.list_task_item,
             initMethod = true,
@@ -30,17 +52,30 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.title, name = "title", type = TextView.class),
                     @ViewField(id = R.id.description, name = "description", type = TextView.class),
+                    @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
+                    @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
+                    @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
+                    @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
             })
     public final int taskItem = 0;
 
     ArrayList<Task> taskList;
 
     private TaskClickListener taskClickListener;
+    private TaskDoneListener taskDoneListener;
+    private TaskHotListener taskHotListener;
+    private TaskDeleteListener taskDeleteListener;
 
-    public TaskListAdapter(Context context, ArrayList<Task> taskList, TaskClickListener taskClickListener) {
+
+    public TaskListAdapter(Context context, ArrayList<Task> taskList,
+                           TaskClickListener taskClickListener, TaskDoneListener taskDoneListener,
+                           TaskHotListener taskHotListener, TaskDeleteListener taskDeleteListener) {
         super(context);
         this.taskList = taskList;
         this.taskClickListener = taskClickListener;
+        this.taskDoneListener = taskDoneListener;
+        this.taskHotListener = taskHotListener;
+        this.taskDeleteListener = taskDeleteListener;
     }
 
     public void setTaskClickListener(TaskClickListener taskClickListener) {
@@ -66,17 +101,92 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
     }
 
     @Override
-    public void bindViewHolder(TaskListAdapterHolders.TaskItemViewHolder vh, int position) {
+    public void bindViewHolder(TaskListAdapterHolders.TaskItemViewHolder vh, final int position) {
         final Task task = taskList.get(position);
         if (task.getIconId() != null) {
             vh.icon.setImageResource(task.getIconId());
         }
         vh.title.setText(task.getTitle());
-        vh.itemView.setOnClickListener(new View.OnClickListener() {
+
+        mItemManger.bindView(vh.itemView, position);
+        vh.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskClickListener.onTaskClicked(task);
+                taskClickListener.onTaskClicked(task, position);
             }
         });
+        vh.done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskDoneListener.onTaskDone(task, position);
+            }
+        });
+        vh.hot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskHotListener.onTaskHot(task, position);
+            }
+        });
+        vh.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskDeleteListener.onTaskDelete(task, position);
+            }
+        });
+    }
+
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe_layout;
+    }
+
+    @Override
+    public void openItem(int position) {
+        mItemManger.openItem(position);
+    }
+
+    @Override
+    public void closeItem(int position) {
+        mItemManger.closeItem(position);
+    }
+
+    @Override
+    public void closeAllExcept(SwipeLayout layout) {
+        mItemManger.closeAllExcept(layout);
+    }
+
+    @Override
+    public void closeAllItems() {
+        mItemManger.closeAllItems();
+    }
+
+    @Override
+    public List<Integer> getOpenItems() {
+        return mItemManger.getOpenItems();
+    }
+
+    @Override
+    public List<SwipeLayout> getOpenLayouts() {
+        return mItemManger.getOpenLayouts();
+    }
+
+    @Override
+    public void removeShownLayouts(SwipeLayout layout) {
+        mItemManger.removeShownLayouts(layout);
+    }
+
+    @Override
+    public boolean isOpen(int position) {
+        return mItemManger.isOpen(position);
+    }
+
+    @Override
+    public Attributes.Mode getMode() {
+        return mItemManger.getMode();
+    }
+
+    @Override
+    public void setMode(Attributes.Mode mode) {
+        mItemManger.setMode(mode);
     }
 }

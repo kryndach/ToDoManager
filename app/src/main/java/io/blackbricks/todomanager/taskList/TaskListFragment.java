@@ -35,7 +35,9 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
  * Created by yegorkryndach on 19/04/16.
  */
 public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPresentation, TaskListView, TaskListPresenter>
-        implements TaskListView, TaskListAdapter.TaskClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements TaskListView, TaskListAdapter.TaskClickListener,
+        SwipeRefreshLayout.OnRefreshListener, TaskListAdapter.TaskDeleteListener,
+        TaskListAdapter.TaskDoneListener, TaskListAdapter.TaskHotListener {
 
     @Arg
     Filter.Type type;
@@ -75,9 +77,18 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        taskListAdapter = new TaskListAdapter(getActivity(), null, this);
+        taskListAdapter = new TaskListAdapter(getActivity(), null, this, this, this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(taskListAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (taskListAdapter.getOpenItems().size() > 0) {
+                    taskListAdapter.closeAllExcept(null);
+                }
+            }
+        });
     }
 
     @Override
@@ -110,6 +121,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
         this.taskListPresentation = data;
         taskListAdapter.setTaskList(data.getTaskList());
         taskListAdapter.notifyDataSetChanged();
+        taskListAdapter.closeAllExcept(null);
     }
 
     @Override
@@ -140,12 +152,28 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public void onTaskClicked(Task task) {
+    public void onRefresh() {
+        loadData(true);
+    }
+
+    @Override
+    public void onTaskClicked(Task task, int position) {
+        taskListAdapter.closeAllExcept(null);
         intentStarter.editTask(getActivity(), task.getId());
     }
 
     @Override
-    public void onRefresh() {
-        loadData(true);
+    public void onTaskDelete(Task task, int position) {
+
+    }
+
+    @Override
+    public void onTaskDone(Task task, int position) {
+
+    }
+
+    @Override
+    public void onTaskHot(Task task, int position) {
+
     }
 }

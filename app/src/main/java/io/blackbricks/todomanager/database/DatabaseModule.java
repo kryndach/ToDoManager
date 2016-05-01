@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.database;
 
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
@@ -19,4 +21,11 @@ public class DatabaseModule {
         return sqlBrite.wrapDatabaseHelper(databaseHelper, Schedulers.io());
     }
 
+    @Provides
+    @Singleton
+    StorIOSQLite storIOSQLiteProvider(DatabaseHelper databaseHelper) {
+        return DefaultStorIOSQLite.builder()
+                .sqliteOpenHelper(databaseHelper)
+                .build();
+    }
 }

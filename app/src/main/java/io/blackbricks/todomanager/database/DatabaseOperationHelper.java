@@ -32,7 +32,7 @@ public class DatabaseOperationHelper {
     // Group
 
     public void updateGroupTaskCount() {
-        database.executeAndTrigger("groups", "UPDATE " + DatabaseHelper.TABLE_GROUP
+        database.execute("UPDATE " + DatabaseHelper.TABLE_GROUP
                 + " SET " + DatabaseHelper.GROUP_TASK_COUNT_COLUMN + " = "
                 + " ("
                 + " SELECT COUNT(*) FROM " + DatabaseHelper.TABLE_TASK

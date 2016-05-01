@@ -1,5 +1,6 @@
 package io.blackbricks.todomanager.model;
 
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
@@ -22,6 +23,9 @@ public class AttachmentProvider {
 
     @Inject
     BriteDatabase database;
+
+    @Inject
+    StorIOSQLite storIO;
 
     @Inject
     public AttachmentProvider() {

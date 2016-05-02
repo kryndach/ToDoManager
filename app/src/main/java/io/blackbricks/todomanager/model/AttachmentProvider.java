@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.model;
 
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
@@ -31,11 +32,17 @@ public class AttachmentProvider {
     public AttachmentProvider() {
     }
 
-    public Observable<List<Attachment>> getAttachments(Integer taskId){
-        return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
-                "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT +
-                " WHERE " + DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN + " = " + taskId)
-                .mapToList(new CursorToAttachment())
+    public Observable<List<Attachment>> getAttachments(Integer taskId) {
+        return storIO
+                .get()
+                .listOfObjects(Attachment.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_ATTACHMENT)
+                        .where(DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN + " = ?")
+                        .whereArgs(taskId)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }

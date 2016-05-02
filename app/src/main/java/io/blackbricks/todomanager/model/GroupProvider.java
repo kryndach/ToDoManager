@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.model;
 
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.QueryObservable;
 import com.squareup.sqlbrite.SqlBrite;
@@ -25,12 +27,21 @@ public class GroupProvider {
     BriteDatabase database;
 
     @Inject
+    StorIOSQLite storIO;
+
+    @Inject
     public GroupProvider() {
     }
 
     public Observable<List<Group>> getGroups(){
-        return database.createQuery(DatabaseHelper.TABLE_GROUP, "SELECT * FROM " + DatabaseHelper.TABLE_GROUP)
-                .mapToList(new CursorToGroup())
+        return storIO
+                .get()
+                .listOfObjects(Group.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_GROUP)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -201,9 +201,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void updateTitle() {
         if (taskPresentation.getTask().getTitle() == null) {
-            descriptionEditText.setText(null);
+            titleEditText.setText(null);
         } else {
-            descriptionEditText.setText(taskPresentation.getTask().getDescription());
+            titleEditText.setText(taskPresentation.getTask().getTitle());
         }
         updateTitleClearButton();
     }

@@ -4,17 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
+
+import io.blackbricks.todomanager.database.DatabaseHelper;
 
 /**
  * Created by yegorkryndach on 14/04/16.
  */
+
+@StorIOSQLiteType(table = "attachments")
 @ParcelablePlease
 public class Attachment implements Parcelable {
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
     Integer id;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.ATTACHMENT_FILE_PATH_COLUMN)
     String path;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.ATTACHMENT_TASK_ID_COLUMN)
     Integer taskId;
 
-    private Attachment() {
+    Attachment() {
     }
 
     private Attachment(Builder builder) {

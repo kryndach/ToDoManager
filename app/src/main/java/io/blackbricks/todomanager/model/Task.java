@@ -4,12 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
 import java.util.Date;
+
+import io.blackbricks.todomanager.database.DatabaseHelper;
 
 /**
  * Created by yegorkryndach on 14/04/16.
  */
+
+@StorIOSQLiteType(table = "tasks")
 @ParcelablePlease
 public class Task implements Parcelable {
 
@@ -26,18 +32,38 @@ public class Task implements Parcelable {
             return value;
         }
     }
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
     Integer id;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_ALARM_COLUMN)
     Date dateAlarm;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_CREATED_COLUMN)
     Date dateCreated;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN)
     Date dateDeadline;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN)
     Date dateStatusUpdated;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DESCRIPTION_COLUMN)
     String description;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_ICON_ID_COLUMN)
     Integer iconId;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_STATUS_COLUMN)
     Status status;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_TITLE_COLUMN)
     String title;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.TASK_GROUP_ID_COLUMN)
     Integer groupId;
 
-    private Task() {
+    Task() {
     }
 
     private Task(Builder builder) {

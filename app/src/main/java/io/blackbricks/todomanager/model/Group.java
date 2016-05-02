@@ -4,18 +4,31 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
+
+import io.blackbricks.todomanager.database.DatabaseHelper;
 
 /**
  * Created by yegorkryndach on 14/04/16.
  */
+@StorIOSQLiteType(table = "groups")
 @ParcelablePlease
 public class Group implements Parcelable {
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
     Integer id;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_NAME_COLUMN)
     String name;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_TASK_COUNT_COLUMN)
     Integer taskCount;
+
+    @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN)
     Integer hotTaskCount;
 
-    private Group() {
+    Group() {
     }
 
     private Group(Builder builder) {

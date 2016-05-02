@@ -16,7 +16,7 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 @ParcelablePlease
 public class Group implements Parcelable {
 
-    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
     Integer id;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_NAME_COLUMN)

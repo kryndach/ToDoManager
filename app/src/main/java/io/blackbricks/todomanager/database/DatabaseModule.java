@@ -1,5 +1,6 @@
 package io.blackbricks.todomanager.database;
 
+import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -9,6 +10,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.blackbricks.todomanager.model.Attachment;
 import rx.schedulers.Schedulers;
 
 @Module

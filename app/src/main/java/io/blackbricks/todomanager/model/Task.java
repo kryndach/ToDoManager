@@ -33,20 +33,20 @@ public class Task implements Parcelable {
         }
     }
 
-    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
     Integer id;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_ALARM_COLUMN)
-    Date dateAlarm;
+    Long dateAlarm;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_CREATED_COLUMN)
-    Date dateCreated;
+    Long dateCreated;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN)
-    Date dateDeadline;
+    Long dateDeadline;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN)
-    Date dateStatusUpdated;
+    Long dateStatusUpdated;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DESCRIPTION_COLUMN)
     String description;
@@ -55,7 +55,7 @@ public class Task implements Parcelable {
     Integer iconId;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_STATUS_COLUMN)
-    Status status;
+    Integer status;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_TITLE_COLUMN)
     String title;
@@ -67,36 +67,20 @@ public class Task implements Parcelable {
     }
 
     private Task(Builder builder) {
-        id = builder.id;
+        setId(builder.id);
         dateAlarm = builder.dateAlarm;
         dateCreated = builder.dateCreated;
         dateDeadline = builder.dateDeadline;
         dateStatusUpdated = builder.dateStatusUpdated;
-        description = builder.description;
-        iconId = builder.iconId;
+        setDescription(builder.description);
+        setIconId(builder.iconId);
         status = builder.status;
-        title = builder.title;
-        groupId = builder.groupId;
+        setTitle(builder.title);
+        setGroupId(builder.groupId);
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public Date getDateAlarm() {
-        return dateAlarm;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public Date getDateDeadline() {
-        return dateDeadline;
-    }
-
-    public Date getDateStatusUpdated() {
-        return dateStatusUpdated;
     }
 
     public String getDescription() {
@@ -107,10 +91,6 @@ public class Task implements Parcelable {
         return iconId;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -119,20 +99,32 @@ public class Task implements Parcelable {
         return groupId;
     }
 
+    public Date getDateAlarm() {
+        return new Date(dateAlarm);
+    }
+
+    public Date getDateCreated() {
+        return new Date(dateCreated);
+    }
+
+    public Date getDateDeadline() {
+        return new Date(dateDeadline);
+    }
+
+    public Date getDateStatusUpdated() {
+        return new Date(dateStatusUpdated);
+    }
+
+    public Status getStatus() {
+        return Status.values()[status];
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setDateAlarm(Date dateAlarm) {
-        this.dateAlarm = dateAlarm;
-    }
-
-    public void setDateDeadline(Date dateDeadline) {
-        this.dateDeadline = dateDeadline;
     }
 
     public void setDescription(String description) {
@@ -147,27 +139,35 @@ public class Task implements Parcelable {
         this.groupId = groupId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setDateStatusUpdated(Date dateStatusUpdated) {
-        this.dateStatusUpdated = dateStatusUpdated;
+    public void setDateAlarm(Date dateAlarm) {
+        this.dateAlarm = dateAlarm.getTime();
     }
 
     public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+        this.dateCreated = dateCreated.getTime();
+    }
+
+    public void setDateDeadline(Date dateDeadline) {
+        this.dateDeadline = dateDeadline.getTime();
+    }
+
+    public void setDateStatusUpdated(Date dateStatusUpdated) {
+        this.dateStatusUpdated = dateStatusUpdated.getTime();
+    }
+
+    public void setStatus(Status status) {
+        this.status = status.getValue();
     }
 
     public static final class Builder {
         private Integer id;
-        private Date dateAlarm;
-        private Date dateCreated;
-        private Date dateDeadline;
-        private Date dateStatusUpdated;
+        private Long dateAlarm;
+        private Long dateCreated;
+        private Long dateDeadline;
+        private Long dateStatusUpdated;
         private String description;
         private Integer iconId;
-        private Status status;
+        private Integer status;
         private String title;
         private Integer groupId;
 
@@ -179,22 +179,22 @@ public class Task implements Parcelable {
             return this;
         }
 
-        public Builder dateAlarm(Date val) {
+        public Builder dateAlarm(Long val) {
             dateAlarm = val;
             return this;
         }
 
-        public Builder dateCreated(Date val) {
+        public Builder dateCreated(Long val) {
             dateCreated = val;
             return this;
         }
 
-        public Builder dateDeadline(Date val) {
+        public Builder dateDeadline(Long val) {
             dateDeadline = val;
             return this;
         }
 
-        public Builder dateStatusUpdated(Date val) {
+        public Builder dateStatusUpdated(Long val) {
             dateStatusUpdated = val;
             return this;
         }
@@ -209,7 +209,7 @@ public class Task implements Parcelable {
             return this;
         }
 
-        public Builder status(Status val) {
+        public Builder status(Integer val) {
             status = val;
             return this;
         }

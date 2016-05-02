@@ -17,7 +17,7 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 @ParcelablePlease
 public class Attachment implements Parcelable {
 
-    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN)
+    @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
     Integer id;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.ATTACHMENT_FILE_PATH_COLUMN)

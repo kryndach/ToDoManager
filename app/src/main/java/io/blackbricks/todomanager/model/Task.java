@@ -179,23 +179,23 @@ public class Task implements Parcelable {
             return this;
         }
 
-        public Builder dateAlarm(Long val) {
-            dateAlarm = val;
+        public Builder dateAlarm(Date val) {
+            dateAlarm = val.getTime();
             return this;
         }
 
-        public Builder dateCreated(Long val) {
-            dateCreated = val;
+        public Builder dateCreated(Date val) {
+            dateCreated = val.getTime();
             return this;
         }
 
-        public Builder dateDeadline(Long val) {
-            dateDeadline = val;
+        public Builder dateDeadline(Date val) {
+            dateDeadline = val.getTime();
             return this;
         }
 
-        public Builder dateStatusUpdated(Long val) {
-            dateStatusUpdated = val;
+        public Builder dateStatusUpdated(Date val) {
+            dateStatusUpdated = val.getTime();
             return this;
         }
 
@@ -209,8 +209,8 @@ public class Task implements Parcelable {
             return this;
         }
 
-        public Builder status(Integer val) {
-            status = val;
+        public Builder status(Status val) {
+            status = val.getValue();
             return this;
         }
 

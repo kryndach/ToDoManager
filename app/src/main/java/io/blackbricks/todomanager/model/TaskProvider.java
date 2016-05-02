@@ -2,6 +2,8 @@ package io.blackbricks.todomanager.model;
 
 import android.support.annotation.Nullable;
 
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.squareup.sqlbrite.BriteDatabase;
 
 import java.util.Calendar;
@@ -26,6 +28,9 @@ public class TaskProvider {
     BriteDatabase database;
 
     @Inject
+    StorIOSQLite storIO;
+
+    @Inject
     public TaskProvider() {
     }
 
@@ -33,7 +38,7 @@ public class TaskProvider {
         String condition;
         switch (filterType) {
             case INBOX: {
-                condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " IS NULL";
+                condition = DatabaseHelper.TASK_GROUP_ID_COLUMN + " IS NULL";
                 break;
             }
             case TODAY: {
@@ -44,7 +49,7 @@ public class TaskProvider {
                 Date todayStart = calendar.getTime();
                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                 Date todayEnd = calendar.getTime();
-                condition = " WHERE " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + todayStart.getTime()
+                condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + todayStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + todayEnd.getTime();
                 break;
             }
@@ -57,7 +62,7 @@ public class TaskProvider {
                 Date tomorrowStart = calendar.getTime();
                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                 Date tomorrowEnd = calendar.getTime();
-                condition = " WHERE " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + tomorrowStart.getTime()
+                condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + tomorrowStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + tomorrowEnd.getTime();
                 break;
             }
@@ -70,24 +75,24 @@ public class TaskProvider {
                 Date weekStart = calendar.getTime();
                 calendar.add(Calendar.WEEK_OF_MONTH, 1);
                 Date weekEnd = calendar.getTime();
-                condition = " WHERE " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + weekStart.getTime()
+                condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + weekStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + weekEnd.getTime();
                 break;
             }
             case HOT: {
-                condition = " WHERE " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.HOT.getValue();
+                condition = DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.HOT.getValue();
                 break;
             }
             case DONE: {
-                condition = " WHERE " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                condition = DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
                 break;
             }
             case OVERDUE: {
-                condition = " WHERE " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.OVERDUE.getValue();
+                condition = DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.OVERDUE.getValue();
                 break;
             }
             case GROUP: {
-                condition = " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
+                condition = DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
                 break;
             }
             default: {
@@ -95,18 +100,31 @@ public class TaskProvider {
                 break;
             }
         }
-        return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
-                .mapToList(new CursorToTask())
+
+        return storIO
+                .get()
+                .listOfObjects(Task.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_TASK)
+                        .where(condition)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<Task> getTask(Integer taskId) {
-        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + taskId;
-        return database.createQuery(DatabaseHelper.TABLE_TASK,
-                "SELECT * FROM " + DatabaseHelper.TABLE_TASK + condition)
-                .mapToOne(new CursorToTask())
+        return storIO
+                .get()
+                .object(Task.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_TASK)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(taskId)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }

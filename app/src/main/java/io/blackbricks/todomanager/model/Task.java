@@ -100,19 +100,19 @@ public class Task implements Parcelable {
     }
 
     public Date getDateAlarm() {
-        return new Date(dateAlarm);
+        return dateAlarm == null ? null : new Date(dateAlarm);
     }
 
     public Date getDateCreated() {
-        return new Date(dateCreated);
+        return dateCreated == null ? null : new Date(dateCreated);
     }
 
     public Date getDateDeadline() {
-        return new Date(dateDeadline);
+        return dateDeadline == null ? null : new Date(dateDeadline);
     }
 
     public Date getDateStatusUpdated() {
-        return new Date(dateStatusUpdated);
+        return dateStatusUpdated == null ? null : new Date(dateStatusUpdated);
     }
 
     public Status getStatus() {

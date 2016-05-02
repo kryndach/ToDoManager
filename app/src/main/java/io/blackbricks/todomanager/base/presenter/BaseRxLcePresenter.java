@@ -79,6 +79,7 @@ public abstract class BaseRxLcePresenter<V extends MvpLceView<M>, M>
 
   protected void onError(Throwable e, boolean pullToRefresh) {
     if (isViewAttached()) {
+      e.printStackTrace();
       getView().showError(e, pullToRefresh);
     }
     unsubscribe();

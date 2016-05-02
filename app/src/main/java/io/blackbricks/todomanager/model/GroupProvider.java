@@ -47,10 +47,16 @@ public class GroupProvider {
     }
 
     public Observable<Group> getGroup(Integer groupId) {
-        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + groupId;
-        return database.createQuery(DatabaseHelper.TABLE_GROUP,
-                "SELECT * FROM " + DatabaseHelper.TABLE_GROUP + condition)
-                .mapToOne(new CursorToGroup())
+        return storIO
+                .get()
+                .object(Group.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_GROUP)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(groupId)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }

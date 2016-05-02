@@ -48,10 +48,16 @@ public class AttachmentProvider {
     }
 
     public Observable<Attachment> getAttachment(Integer attachmentId) {
-        String condition = " WHERE " + DatabaseHelper.ID_COLUMN + " = " + attachmentId;
-        return database.createQuery(DatabaseHelper.TABLE_ATTACHMENT,
-                "SELECT * FROM " + DatabaseHelper.TABLE_ATTACHMENT + condition)
-                .mapToOne(new CursorToAttachment())
+        return storIO
+                .get()
+                .object(Attachment.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_ATTACHMENT)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(attachmentId)
+                        .build())
+                .prepare()
+                .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
     }

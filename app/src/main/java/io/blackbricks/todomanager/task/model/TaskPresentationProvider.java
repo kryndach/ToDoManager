@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,7 +80,11 @@ public class TaskPresentationProvider {
                         }
                     });
         } else {
-            taskObservable = Observable.just(new Task.Builder().build());
+            taskObservable = Observable.just(new Task.Builder()
+                    .dateCreated(new Date())
+                    .dateStatusUpdated(new Date())
+                    .status(Task.Status.UNDONE)
+                    .build());
             attachmentListObservable = Observable.just(new ArrayList<AttachmentPresentation>());
         }
 

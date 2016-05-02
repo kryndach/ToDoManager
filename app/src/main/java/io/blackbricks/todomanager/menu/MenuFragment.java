@@ -154,8 +154,8 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
                 if (resultText.length() > 0) {
                     dbOperationHelper.putGroup(new Group.Builder()
                             .name(resultText)
-                            .hotTaskCount(0)
                             .taskCount(0)
+                            .hotTaskCount(0)
                             .build());
                 } else {
                     new AlertDialog.Builder(MenuFragment.this.getContext())

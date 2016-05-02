@@ -25,9 +25,6 @@ import rx.android.schedulers.AndroidSchedulers;
 public class TaskProvider {
 
     @Inject
-    BriteDatabase database;
-
-    @Inject
     StorIOSQLite storIO;
 
     @Inject

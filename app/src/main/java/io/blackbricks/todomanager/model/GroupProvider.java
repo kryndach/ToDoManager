@@ -24,9 +24,6 @@ import rx.functions.Func1;
 public class GroupProvider {
 
     @Inject
-    BriteDatabase database;
-
-    @Inject
     StorIOSQLite storIO;
 
     @Inject

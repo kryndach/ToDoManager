@@ -442,12 +442,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     public void done() {
-        dbOperationHelper.createTask(taskPresentation.getTask());
+        dbOperationHelper.putTask(taskPresentation.getTask());
         getActivity().finish();
     }
 
     public void save() {
-        dbOperationHelper.updateTask(taskPresentation.getTask());
+        dbOperationHelper.putTask(taskPresentation.getTask());
         getActivity().finish();
     }
 

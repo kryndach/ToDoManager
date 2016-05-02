@@ -23,9 +23,6 @@ import rx.functions.Func1;
 public class AttachmentProvider {
 
     @Inject
-    BriteDatabase database;
-
-    @Inject
     StorIOSQLite storIO;
 
     @Inject

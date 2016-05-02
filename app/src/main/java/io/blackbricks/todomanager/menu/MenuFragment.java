@@ -23,6 +23,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewStat
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.squareup.sqlbrite.BriteDatabase;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ import io.blackbricks.todomanager.dagger.DaggerToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.DatabaseModule;
+import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
@@ -63,7 +65,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     IntentStarter intentStarter;
 
     @Inject
-    BriteDatabase database;
+    DatabaseOperationHelper dbOperationHelper;
 
     @Override
     protected int getLayoutRes() {
@@ -150,11 +152,11 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
             public void onClick(DialogInterface dialog, int which) {
                 String resultText = input.getText().toString();
                 if (resultText.length() > 0) {
-                    ContentValues values = new ContentValues();
-                    values.put(DatabaseHelper.GROUP_NAME_COLUMN, resultText);
-                    values.put(DatabaseHelper.GROUP_TASK_COUNT_COLUMN, 0);
-                    values.put(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN, 0);
-                    database.insert("groups", values);
+                    dbOperationHelper.putGroup(new Group.Builder()
+                            .name(resultText)
+                            .hotTaskCount(0)
+                            .taskCount(0)
+                            .build());
                 } else {
                     new AlertDialog.Builder(MenuFragment.this.getContext())
                             .setTitle("Error")

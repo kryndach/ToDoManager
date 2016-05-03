@@ -1,8 +1,11 @@
 package io.blackbricks.todomanager.model;
 
+import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.operations.get.GetResolver;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.squareup.sqlbrite.BriteDatabase;
 
@@ -105,6 +108,7 @@ public class TaskProvider {
                         .table(DatabaseHelper.TABLE_TASK)
                         .where(condition)
                         .build())
+                .withGetResolver(getResolver())
                 .prepare()
                 .asRxObservable()
                 .first()
@@ -120,9 +124,43 @@ public class TaskProvider {
                         .where(DatabaseHelper.ID_COLUMN + " = ?")
                         .whereArgs(taskId)
                         .build())
+                .withGetResolver(getResolver())
                 .prepare()
                 .asRxObservable()
                 .first()
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private GetResolver<Task> getResolver() {
+        return new TaskStorIOSQLiteGetResolver() {
+            @Override
+            @NonNull
+            public Task mapFromCursor(@NonNull Cursor cursor) {
+                Task object = new Task();
+
+                if (!cursor.isNull(cursor.getColumnIndex("date_alarm")))
+                    object.dateAlarm = cursor.getLong(cursor.getColumnIndex("date_alarm"));
+                if (!cursor.isNull(cursor.getColumnIndex("date_status_updated")))
+                    object.dateStatusUpdated = cursor.getLong(cursor.getColumnIndex("date_status_updated"));
+                if (!cursor.isNull(cursor.getColumnIndex("group_id")))
+                    object.groupId = cursor.getInt(cursor.getColumnIndex("group_id"));
+                if (!cursor.isNull(cursor.getColumnIndex("date_created")))
+                    object.dateCreated = cursor.getLong(cursor.getColumnIndex("date_created"));
+                if (!cursor.isNull(cursor.getColumnIndex("description")))
+                    object.description = cursor.getString(cursor.getColumnIndex("description"));
+                if (!cursor.isNull(cursor.getColumnIndex("id")))
+                    object.id = cursor.getInt(cursor.getColumnIndex("id"));
+                if (!cursor.isNull(cursor.getColumnIndex("date_deadline")))
+                    object.dateDeadline = cursor.getLong(cursor.getColumnIndex("date_deadline"));
+                if (!cursor.isNull(cursor.getColumnIndex("icon_id")))
+                    object.iconId = cursor.getInt(cursor.getColumnIndex("icon_id"));
+                if (!cursor.isNull(cursor.getColumnIndex("title")))
+                    object.title = cursor.getString(cursor.getColumnIndex("title"));
+                if (!cursor.isNull(cursor.getColumnIndex("status")))
+                    object.status = cursor.getInt(cursor.getColumnIndex("status"));
+
+                return object;
+            }
+        };
     }
 }

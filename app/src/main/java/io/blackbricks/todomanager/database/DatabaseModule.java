@@ -1,5 +1,8 @@
 package io.blackbricks.todomanager.database;
 
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+
 import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;

@@ -79,31 +79,6 @@ public class DatabaseOperationHelper {
     public void putTask(Task task) {
         storio.put()
                 .object(task)
-//                .withPutResolver(new TaskStorIOSQLitePutResolver() {
-//                    @NonNull
-//                    @Override
-//                    public ContentValues mapToContentValues(@NonNull Task object) {
-//                        ContentValues values = new ContentValues();
-//                        values.put(DatabaseHelper.TASK_TITLE_COLUMN, object.getTitle());
-//                        values.put(DatabaseHelper.TASK_DESCRIPTION_COLUMN, object.getDescription());
-//                        values.put(DatabaseHelper.TASK_GROUP_ID_COLUMN, object.getGroupId());
-//
-//                        if(object.getDateCreated() != null) {
-//                            values.put(DatabaseHelper.TASK_DATE_ALARM_COLUMN, object.getDateAlarm().getTime());
-//                            values.put(DatabaseHelper.TASK_DATE_CREATED_COLUMN, object.getDateCreated().getTime());
-//                            values.put(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN, object.getDateDeadline().getTime());
-//                            values.put(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN, object.getDateStatusUpdated().getTime());
-//                            values.put(DatabaseHelper.TASK_ICON_ID_COLUMN, object.getIconId());
-//                            values.put(DatabaseHelper.TASK_STATUS_COLUMN, object.getStatus().getValue());
-//                        } else {
-//                            values.put(DatabaseHelper.TASK_DATE_CREATED_COLUMN, new Date().getTime());
-//                            values.put(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN, new Date().getTime());
-//                            values.put(DatabaseHelper.TASK_STATUS_COLUMN, Task.Status.UNDONE.getValue());
-//                        }
-//
-//                        return values;
-//                    }
-//                })
                 .prepare()
                 .executeAsBlocking();
         updateGroupTaskCount();

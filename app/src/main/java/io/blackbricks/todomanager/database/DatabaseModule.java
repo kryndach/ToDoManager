@@ -29,13 +29,6 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    BriteDatabase briteDatabaseProvider(DatabaseHelper databaseHelper) {
-        SqlBrite sqlBrite = SqlBrite.create();
-        return sqlBrite.wrapDatabaseHelper(databaseHelper, Schedulers.io());
-    }
-
-    @Provides
-    @Singleton
     StorIOSQLite storIOSQLiteProvider(DatabaseHelper databaseHelper) {
         return DefaultStorIOSQLite.builder()
                 .sqliteOpenHelper(databaseHelper)

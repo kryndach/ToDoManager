@@ -14,12 +14,16 @@ import com.pushtorefresh.storio.sqlite.queries.RawQuery;
 import com.pushtorefresh.storio.sqlite.queries.UpdateQuery;
 import com.squareup.sqlbrite.BriteDatabase;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.database.transforms.CursorToGroup;
+import io.blackbricks.todomanager.events.TaskPuttedEvent;
+import io.blackbricks.todomanager.events.TaskRemovedEvent;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskStorIOSQLitePutResolver;
@@ -32,6 +36,9 @@ public class DatabaseOperationHelper {
 
     @Inject
     StorIOSQLite storio;
+
+    @Inject
+    EventBus eventBus;
 
     @Inject
     public DatabaseOperationHelper() {
@@ -57,6 +64,7 @@ public class DatabaseOperationHelper {
                                 + " = "
                                 + DatabaseHelper.TABLE_TASK + "." + DatabaseHelper.TASK_GROUP_ID_COLUMN
                                 + " )")
+                        .affectsTables(DatabaseHelper.TABLE_GROUP)
                         .build())
                 .prepare()
                 .executeAsBlocking();
@@ -73,6 +81,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
+        eventBus.post(new TaskRemovedEvent());
         updateGroupTaskCount();
     }
 
@@ -81,6 +90,7 @@ public class DatabaseOperationHelper {
                 .object(task)
                 .prepare()
                 .executeAsBlocking();
+        eventBus.post(new TaskPuttedEvent());
         updateGroupTaskCount();
     }
 }

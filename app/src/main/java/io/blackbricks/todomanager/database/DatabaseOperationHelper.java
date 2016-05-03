@@ -22,6 +22,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.database.transforms.CursorToGroup;
+import io.blackbricks.todomanager.events.GroupPuttedEvent;
+import io.blackbricks.todomanager.events.GroupRemovedEvent;
 import io.blackbricks.todomanager.events.TaskPuttedEvent;
 import io.blackbricks.todomanager.events.TaskRemovedEvent;
 import io.blackbricks.todomanager.model.Group;
@@ -51,6 +53,19 @@ public class DatabaseOperationHelper {
                 .object(group)
                 .prepare()
                 .executeAsBlocking();
+        eventBus.post(new GroupPuttedEvent());
+    }
+
+    public void deleteGroup(Integer groupId) {
+        storio.delete()
+                .byQuery(DeleteQuery.builder()
+                        .table(DatabaseHelper.TABLE_GROUP)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(groupId)
+                        .build())
+                .prepare()
+                .executeAsBlocking();
+        eventBus.post(new GroupRemovedEvent());
     }
 
     public void updateGroupTaskCount() {
@@ -68,6 +83,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
+        eventBus.post(new GroupPuttedEvent());
     }
 
     // Task

@@ -7,4 +7,7 @@
 
     <color name="white">#FFFFFF</color>
     <color name="toolbar_drawer_color">@color/white</color>
+
+    <color name="hot">#FF9900</color>
+    <color name="unhot">#FF4400</color>
 </resources>

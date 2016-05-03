@@ -54,6 +54,7 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.description, name = "description", type = TextView.class),
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
                     @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
+                    @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
                     @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
                     @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
             })

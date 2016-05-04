@@ -1,16 +1,15 @@
 package io.blackbricks.todomanager.menu;
 
-import android.database.Observable;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.base.presenter.BaseRxLcePresenter;
-import io.blackbricks.todomanager.events.GroupPuttedEvent;
+import io.blackbricks.todomanager.events.GroupInsertedEvent;
+import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
-import io.blackbricks.todomanager.events.GroupsUpdatedEvent;
+import io.blackbricks.todomanager.events.GroupListUpdatedEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
 
@@ -46,9 +45,16 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     }
 
     @Subscribe
-    void onGroupPuttedEvent(GroupPuttedEvent event) {
+    void onGroupInsetedEvent(GroupInsertedEvent event) {
         if (isViewAttached()) {
-            getView().putGroup(event.group);
+            getView().insertGroup(event.group);
+        }
+    }
+
+    @Subscribe
+    void onGroupUpdatedEvent(GroupUpdatedEvent event) {
+        if (isViewAttached()) {
+            getView().updateGroup(event.group);
         }
     }
 
@@ -60,7 +66,7 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     }
 
     @Subscribe
-    void onGroupsUpdatedEvent(GroupsUpdatedEvent event) {
+    void onGroupsUpdatedEvent(GroupListUpdatedEvent event) {
         if (isViewAttached()) {
             getView().loadData(false);
         }

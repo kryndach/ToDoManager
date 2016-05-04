@@ -177,8 +177,14 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         dialog.show();
     }
 
+
     @Override
-    public void putGroup(Group group) {
+    public void insertGroup(Group group) {
+
+    }
+
+    @Override
+    public void updateGroup(Group group) {
 
     }
 

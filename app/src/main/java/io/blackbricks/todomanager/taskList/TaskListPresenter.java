@@ -8,7 +8,8 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.base.presenter.BaseRxLcePresenter;
-import io.blackbricks.todomanager.events.TaskPuttedEvent;
+import io.blackbricks.todomanager.events.TaskInsertedEvent;
+import io.blackbricks.todomanager.events.TaskUpdatedEvent;
 import io.blackbricks.todomanager.events.TaskRemovedEvent;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
@@ -46,9 +47,16 @@ public class TaskListPresenter extends BaseRxLcePresenter<TaskListView, TaskList
     }
 
     @Subscribe
-    void onTaskPuttedEvent(TaskPuttedEvent event) {
+    void onTaskInsertedEvent(TaskInsertedEvent event) {
         if (isViewAttached()) {
-            getView().putTask(event.task);
+            getView().insertTask(event.task);
+        }
+    }
+
+    @Subscribe
+    void onTaskUpdatedEvent(TaskUpdatedEvent event) {
+        if (isViewAttached()) {
+            getView().updateTask(event.task);
         }
     }
 

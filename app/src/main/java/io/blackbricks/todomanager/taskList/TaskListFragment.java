@@ -153,7 +153,14 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public void putTask(Task task) {
+    public void insertTask(Task task) {
+        int size = taskListPresentation.getTaskList().size();
+        taskListPresentation.getTaskList().add(task);
+        taskListAdapter.notifyItemInserted(size);
+    }
+
+    @Override
+    public void updateTask(Task task) {
         Integer index = null;
         int size = taskListPresentation.getTaskList().size();
         for (int i = 0; i < size; i++) {
@@ -167,9 +174,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
         if(index != null) {
             taskListPresentation.getTaskList().set(index, task);
             taskListAdapter.notifyItemChanged(index);
-        } else {
-            taskListPresentation.getTaskList().add(task);
-            taskListAdapter.notifyItemInserted(size);
         }
     }
 

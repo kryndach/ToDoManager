@@ -1,39 +1,25 @@
 package io.blackbricks.todomanager.database;
 
-import android.content.ContentValues;
-import android.database.Observable;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.pushtorefresh.storio.sqlite.operations.put.DefaultPutResolver;
 import com.pushtorefresh.storio.sqlite.operations.put.PutResult;
 import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
-import com.pushtorefresh.storio.sqlite.queries.InsertQuery;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.pushtorefresh.storio.sqlite.queries.RawQuery;
-import com.pushtorefresh.storio.sqlite.queries.UpdateQuery;
-import com.squareup.sqlbrite.BriteDatabase;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import io.blackbricks.todomanager.database.transforms.CursorToGroup;
-import io.blackbricks.todomanager.events.GroupPuttedEvent;
+import io.blackbricks.todomanager.events.GroupInsertedEvent;
+import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
-import io.blackbricks.todomanager.events.GroupsUpdatedEvent;
-import io.blackbricks.todomanager.events.TaskPuttedEvent;
+import io.blackbricks.todomanager.events.GroupListUpdatedEvent;
+import io.blackbricks.todomanager.events.TaskInsertedEvent;
+import io.blackbricks.todomanager.events.TaskUpdatedEvent;
 import io.blackbricks.todomanager.events.TaskRemovedEvent;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskProvider;
-import io.blackbricks.todomanager.model.TaskStorIOSQLitePutResolver;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by yegorkryndach on 08/04/16.
@@ -69,8 +55,10 @@ public class DatabaseOperationHelper {
                             .build())
                     .prepare()
                     .executeAsBlocking();
+            eventBus.post(new GroupInsertedEvent(group));
+        } else {
+            eventBus.post(new GroupUpdatedEvent(group));
         }
-        eventBus.post(new GroupPuttedEvent(group));
     }
 
     public void deleteGroup(Integer groupId) {
@@ -100,7 +88,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new GroupsUpdatedEvent());
+        eventBus.post(new GroupListUpdatedEvent());
     }
 
     // Task
@@ -136,8 +124,10 @@ public class DatabaseOperationHelper {
                     .withGetResolver(TaskProvider.getResolver())
                     .prepare()
                     .executeAsBlocking();
+            eventBus.post(new TaskInsertedEvent(task));
+        } else {
+            eventBus.post(new TaskUpdatedEvent(task));
         }
-        eventBus.post(new TaskPuttedEvent(task));
 
         updateGroupTaskCount();
     }

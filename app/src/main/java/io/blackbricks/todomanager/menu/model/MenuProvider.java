@@ -41,11 +41,11 @@ public class MenuProvider {
 
     public Observable<Menu> getMenu() {
 
-        List<FilterMenuItem> filterMenuItemList = getFilterMenuItems();
+        ArrayList<FilterMenuItem> filterMenuItemList = getFilterMenuItems();
 
-        List<OptionalMenuItem> optionalMenuItemList = getOptionalMenuItems();
+        ArrayList<OptionalMenuItem> optionalMenuItemList = getOptionalMenuItems();
 
-        final List<GroupMenuItem> groupMenuItemList = new ArrayList<>();
+        final ArrayList<GroupMenuItem> groupMenuItemList = new ArrayList<>();
 
         final Menu menu = new Menu.Builder()
                 .filterMenuItemList(filterMenuItemList)
@@ -63,18 +63,7 @@ public class MenuProvider {
                 .map(new Func1<Group, GroupMenuItem>() {
                     @Override
                     public GroupMenuItem call(Group group) {
-
-                        String description = "Tasks " + group.getTaskCount();
-                        if (group.getHotTaskCount() > 0) {
-                            description = "Hot " + group.getHotTaskCount() + ", " + description;
-                        }
-
-                        return new GroupMenuItem.Builder()
-                                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
-                                .title(group.getName())
-                                .description(description)
-                                .group(group)
-                                .build();
+                        return Menu.getGroupMenuItem(group);
                     }
                 })
                 .toList()
@@ -89,8 +78,8 @@ public class MenuProvider {
     }
 
     @NonNull
-    private List<OptionalMenuItem> getOptionalMenuItems() {
-        List<OptionalMenuItem> optionalMenuItemList = new ArrayList<>();
+    private ArrayList<OptionalMenuItem> getOptionalMenuItems() {
+        ArrayList<OptionalMenuItem> optionalMenuItemList = new ArrayList<>();
 
         optionalMenuItemList.add(
                 new OptionalMenuItem.Builder()
@@ -104,8 +93,8 @@ public class MenuProvider {
     }
 
     @NonNull
-    private List<FilterMenuItem> getFilterMenuItems() {
-        List<FilterMenuItem> filterMenuItemList = new ArrayList<>();
+    private ArrayList<FilterMenuItem> getFilterMenuItems() {
+        ArrayList<FilterMenuItem> filterMenuItemList = new ArrayList<>();
 
         Filter.Type[] filterList = {
                 Filter.Type.INBOX,

@@ -5,11 +5,14 @@ import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.menu.model.items.FilterMenuItem;
 import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
+import io.blackbricks.todomanager.model.Group;
 
 /**
  * Created by yegorkryndach on 16/04/16.
@@ -17,9 +20,9 @@ import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 @ParcelablePlease
 public class Menu implements Parcelable {
 
-    List<FilterMenuItem> filterMenuItemList;
-    List<OptionalMenuItem> optionalMenuItemList;
-    List<GroupMenuItem> groupMenuItemList;
+    ArrayList<FilterMenuItem> filterMenuItemList;
+    ArrayList<OptionalMenuItem> optionalMenuItemList;
+    ArrayList<GroupMenuItem> groupMenuItemList;
 
     private Menu() {
     }
@@ -30,16 +33,54 @@ public class Menu implements Parcelable {
         groupMenuItemList = builder.groupMenuItemList;
     }
 
-    public List<FilterMenuItem> getFilterMenuItemList() {
+    public ArrayList<FilterMenuItem> getFilterMenuItemList() {
         return filterMenuItemList;
     }
 
-    public List<OptionalMenuItem> getOptionalMenuItemList() {
+    public ArrayList<OptionalMenuItem> getOptionalMenuItemList() {
         return optionalMenuItemList;
     }
 
-    public List<GroupMenuItem> getGroupMenuItemList() {
+    public ArrayList<GroupMenuItem> getGroupMenuItemList() {
         return groupMenuItemList;
+    }
+
+    public static GroupMenuItem getGroupMenuItem(Group group) {
+        String description = "Tasks " + group.getTaskCount();
+        if (group.getHotTaskCount() > 0) {
+            description = "Hot " + group.getHotTaskCount() + ", " + description;
+        }
+
+        return new GroupMenuItem.Builder()
+                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                .title(group.getName())
+                .description(description)
+                .group(group)
+                .build();
+    }
+
+    public void insertGroup(Group group) {
+        GroupMenuItem groupMenuItem = Menu.getGroupMenuItem(group);
+        groupMenuItemList.add(groupMenuItem);
+    }
+
+    public Integer updateGroup(Group group) {
+        Integer index = null;
+        int size = groupMenuItemList.size();
+        for (int i = 0; i < size; i++) {
+            GroupMenuItem groupMenuItem = groupMenuItemList.get(i);
+            if (groupMenuItem.getGroup().getId().equals(group.getId())) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index != null) {
+            GroupMenuItem groupMenuItem = Menu.getGroupMenuItem(group);
+            groupMenuItemList.set(index, groupMenuItem);
+        }
+
+        return index;
     }
 
     @Override
@@ -65,24 +106,24 @@ public class Menu implements Parcelable {
     };
 
     public static final class Builder {
-        private List<FilterMenuItem> filterMenuItemList;
-        private List<OptionalMenuItem> optionalMenuItemList;
-        private List<GroupMenuItem> groupMenuItemList;
+        private ArrayList<FilterMenuItem> filterMenuItemList;
+        private ArrayList<OptionalMenuItem> optionalMenuItemList;
+        private ArrayList<GroupMenuItem> groupMenuItemList;
 
         public Builder() {
         }
 
-        public Builder filterMenuItemList(List<FilterMenuItem> val) {
+        public Builder filterMenuItemList(ArrayList<FilterMenuItem> val) {
             filterMenuItemList = val;
             return this;
         }
 
-        public Builder optionalMenuItemList(List<OptionalMenuItem> val) {
+        public Builder optionalMenuItemList(ArrayList<OptionalMenuItem> val) {
             optionalMenuItemList = val;
             return this;
         }
 
-        public Builder groupMenuItemList(List<GroupMenuItem> val) {
+        public Builder groupMenuItemList(ArrayList<GroupMenuItem> val) {
             groupMenuItemList = val;
             return this;
         }

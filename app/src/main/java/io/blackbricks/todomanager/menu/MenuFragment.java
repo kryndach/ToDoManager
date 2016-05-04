@@ -180,12 +180,19 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void insertGroup(Group group) {
-
+        int size = menuAdapter.getItemCount();
+        menu.insertGroup(group);
+        menuAdapter.notifyItemInserted(size);
     }
 
     @Override
     public void updateGroup(Group group) {
-
+        Integer index = menu.updateGroup(group);
+        if(index != null) {
+            index += menu.getFilterMenuItemList().size();
+            index += menu.getOptionalMenuItemList().size();
+            menuAdapter.notifyItemChanged(index);
+        }
     }
 
     @Override

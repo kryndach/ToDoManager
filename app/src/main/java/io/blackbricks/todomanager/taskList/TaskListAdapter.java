@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.taskList;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,8 +55,9 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.description, name = "description", type = TextView.class),
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
                     @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
-                    @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
+                    @ViewField(id = R.id.done_background, name = "done_background", type = LinearLayout.class),
                     @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
+                    @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
                     @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
             })
     public final int taskItem = 0;
@@ -108,6 +110,18 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             vh.icon.setImageResource(task.getIconId());
         }
         vh.title.setText(task.getTitle());
+
+        if(task.getStatus() == Task.Status.HOT) {
+            vh.hot_background.setBackgroundResource(R.color.unhot);
+        } else {
+            vh.hot_background.setBackgroundResource(R.color.hot);
+        }
+
+        if(task.getStatus() == Task.Status.DONE) {
+            vh.done_background.setBackgroundResource(R.color.undone);
+        } else {
+            vh.done_background.setBackgroundResource(R.color.done);
+        }
 
         mItemManger.bindView(vh.itemView, position);
         vh.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {

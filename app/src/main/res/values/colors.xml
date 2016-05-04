@@ -8,6 +8,9 @@
     <color name="white">#FFFFFF</color>
     <color name="toolbar_drawer_color">@color/white</color>
 
-    <color name="hot">#FF9900</color>
-    <color name="unhot">#FF4400</color>
+    <color name="hot">#FF4400</color>
+    <color name="unhot">#FF9900</color>
+    <color name="done">#99FF11</color>
+    <color name="undone">#668811</color>
+    <color name="delete">#EE3311</color>
 </resources>

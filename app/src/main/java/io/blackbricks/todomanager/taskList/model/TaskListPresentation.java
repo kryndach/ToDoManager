@@ -28,6 +28,28 @@ public class TaskListPresentation implements Parcelable {
         return taskList;
     }
 
+    public void insertTask(Task task) {
+        taskList.add(task);
+    }
+
+    public Integer updateTask(Task task) {
+        Integer index = null;
+        int size = taskList.size();
+        for (int i = 0; i < size; i++) {
+            Task taskInList = taskList.get(i);
+            if (taskInList.getId().equals(task.getId())) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index != null) {
+            taskList.set(index, task);
+        }
+
+        return index;
+    }
+
     @Override
     public int describeContents() {
         return 0;

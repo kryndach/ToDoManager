@@ -131,7 +131,7 @@ public class TaskProvider {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    private GetResolver<Task> getResolver() {
+    public static GetResolver<Task> getResolver() {
         return new TaskStorIOSQLiteGetResolver() {
             @Override
             @NonNull

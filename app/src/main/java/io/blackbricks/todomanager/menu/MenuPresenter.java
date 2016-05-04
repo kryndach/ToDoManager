@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import io.blackbricks.todomanager.base.presenter.BaseRxLcePresenter;
 import io.blackbricks.todomanager.events.GroupPuttedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
+import io.blackbricks.todomanager.events.GroupsUpdatedEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
 
@@ -53,6 +54,13 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
 
     @Subscribe
     void onGroupRemovedEvent(GroupRemovedEvent event) {
+        if (isViewAttached()) {
+            getView().loadData(false);
+        }
+    }
+
+    @Subscribe
+    void onGroupsUpdatedEvent(GroupsUpdatedEvent event) {
         if (isViewAttached()) {
             getView().loadData(false);
         }

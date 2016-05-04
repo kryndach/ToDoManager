@@ -2,6 +2,7 @@ package io.blackbricks.todomanager.taskList;
 
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 
+import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
 /**
@@ -9,4 +10,6 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
  */
 public interface TaskListView extends MvpLceView<TaskListPresentation> {
     void done();
+    void putTask(Task task);
+    void deleteTask(Integer taskId);
 }

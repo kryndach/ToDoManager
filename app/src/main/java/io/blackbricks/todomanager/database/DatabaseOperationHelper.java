@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.operations.put.DefaultPutResolver;
+import com.pushtorefresh.storio.sqlite.operations.put.PutResult;
 import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
 import com.pushtorefresh.storio.sqlite.queries.InsertQuery;
 import com.pushtorefresh.storio.sqlite.queries.Query;
@@ -24,12 +25,15 @@ import javax.inject.Inject;
 import io.blackbricks.todomanager.database.transforms.CursorToGroup;
 import io.blackbricks.todomanager.events.GroupPuttedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
+import io.blackbricks.todomanager.events.GroupsUpdatedEvent;
 import io.blackbricks.todomanager.events.TaskPuttedEvent;
 import io.blackbricks.todomanager.events.TaskRemovedEvent;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.model.TaskProvider;
 import io.blackbricks.todomanager.model.TaskStorIOSQLitePutResolver;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by yegorkryndach on 08/04/16.
@@ -48,12 +52,25 @@ public class DatabaseOperationHelper {
 
     // Group
 
-    public void putGroup(Group group){
-        storio.put()
+    public void putGroup(Group group) {
+        PutResult putResult = storio.put()
                 .object(group)
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new GroupPuttedEvent());
+
+        if (putResult.wasInserted()) {
+            group = storio
+                    .get()
+                    .object(Group.class)
+                    .withQuery(Query.builder()
+                            .table(DatabaseHelper.TABLE_GROUP)
+                            .where(DatabaseHelper.ID_COLUMN + " = ?")
+                            .whereArgs(putResult.insertedId().intValue())
+                            .build())
+                    .prepare()
+                    .executeAsBlocking();
+        }
+        eventBus.post(new GroupPuttedEvent(group));
     }
 
     public void deleteGroup(Integer groupId) {
@@ -65,7 +82,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new GroupRemovedEvent());
+        eventBus.post(new GroupRemovedEvent(groupId));
     }
 
     public void updateGroupTaskCount() {
@@ -83,7 +100,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new GroupPuttedEvent());
+        eventBus.post(new GroupsUpdatedEvent());
     }
 
     // Task
@@ -97,16 +114,31 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new TaskRemovedEvent());
+        eventBus.post(new TaskRemovedEvent(taskId));
         updateGroupTaskCount();
     }
 
     public void putTask(Task task) {
-        storio.put()
+        PutResult putResult = storio.put()
                 .object(task)
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new TaskPuttedEvent());
+
+        if (putResult.wasInserted()) {
+            task = storio
+                    .get()
+                    .object(Task.class)
+                    .withQuery(Query.builder()
+                            .table(DatabaseHelper.TABLE_TASK)
+                            .where(DatabaseHelper.ID_COLUMN + " = ?")
+                            .whereArgs(putResult.insertedId().intValue())
+                            .build())
+                    .withGetResolver(TaskProvider.getResolver())
+                    .prepare()
+                    .executeAsBlocking();
+        }
+        eventBus.post(new TaskPuttedEvent(task));
+
         updateGroupTaskCount();
     }
 }

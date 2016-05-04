@@ -16,6 +16,8 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewStat
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -150,6 +152,32 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     }
 
+    @Override
+    public void putTask(Task task) {
+        Integer index = null;
+        int size = taskListPresentation.getTaskList().size();
+        for (int i = 0; i < size; i++) {
+            Task taskInList = taskListPresentation.getTaskList().get(i);
+            if (taskInList.getId().equals(task.getId())) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index != null) {
+            taskListPresentation.getTaskList().set(index, task);
+            taskListAdapter.notifyItemChanged(index);
+        } else {
+            taskListPresentation.getTaskList().add(task);
+            taskListAdapter.notifyItemInserted(size);
+        }
+    }
+
+    @Override
+    public void deleteTask(Integer taskId) {
+
+    }
+
     @OnClick(R.id.addButton)
     void onAddClick() {
         intentStarter.createTask(getActivity());
@@ -168,13 +196,14 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onTaskDelete(Task task, int position) {
         dbOperationHelper.deleteTask(task.getId());
-        taskListAdapter.closeAllItems();
         taskListAdapter.notifyItemRemoved(position);
+        taskListPresentation.getTaskList().remove(task);
+        taskListAdapter.closeAllItems();
     }
 
     @Override
     public void onTaskDone(Task task, int position) {
-        if(task.getStatus() != Task.Status.DONE) {
+        if (task.getStatus() != Task.Status.DONE) {
             task.setStatus(Task.Status.DONE);
         } else {
             task.setStatus(Task.Status.UNDONE);
@@ -186,7 +215,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void onTaskHot(Task task, int position) {
-        if(task.getStatus() != Task.Status.HOT) {
+        if (task.getStatus() != Task.Status.HOT) {
             task.setStatus(Task.Status.HOT);
         } else {
             task.setStatus(Task.Status.UNDONE);

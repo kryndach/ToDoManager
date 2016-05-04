@@ -48,14 +48,14 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     @Subscribe
     void onGroupPuttedEvent(GroupPuttedEvent event) {
         if (isViewAttached()) {
-            getView().loadData(false);
+            getView().putGroup(event.group);
         }
     }
 
     @Subscribe
     void onGroupRemovedEvent(GroupRemovedEvent event) {
         if (isViewAttached()) {
-            getView().loadData(false);
+            getView().removeGroup(event.groupId);
         }
     }
 

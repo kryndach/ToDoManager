@@ -11,5 +11,5 @@ import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 public interface TaskListView extends MvpLceView<TaskListPresentation> {
     void done();
     void putTask(Task task);
-    void deleteTask(Integer taskId);
+    void removeTask(Integer taskId);
 }

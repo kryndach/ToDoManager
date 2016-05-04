@@ -174,7 +174,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public void deleteTask(Integer taskId) {
+    public void removeTask(Integer taskId) {
 
     }
 

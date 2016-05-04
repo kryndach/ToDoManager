@@ -55,7 +55,7 @@ public class TaskListPresenter extends BaseRxLcePresenter<TaskListView, TaskList
     @Subscribe
     void onTaskRemovedEvent(TaskRemovedEvent event) {
         if (isViewAttached()) {
-            getView().deleteTask(event.taskId);
+            getView().removeTask(event.taskId);
         }
     }
 }

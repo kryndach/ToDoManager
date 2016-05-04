@@ -174,7 +174,11 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void onTaskDone(Task task, int position) {
-        task.setStatus(Task.Status.DONE);
+        if(task.getStatus() != Task.Status.DONE) {
+            task.setStatus(Task.Status.DONE);
+        } else {
+            task.setStatus(Task.Status.UNDONE);
+        }
         dbOperationHelper.putTask(task);
         taskListAdapter.closeAllItems();
         taskListAdapter.notifyItemChanged(position);

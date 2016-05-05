@@ -9,7 +9,5 @@ import io.blackbricks.todomanager.model.Group;
  * Created by yegorkryndach on 16/04/16.
  */
 public interface MenuView extends MvpLceView<Menu> {
-    void insertGroup(Group group);
-    void updateGroup(Group group);
-    void removeGroup(Integer groupId);
+
 }

@@ -59,30 +59,6 @@ public class Menu implements Parcelable {
                 .build();
     }
 
-    public void insertGroup(Group group) {
-        GroupMenuItem groupMenuItem = Menu.getGroupMenuItem(group);
-        groupMenuItemList.add(groupMenuItem);
-    }
-
-    public Integer updateGroup(Group group) {
-        Integer index = null;
-        int size = groupMenuItemList.size();
-        for (int i = 0; i < size; i++) {
-            GroupMenuItem groupMenuItem = groupMenuItemList.get(i);
-            if (groupMenuItem.getGroup().getId().equals(group.getId())) {
-                index = i;
-                break;
-            }
-        }
-
-        if(index != null) {
-            GroupMenuItem groupMenuItem = Menu.getGroupMenuItem(group);
-            groupMenuItemList.set(index, groupMenuItem);
-        }
-
-        return index;
-    }
-
     @Override
     public int describeContents() {
         return 0;

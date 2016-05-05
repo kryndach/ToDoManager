@@ -49,21 +49,21 @@ public class TaskListPresenter extends BaseRxLcePresenter<TaskListView, TaskList
     @Subscribe
     void onTaskInsertedEvent(TaskInsertedEvent event) {
         if (isViewAttached()) {
-            getView().insertTask(event.task);
+            getView().loadData(true);
         }
     }
 
     @Subscribe
     void onTaskUpdatedEvent(TaskUpdatedEvent event) {
         if (isViewAttached()) {
-            getView().updateTask(event.task);
+            getView().loadData(true);
         }
     }
 
     @Subscribe
     void onTaskRemovedEvent(TaskRemovedEvent event) {
         if (isViewAttached()) {
-            getView().removeTask(event.taskId);
+            getView().loadData(true);
         }
     }
 }

@@ -152,27 +152,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     }
 
-    @Override
-    public void insertTask(Task task) {
-        int size = taskListPresentation.getTaskList().size();
-        taskListPresentation.insertTask(task);
-        taskListAdapter.notifyItemInserted(size);
-    }
-
-    @Override
-    public void updateTask(Task task) {
-        Integer index = taskListPresentation.updateTask(task);
-
-        if(index != null) {
-            taskListAdapter.notifyItemChanged(index);
-        }
-    }
-
-    @Override
-    public void removeTask(Integer taskId) {
-
-    }
-
     @OnClick(R.id.addButton)
     void onAddClick() {
         intentStarter.createTask(getActivity());

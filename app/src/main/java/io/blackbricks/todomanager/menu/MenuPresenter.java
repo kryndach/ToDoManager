@@ -28,8 +28,8 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
         this.menuProvider = menuProvider;
     }
 
-    public void loadMenu() {
-        subscribe(menuProvider.getMenu(), false);
+    public void loadMenu(boolean pullToRefresh) {
+        subscribe(menuProvider.getMenu(), pullToRefresh);
     }
 
     @Override
@@ -47,28 +47,28 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     @Subscribe
     void onGroupInsetedEvent(GroupInsertedEvent event) {
         if (isViewAttached()) {
-            getView().insertGroup(event.group);
+            getView().loadData(true);
         }
     }
 
     @Subscribe
     void onGroupUpdatedEvent(GroupUpdatedEvent event) {
         if (isViewAttached()) {
-            getView().updateGroup(event.group);
+            getView().loadData(true);
         }
     }
 
     @Subscribe
     void onGroupRemovedEvent(GroupRemovedEvent event) {
         if (isViewAttached()) {
-            getView().removeGroup(event.groupId);
+            getView().loadData(true);
         }
     }
 
     @Subscribe
     void onGroupsUpdatedEvent(GroupListUpdatedEvent event) {
         if (isViewAttached()) {
-            getView().loadData(false);
+            getView().loadData(true);
         }
     }
 }

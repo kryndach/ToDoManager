@@ -51,6 +51,7 @@ public class MenuProvider {
                 .filterMenuItemList(filterMenuItemList)
                 .groupMenuItemList(groupMenuItemList)
                 .optionalMenuItemList(optionalMenuItemList)
+                .focusedItem(0)
                 .build();
 
         return groupProvider.getGroups()

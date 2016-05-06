@@ -10,6 +10,7 @@ import io.blackbricks.todomanager.events.GroupInsertedEvent;
 import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
 import io.blackbricks.todomanager.events.GroupListUpdatedEvent;
+import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
 
@@ -70,5 +71,10 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
         if (isViewAttached()) {
             getView().loadData(true);
         }
+    }
+
+    @Subscribe
+    void onTaskListPushEven(TaskListPushEvent event) {
+
     }
 }

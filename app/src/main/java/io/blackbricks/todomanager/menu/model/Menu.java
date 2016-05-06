@@ -23,6 +23,7 @@ public class Menu implements Parcelable {
     ArrayList<FilterMenuItem> filterMenuItemList;
     ArrayList<OptionalMenuItem> optionalMenuItemList;
     ArrayList<GroupMenuItem> groupMenuItemList;
+    Integer focusedItem = null;
 
     private Menu() {
     }
@@ -31,6 +32,7 @@ public class Menu implements Parcelable {
         filterMenuItemList = builder.filterMenuItemList;
         optionalMenuItemList = builder.optionalMenuItemList;
         groupMenuItemList = builder.groupMenuItemList;
+        focusedItem = builder.focusedItem;
     }
 
     public ArrayList<FilterMenuItem> getFilterMenuItemList() {
@@ -43,6 +45,14 @@ public class Menu implements Parcelable {
 
     public ArrayList<GroupMenuItem> getGroupMenuItemList() {
         return groupMenuItemList;
+    }
+
+    public Integer getFocusedItem() {
+        return focusedItem;
+    }
+
+    public void setFocusedItem(Integer focusedItem) {
+        this.focusedItem = focusedItem;
     }
 
     public static GroupMenuItem getGroupMenuItem(Group group) {
@@ -85,6 +95,7 @@ public class Menu implements Parcelable {
         private ArrayList<FilterMenuItem> filterMenuItemList;
         private ArrayList<OptionalMenuItem> optionalMenuItemList;
         private ArrayList<GroupMenuItem> groupMenuItemList;
+        private Integer focusedItem;
 
         public Builder() {
         }
@@ -101,6 +112,11 @@ public class Menu implements Parcelable {
 
         public Builder groupMenuItemList(ArrayList<GroupMenuItem> val) {
             groupMenuItemList = val;
+            return this;
+        }
+
+        public Builder focusedItem(Integer val) {
+            focusedItem = val;
             return this;
         }
 

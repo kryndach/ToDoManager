@@ -182,5 +182,4 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.show();
     }
-
 }

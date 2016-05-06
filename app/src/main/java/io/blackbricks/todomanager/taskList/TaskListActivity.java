@@ -100,6 +100,8 @@ public class TaskListActivity extends BaseActivity {
         }
         final TaskListFragment fragment = fragmentBuilder.build();
 
+        drawerLayout.closeDrawers();
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

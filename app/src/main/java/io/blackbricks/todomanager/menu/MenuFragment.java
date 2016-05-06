@@ -26,6 +26,8 @@ import com.melnykov.fab.ScrollDirectionListener;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.squareup.sqlbrite.BriteDatabase;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -39,6 +41,7 @@ import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
+import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
@@ -66,6 +69,9 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Inject
     DatabaseOperationHelper dbOperationHelper;
+
+    @Inject
+    EventBus eventBus;
 
     @Override
     protected int getLayoutRes() {
@@ -125,12 +131,12 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onFilterClicked(Filter filter) {
-        intentStarter.showTaskList(getActivity(), filter, filter.getType().toString());
+        eventBus.post(new TaskListPushEvent(filter.getType(), null, filter.getType().toString()));
     }
 
     @Override
     public void onGroupClicked(Group group) {
-        intentStarter.showTaskList(getActivity(), group.getId(), group.getName());
+        eventBus.post(new TaskListPushEvent(Filter.Type.GROUP, group.getId(), group.getName()));
     }
 
     @Override

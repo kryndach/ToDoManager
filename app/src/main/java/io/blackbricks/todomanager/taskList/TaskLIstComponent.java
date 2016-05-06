@@ -19,4 +19,5 @@ public interface TaskListComponent {
     TaskListPresenter presenter();
 
     void inject(TaskListFragment taskListFragment);
+    void inject(TaskListActivity taskListActivity);
 }

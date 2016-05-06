@@ -15,9 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseActivity;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
+import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.utils.BuildUtils;
 
@@ -25,15 +34,6 @@ import io.blackbricks.todomanager.utils.BuildUtils;
  * Created by yegorkryndach on 14/04/16.
  */
 public class TaskListActivity extends BaseActivity {
-
-    public static final String KEY_FILTER =
-            "io.blackbricks.todomanager.taskList.TaskListActivity.FILTER";
-
-    public static final String KEY_GROUP_ID =
-            "io.blackbricks.todomanager.taskList.TaskListActivity.GROUP_ID";
-
-    public static final String KEY_TITLE =
-            "io.blackbricks.todomanager.taskList.TaskListActivity.TITLE";
 
     @Bind(R.id.drawerLayout)
     DrawerLayout drawerLayout;
@@ -46,60 +46,32 @@ public class TaskListActivity extends BaseActivity {
 
     ActionBarDrawerToggle drawerToggle;
 
+    @Inject
+    EventBus eventBus;
+
+    private TaskListComponent taskListComponent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        eventBus.register(this);
         setContentView(R.layout.activity_task_list);
 
         if (savedInstanceState == null) {
-            Intent intent = getIntent();
-            Filter filter = intent.getParcelableExtra(KEY_FILTER);
-            Integer groupId = null;
-            if (intent.hasExtra(KEY_GROUP_ID)) {
-                groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
-            }
-            String title = intent.getStringExtra(KEY_TITLE);
-
             // Activity Transitions
             if (BuildUtils.isMinApi21()) {
                 postponeEnterTransition();
             }
 
-            boolean needBackNavigation = true;
-            if(filter == null) {
-                needBackNavigation = false;
-                Filter.Type type = Filter.Type.INBOX;
-                filter = new Filter(type);
-                title = type.toString();
-            }
+            Filter.Type type = Filter.Type.INBOX;
+            String title = type.toString();
 
-            TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(filter.getType());
-            if (groupId != null) {
-                fragmentBuilder.groupId(groupId);
-            }
-            final TaskListFragment fragment = fragmentBuilder.build();
+            final TaskListFragment fragment = new TaskListFragmentBuilder(type).build();
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentView, fragment)
-                    .commit();
+            drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
+                    R.string.drawer_close);
+            drawerLayout.setDrawerListener(drawerToggle);
 
-            if(needBackNavigation) {
-                toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
-                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (Build.VERSION.SDK_INT >= 21) {
-                            finishAfterTransition();
-                        } else {
-                            finish();
-                        }
-                    }
-                });
-            } else {
-                drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
-                        R.string.drawer_close);
-                drawerLayout.setDrawerListener(drawerToggle);
-            }
 
             toolbar.inflateMenu(R.menu.task_list_menu);
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -113,20 +85,69 @@ public class TaskListActivity extends BaseActivity {
                 }
             });
             toolbarTitle.setText(title);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentView, fragment)
+                    .commit();
         }
     }
 
-    @Override protected void onPostCreate(Bundle savedInstanceState) {
+    @Subscribe
+    void onTaskListPushEven(TaskListPushEvent event) {
+        TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.type);
+        if(event.groupId != null) {
+            fragmentBuilder.groupId(event.groupId);
+        }
+        final TaskListFragment fragment = fragmentBuilder.build();
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.done) {
+                    fragment.done();
+                    return true;
+                }
+                return false;
+            }
+        });
+        toolbarTitle.setText(event.title);
+
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                .replace(R.id.contentView, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        eventBus.unregister(this);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        if(drawerToggle != null) {
+        if (drawerToggle != null) {
             drawerToggle.syncState();
         }
     }
 
-    @Override public void onConfigurationChanged(Configuration newConfig) {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(drawerToggle != null) {
+        if (drawerToggle != null) {
             drawerToggle.onConfigurationChanged(newConfig);
         }
+    }
+
+    @Override
+    protected void injectDependencies() {
+        taskListComponent = DaggerTaskListComponent.builder()
+                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this)))
+                .build();
+        taskListComponent.inject(this);
     }
 }

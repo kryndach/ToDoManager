@@ -113,7 +113,7 @@ public class TaskListActivity extends BaseActivity {
         toolbarTitle.setText(event.title);
 
         getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                .setCustomAnimations(R.anim.enter, R.anim.exit)
                 .replace(R.id.contentView, fragment)
                 .addToBackStack(null)
                 .commit();

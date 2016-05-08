@@ -161,7 +161,9 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
         vh.icon.setImageResource(filterMenuItem.getIconRes());
         vh.title.setText(filterMenuItem.getTitle());
         if(menu.getFocusedItem() != null && menu.getFocusedItem() == position) {
-            vh.itemView.setActivated(true);
+            vh.itemView.setSelected(true);
+        } else {
+            vh.itemView.setSelected(false);
         }
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

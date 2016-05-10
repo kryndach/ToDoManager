@@ -44,7 +44,7 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
 
     @Override
     public PhotoPickerPresenter createPresenter() {
-        return null;
+        return photoPickerComponent.presenter();
     }
 
     @Override
@@ -64,6 +64,10 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
 
     @Override
     public void loadData(boolean pullToRefresh) {
+
+    }
+
+    public void save() {
 
     }
 }

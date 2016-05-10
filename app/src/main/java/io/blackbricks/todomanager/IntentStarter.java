@@ -12,6 +12,7 @@ import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.photoPicker.PhotoPickerActivity;
 import io.blackbricks.todomanager.task.TaskActivity;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
 
@@ -46,6 +47,11 @@ public class IntentStarter {
         Intent i = new Intent(context, TaskActivity.class);
         i.putExtra(TaskActivity.KEY_TASK_ID, taskId);
         i.putExtra(TaskActivity.KEY_TITLE, "Edit task");
+        context.startActivity(i);
+    }
+
+    public void openPhotoPicker(Context context) {
+        Intent i = new Intent(context, PhotoPickerActivity.class);
         context.startActivity(i);
     }
 

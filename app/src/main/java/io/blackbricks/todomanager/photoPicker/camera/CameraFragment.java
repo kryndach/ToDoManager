@@ -5,7 +5,10 @@ import android.widget.FrameLayout;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.photoPicker.camera.model.CameraPresentation;
 
 /**
@@ -40,6 +43,16 @@ public class CameraFragment extends BaseLceFragment<FrameLayout, CameraPresentat
     @Override
     public CameraPresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    protected void injectDependencies() {
+        cameraComponent = DaggerCameraComponent.builder()
+                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
+                .build();
+        cameraComponent.inject(this);
     }
 
     @Override

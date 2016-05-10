@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".task.TaskActivity"/>
+        <activity android:name=".photoPicker.PhotoPickerActivity"/>
     </application>
 
 </manifest>

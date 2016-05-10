@@ -5,7 +5,10 @@ import android.widget.FrameLayout;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
+import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.photoPicker.photoLibrary.model.PhotoLibraryPresentation;
 
 /**
@@ -40,6 +43,16 @@ public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibr
     @Override
     public PhotoLibraryPresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    protected void injectDependencies() {
+        photoLibraryComponent = DaggerPhotoLibraryComponent.builder()
+                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .databaseModule(new DatabaseModule())
+                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
+                .build();
+        photoLibraryComponent.inject(this);
     }
 
     @Override

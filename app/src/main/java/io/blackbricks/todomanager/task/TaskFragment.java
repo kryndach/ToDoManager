@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -106,6 +107,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Inject
     DatabaseOperationHelper dbOperationHelper;
+
+    @Inject
+    IntentStarter intentStarter;
 
     private AlertDialog dialog;
 
@@ -414,7 +418,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     // Attachments
     @OnClick(R.id.photo_view)
     void onClickAddAttachment() {
-
+        intentStarter.openPhotoPicker(getActivity());
     }
 
     //// View interface implementation

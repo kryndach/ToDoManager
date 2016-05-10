@@ -43,8 +43,8 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
-    compile 'com.hannesdorfmann.parcelableplease:annotation:1.0.1'
-    apt 'com.hannesdorfmann.parcelableplease:processor:1.0.1'
+    compile 'com.hannesdorfmann.parcelableplease:annotation:1.0.2'
+    apt 'com.hannesdorfmann.parcelableplease:processor:1.0.2'
 
     compile 'frankiesardo:icepick:3.0.2'
     apt 'frankiesardo:icepick-processor:3.0.2'

@@ -4,6 +4,7 @@ import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.photoPicker.photoLibrary.model.PhotoLibraryPresentation;
 
@@ -13,9 +14,12 @@ import io.blackbricks.todomanager.photoPicker.photoLibrary.model.PhotoLibraryPre
 public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibraryPresentation, PhotoLibraryView,
         PhotoLibraryPresenter> implements PhotoLibraryView {
 
+    private PhotoLibraryComponent photoLibraryComponent;
+    private PhotoLibraryPresentation photoLibraryPresentation;
+
     @Override
     protected int getLayoutRes() {
-        return 0;
+        return R.layout.fragment_photo_library;
     }
 
     @Override

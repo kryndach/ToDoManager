@@ -4,6 +4,7 @@ import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.photoPicker.camera.model.CameraPresentation;
 
@@ -13,9 +14,12 @@ import io.blackbricks.todomanager.photoPicker.camera.model.CameraPresentation;
 public class CameraFragment extends BaseLceFragment<FrameLayout, CameraPresentation, CameraView, CameraPresenter>
         implements CameraView {
 
+    private CameraComponent cameraComponent;
+    private CameraPresentation cameraPresentation;
+
     @Override
     protected int getLayoutRes() {
-        return 0;
+        return R.layout.fragment_camera;
     }
 
     @Override

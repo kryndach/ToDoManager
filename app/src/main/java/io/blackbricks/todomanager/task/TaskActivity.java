@@ -40,69 +40,67 @@ public class TaskActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        if (savedInstanceState == null) {
-            Intent intent = getIntent();
-            Integer taskId = null;
-            if (intent.hasExtra(KEY_TASK_ID)) {
-                taskId = intent.getIntExtra(KEY_TASK_ID, 0);
-            }
-            Integer groupId = null;
-            if (intent.hasExtra(KEY_TASK_ID)) {
-                groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
-            }
-            String title = intent.getStringExtra(KEY_TITLE);
-
-            // Activity Transitions
-            if (BuildUtils.isMinApi21()) {
-                postponeEnterTransition();
-            }
-
-            TaskFragmentBuilder fragmentBuilder = new TaskFragmentBuilder();
-            if (taskId != null) {
-                fragmentBuilder.taskId(taskId);
-            }
-            if (groupId != null) {
-                fragmentBuilder.groupId(groupId);
-            }
-            final TaskFragment fragment = fragmentBuilder.build();
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentView, fragment)
-                    .commit();
-
-            toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        finishAfterTransition();
-                    } else {
-                        finish();
-                    }
-                }
-            });
-
-            if (taskId != null) {
-                toolbar.inflateMenu(R.menu.edit_task_menu);
-            } else {
-                toolbar.inflateMenu(R.menu.create_task_menu);
-            }
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if (item.getItemId() == R.id.done) {
-                        fragment.done();
-                        return true;
-                    }
-                    if (item.getItemId() == R.id.save) {
-                        fragment.save();
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            toolbarTitle.setText(title);
+        // Activity Transitions
+        if (BuildUtils.isMinApi21()) {
+            postponeEnterTransition();
         }
+
+        toolbar.setNavigationIcon(BuildUtils.getBackArrowDrawable(this));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 21) {
+                    finishAfterTransition();
+                } else {
+                    finish();
+                }
+            }
+        });
+
+        Intent intent = getIntent();
+        Integer taskId = null;
+        if (intent.hasExtra(KEY_TASK_ID)) {
+            taskId = intent.getIntExtra(KEY_TASK_ID, 0);
+        }
+        Integer groupId = null;
+        if (intent.hasExtra(KEY_TASK_ID)) {
+            groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
+        }
+        String title = intent.getStringExtra(KEY_TITLE);
+
+        TaskFragmentBuilder fragmentBuilder = new TaskFragmentBuilder();
+        if (taskId != null) {
+            fragmentBuilder.taskId(taskId);
+        }
+        if (groupId != null) {
+            fragmentBuilder.groupId(groupId);
+        }
+        final TaskFragment fragment = fragmentBuilder.build();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentView, fragment)
+                .commit();
+
+        if (taskId != null) {
+            toolbar.inflateMenu(R.menu.edit_task_menu);
+        } else {
+            toolbar.inflateMenu(R.menu.create_task_menu);
+        }
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.done) {
+                    fragment.done();
+                    return true;
+                }
+                if (item.getItemId() == R.id.save) {
+                    fragment.save();
+                    return true;
+                }
+                return false;
+            }
+        });
+        toolbarTitle.setText(title);
     }
 
 }

@@ -1,17 +1,11 @@
 package io.blackbricks.todomanager.taskList;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -26,6 +20,7 @@ import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseActivity;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
+import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.utils.BuildUtils;
@@ -93,7 +88,7 @@ public class TaskListActivity extends BaseActivity {
     }
 
     @Subscribe
-    void onTaskListPushEven(TaskListPushEvent event) {
+    void onTaskListPushEvent(TaskListPushEvent event) {
         TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.type);
         if(event.groupId != null) {
             fragmentBuilder.groupId(event.groupId);

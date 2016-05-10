@@ -1,12 +1,9 @@
 package io.blackbricks.todomanager.menu;
 
 import android.app.AlertDialog;
-import android.app.Application;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -14,17 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ScrollDirectionListener;
-import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.squareup.sqlbrite.BriteDatabase;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -36,11 +25,10 @@ import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.DaggerToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseHelper;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
+import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
@@ -141,7 +129,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onOptionalClicked(OptionalMenuItem.Type type) {
-
+        menuAdapter.selectOptional(type);
     }
 
     @OnClick(R.id.addButton)
@@ -181,5 +169,15 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.show();
+    }
+
+    @Override
+    public void selectFilterType(Filter.Type type) {
+        menuAdapter.selectFilterType(type);
+    }
+
+    @Override
+    public void selectGroup(int groupId) {
+        menuAdapter.selectGroup(groupId);
     }
 }

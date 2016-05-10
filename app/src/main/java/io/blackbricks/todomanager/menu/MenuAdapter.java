@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.menu;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -160,17 +161,13 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
         final FilterMenuItem filterMenuItem = menu.getFilterMenuItemList().get(position);
         vh.icon.setImageResource(filterMenuItem.getIconRes());
         vh.title.setText(filterMenuItem.getTitle());
-        if(menu.getFocusedItem() != null && menu.getFocusedItem() == position) {
-            vh.itemView.setSelected(true);
-        } else {
-            vh.itemView.setSelected(false);
-        }
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterClickListener.onFilterClicked(filterMenuItem.getFilter());
             }
         });
+        updateViewHolderSelection(vh, position);
     }
 
     @Override
@@ -192,6 +189,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
                 groupClickListener.onGroupClicked(groupMenuItem.getGroup());
             }
         });
+        updateViewHolderSelection(vh, position);
     }
 
     @Override
@@ -211,6 +209,15 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
                 optionalClickListener.onOptionalClicked(optionalMenuItem.getType());
             }
         });
+        updateViewHolderSelection(vh, position);
+    }
+
+    private void updateViewHolderSelection(RecyclerView.ViewHolder vh, int position) {
+        if(menu.getFocusedItem() != null && menu.getFocusedItem() == position) {
+            vh.itemView.setSelected(true);
+        } else {
+            vh.itemView.setSelected(false);
+        }
     }
 
     @Override
@@ -221,5 +228,73 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemSeparatorViewHolder vh, int position) {
 
+    }
+
+    // selection methods
+    public void selectFilterType(Filter.Type type) {
+        int filterNumber = 0;
+        for(int i = 0; i < menu.getFilterMenuItemList().size(); i++) {
+            FilterMenuItem filterMenuItem = menu.getFilterMenuItemList().get(i);
+            if(filterMenuItem.getFilter().getType() == type) {
+                filterNumber = i;
+                break;
+            }
+        }
+
+        selectItemNumber(filterNumber);
+    }
+
+    public void selectOptional(OptionalMenuItem.Type type) {
+        int itemNumber = 0;
+        // add filters count
+        itemNumber += menu.getFilterMenuItemList().size();
+        // Add 1 for separator between filter and optional section
+        itemNumber++;
+
+        int optionalNumber = 0;
+        for(int i = 0; i < menu.getOptionalMenuItemList().size(); i++) {
+            OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(i);
+            if(optionalMenuItem.getType() == type) {
+                optionalNumber = i;
+                break;
+            }
+        }
+
+        itemNumber += optionalNumber;
+        selectItemNumber(itemNumber);
+    }
+
+    public void selectGroup(int groupId) {
+        int itemNumber = 0;
+        // add filters count
+        itemNumber += menu.getFilterMenuItemList().size();
+        // Add 1 for separator between filter and optional section
+        itemNumber++;
+        // add optionals count
+        itemNumber += menu.getOptionalMenuItemList().size();
+        // Add 1 for separator between optional and group section
+        itemNumber++;
+
+        int groupNumber = 0;
+        for(int i = 0; i < menu.getGroupMenuItemList().size(); i++) {
+            GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(i);
+            if(groupMenuItem.getGroup().getId() == groupId) {
+                groupNumber = i;
+                break;
+            }
+        }
+
+        itemNumber += groupNumber;
+        selectItemNumber(itemNumber);
+    }
+
+    private void selectItemNumber(int itemNumber) {
+        Integer oldSelectedItemNumber = menu.getFocusedItem();
+
+        menu.setFocusedItem(itemNumber);
+        if(oldSelectedItemNumber != null) {
+            notifyItemChanged(oldSelectedItemNumber);
+        }
+        notifyItemChanged(itemNumber);
     }
 }

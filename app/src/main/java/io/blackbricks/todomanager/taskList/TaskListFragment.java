@@ -16,6 +16,8 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewStat
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import com.melnykov.fab.FloatingActionButton;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -29,6 +31,7 @@ import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
+import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
@@ -63,6 +66,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Inject
     DatabaseOperationHelper dbOperationHelper;
 
+    @Inject
+    EventBus eventBus;
+
     private TaskListPresentation taskListPresentation;
     private TaskListAdapter taskListAdapter;
     private TaskListComponent taskListComponent;
@@ -95,6 +101,12 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        eventBus.post(new TaskListEnterEvent(type, groupId));
     }
 
     @Override

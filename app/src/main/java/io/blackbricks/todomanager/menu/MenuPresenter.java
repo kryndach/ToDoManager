@@ -10,9 +10,10 @@ import io.blackbricks.todomanager.events.GroupInsertedEvent;
 import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
 import io.blackbricks.todomanager.events.GroupListUpdatedEvent;
-import io.blackbricks.todomanager.events.TaskListPushEvent;
+import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
+import io.blackbricks.todomanager.model.Filter;
 
 /**
  * Created by yegorkryndach on 16/04/16.
@@ -74,7 +75,11 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     }
 
     @Subscribe
-    void onTaskListPushEven(TaskListPushEvent event) {
-
+    void onTaskListEnterEven(TaskListEnterEvent event) {
+        if(event.type == Filter.Type.GROUP) {
+            getView().selectGroup(event.groupId);
+        } else {
+            getView().selectFilterType(event.type);
+        }
     }
 }

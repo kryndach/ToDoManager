@@ -3,7 +3,6 @@ package io.blackbricks.todomanager.task;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +28,6 @@ public class TaskActivity extends BaseActivity {
     public static final String KEY_TITLE =
             "io.blackbricks.todomanager.taskList.TaskActivity.TITLE";
 
-    @Bind(R.id.drawerLayout)
-    DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.toolbar_title)

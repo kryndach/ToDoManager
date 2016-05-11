@@ -434,9 +434,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     // Attachments
-    private static final int GALLERY_INTENT_CALLED = 1;
-    private static final int GALLERY_KITKAT_INTENT_CALLED = 2;
-
     @OnClick(R.id.photo_view)
     void onClickAddAttachment() {
         final CharSequence[] attachmentTypes = {"Photo", "Library"};

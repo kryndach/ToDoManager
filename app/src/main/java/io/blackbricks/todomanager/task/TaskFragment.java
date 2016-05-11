@@ -473,6 +473,13 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         alert.show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        if (requestCode == Crop.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
+
+        }
+    }
+
     //// View interface implementation
 
     @Override

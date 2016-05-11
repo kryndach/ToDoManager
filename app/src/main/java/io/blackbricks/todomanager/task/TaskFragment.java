@@ -36,8 +36,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -448,9 +447,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                 .subscribe(new Action1<Uri>() {
                                     @Override
                                     public void call(Uri uri) {
-                                        CropImage.activity(uri)
-                                                .setGuidelines(CropImageView.Guidelines.ON)
-                                                .start(getActivity());
+                                        Crop.of(uri, uri).asSquare().start(getActivity());
                                     }
                                 });
                     }
@@ -462,9 +459,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                 .subscribe(new Action1<Uri>() {
                                     @Override
                                     public void call(Uri uri) {
-                                        CropImage.activity(uri)
-                                                .setGuidelines(CropImageView.Guidelines.ON)
-                                                .start(getActivity());
+                                        Crop.of(uri, uri).asSquare().start(getActivity());
                                     }
                                 });
                     }
@@ -476,19 +471,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         });
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == Activity.RESULT_OK) {
-                Uri resultUri = result.getUri();
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
     }
 
     //// View interface implementation

@@ -36,6 +36,8 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -288,7 +290,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void updateGroup() {
         Group group = taskPresentation.getGroup();
-        if(group != null) {
+        if (group != null) {
             groupTextView.setText(group.getName());
             groupClearView.setVisibility(View.VISIBLE);
         } else {
@@ -440,33 +442,50 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         final CharSequence[] attachmentTypes = {"Photo", "Library"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(attachmentTypes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:{
-                                RxImagePicker.with(getActivity()).requestImage(Sources.CAMERA).subscribe(new Action1<Uri>() {
-                                    @Override
-                                    public void call(Uri uri) {
-
-                                    }
-                                });
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: {
+                        RxImagePicker.with(getActivity()).requestImage(Sources.CAMERA).subscribe(new Action1<Uri>() {
+                            @Override
+                            public void call(Uri uri) {
+                                CropImage.activity(uri)
+                                        .setGuidelines(CropImageView.Guidelines.ON)
+                                        .start(getActivity());
                             }
-                                break;
-                            case 1: {
-                                RxImagePicker.with(getActivity()).requestImage(Sources.GALLERY).subscribe(new Action1<Uri>() {
-                                    @Override
-                                    public void call(Uri uri) {
-
-                                    }
-                                });
-                            }
-                                break;
-                            default:
-                                break;
-                        }
+                        });
                     }
-                });
+                    break;
+                    case 1: {
+                        RxImagePicker.with(getActivity()).requestImage(Sources.GALLERY).subscribe(new Action1<Uri>() {
+                            @Override
+                            public void call(Uri uri) {
+                                CropImage.activity(uri)
+                                        .setGuidelines(CropImageView.Guidelines.ON)
+                                        .start(getActivity());
+                            }
+                        });
+                    }
+                    break;
+                    default:
+                        break;
+                }
+            }
+        });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                Uri resultUri = result.getUri();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
     //// View interface implementation

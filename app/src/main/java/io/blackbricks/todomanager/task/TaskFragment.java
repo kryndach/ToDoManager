@@ -1,9 +1,21 @@
 package io.blackbricks.todomanager.task;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +34,10 @@ import android.widget.TimePicker;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
+import com.mlsdev.rximagepicker.RxImagePicker;
+import com.mlsdev.rximagepicker.Sources;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,6 +62,7 @@ import io.blackbricks.todomanager.ui.AttachmentListAdapter;
 import io.blackbricks.todomanager.ui.GridInsetDecoration;
 import io.blackbricks.todomanager.ui.GroupListAdapter;
 import io.blackbricks.todomanager.ui.IconListAdapter;
+import rx.functions.Action1;
 
 /**
  * Created by yegorkryndach on 19/04/16.
@@ -416,9 +432,41 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     // Attachments
+    private static final int GALLERY_INTENT_CALLED = 1;
+    private static final int GALLERY_KITKAT_INTENT_CALLED = 2;
+
     @OnClick(R.id.photo_view)
     void onClickAddAttachment() {
-        intentStarter.openPhotoPicker(getActivity());
+        final CharSequence[] attachmentTypes = {"Photo", "Library"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setItems(attachmentTypes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:{
+                                RxImagePicker.with(getActivity()).requestImage(Sources.CAMERA).subscribe(new Action1<Uri>() {
+                                    @Override
+                                    public void call(Uri uri) {
+
+                                    }
+                                });
+                            }
+                                break;
+                            case 1: {
+                                RxImagePicker.with(getActivity()).requestImage(Sources.GALLERY).subscribe(new Action1<Uri>() {
+                                    @Override
+                                    public void call(Uri uri) {
+
+                                    }
+                                });
+                            }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     //// View interface implementation

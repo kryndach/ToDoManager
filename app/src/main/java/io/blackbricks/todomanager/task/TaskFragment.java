@@ -445,25 +445,31 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: {
-                        RxImagePicker.with(getActivity()).requestImage(Sources.CAMERA).subscribe(new Action1<Uri>() {
-                            @Override
-                            public void call(Uri uri) {
-                                CropImage.activity(uri)
-                                        .setGuidelines(CropImageView.Guidelines.ON)
-                                        .start(getActivity());
-                            }
-                        });
+                        RxImagePicker
+                                .with(getActivity())
+                                .requestImage(Sources.CAMERA)
+                                .subscribe(new Action1<Uri>() {
+                                    @Override
+                                    public void call(Uri uri) {
+                                        CropImage.activity(uri)
+                                                .setGuidelines(CropImageView.Guidelines.ON)
+                                                .start(getActivity());
+                                    }
+                                });
                     }
                     break;
                     case 1: {
-                        RxImagePicker.with(getActivity()).requestImage(Sources.GALLERY).subscribe(new Action1<Uri>() {
-                            @Override
-                            public void call(Uri uri) {
-                                CropImage.activity(uri)
-                                        .setGuidelines(CropImageView.Guidelines.ON)
-                                        .start(getActivity());
-                            }
-                        });
+                        RxImagePicker
+                                .with(getActivity())
+                                .requestImage(Sources.GALLERY)
+                                .subscribe(new Action1<Uri>() {
+                                    @Override
+                                    public void call(Uri uri) {
+                                        CropImage.activity(uri)
+                                                .setGuidelines(CropImageView.Guidelines.ON)
+                                                .start(getActivity());
+                                    }
+                                });
                     }
                     break;
                     default:

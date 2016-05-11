@@ -5,12 +5,27 @@ import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
+import java.util.List;
+
 /**
  * Created by yegorkryndach on 10/05/16.
  */
 
 @ParcelablePlease
 public class PhotoPickerPresentation implements Parcelable {
+
+    List<PhotoPickerScreen> screens;
+
+    private PhotoPickerPresentation() {
+    }
+
+    public PhotoPickerPresentation(List<PhotoPickerScreen> screens) {
+        this.screens = screens;
+    }
+
+    public List<PhotoPickerScreen> getScreens() {
+        return screens;
+    }
 
     @Override
     public int describeContents() {

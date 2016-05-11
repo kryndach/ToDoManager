@@ -1,10 +1,13 @@
 package io.blackbricks.todomanager.photoPicker;
 
+import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 
+import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
@@ -21,6 +24,10 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
 
     private PhotoPickerComponent photoPickerComponent;
     private PhotoPickerPresentation photoPickerPresentation;
+    private PhotoPickerAdapter adapter;
+
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
 
     @Override
     protected int getLayoutRes() {
@@ -34,7 +41,7 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
 
     @Override
     public PhotoPickerPresentation getData() {
-        return null;
+        return photoPickerPresentation;
     }
 
     @Override
@@ -59,12 +66,15 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
 
     @Override
     public void setData(PhotoPickerPresentation data) {
-
+        this.photoPickerPresentation = data;
+        adapter = new PhotoPickerAdapter(getFragmentManager());
+        adapter.setScreens(data.getScreens());
+        viewPager.setAdapter(adapter);
     }
 
     @Override
     public void loadData(boolean pullToRefresh) {
-
+        presenter.loadPhotoPicker(pullToRefresh);
     }
 
     public void save() {

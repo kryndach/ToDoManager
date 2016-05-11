@@ -3,6 +3,7 @@ package io.blackbricks.todomanager.photoPicker.photoLibrary;
 import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
@@ -27,7 +28,7 @@ public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibr
 
     @Override
     public LceViewState<PhotoLibraryPresentation, PhotoLibraryView> createViewState() {
-        return null;
+        return new ParcelableDataLceViewState<>();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibr
 
     @Override
     public PhotoLibraryPresenter createPresenter() {
-        return null;
+        return photoLibraryComponent.presenter();
     }
 
     @Override

@@ -40,4 +40,12 @@
         <item name="cpb_rotation_speed">@string/cpb_default_rotation_speed</item>
     </style>
 
+    <style name="PagerTapStrip">
+        <item name="android:textAppearance">@style/PagerTapStripTextAppearance</item>
+    </style>
+
+    <style name="PagerTapStripTextAppearance">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

@@ -20,15 +20,16 @@
             android:layout_height="match_parent"
             android:background="?android:attr/windowBackground">
 
-            <android.support.v4.view.PagerTitleStrip
+            <android.support.v4.view.PagerTabStrip
                 android:id="@+id/pager_title_strip"
+                style="@style/PagerTapStrip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="#33b5e5"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textColor="#fff" />
+                android:layout_height="44dp"
+                android:layout_gravity="bottom"
+                android:background="#fff"
+                android:paddingBottom="10dp"
+                android:paddingTop="0dp"
+                android:textColor="@color/colorPrimary" />
 
         </android.support.v4.view.ViewPager>
 

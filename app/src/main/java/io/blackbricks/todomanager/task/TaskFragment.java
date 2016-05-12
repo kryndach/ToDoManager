@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
@@ -42,6 +45,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -136,6 +140,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     private AttachmentListAdapter attachmentListAdapter;
     private GroupListAdapter groupListAdapter;
     private IconListAdapter iconListAdapter;
+
+    private Uri tempImageUri;
 
     @Override
     protected int getLayoutRes() {
@@ -447,21 +453,17 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                 .subscribe(new Action1<Uri>() {
                                     @Override
                                     public void call(Uri uri) {
-                                        Crop.of(uri, uri).asSquare().start(getActivity());
+                                        Uri destinationUri = getImageUri();
+                                        tempImageUri = destinationUri;
+                                        Crop.of(uri, destinationUri)
+                                                .asSquare()
+                                                .start(getActivity(), TaskFragment.this);
                                     }
                                 });
                     }
                     break;
                     case 1: {
-                        RxImagePicker
-                                .with(getActivity())
-                                .requestImage(Sources.GALLERY)
-                                .subscribe(new Action1<Uri>() {
-                                    @Override
-                                    public void call(Uri uri) {
-                                        Crop.of(uri, uri).asSquare().start(getActivity());
-                                    }
-                                });
+                        Crop.pickImage(getActivity(), TaskFragment.this);
                     }
                     break;
                     default:
@@ -473,10 +475,34 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         alert.show();
     }
 
+    private Uri getImageUri() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "images");
+        imagesFolder.mkdirs();
+        File image = new File(imagesFolder, timeStamp + ".jpg");
+        return Uri.fromFile(image);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent result) {
-        if (requestCode == Crop.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
+        if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) {
+            beginCrop(result.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, result);
+        }
+    }
 
+    private void beginCrop(Uri source) {
+        Uri destination = getImageUri();
+        Crop.of(source, destination).asSquare().start(getActivity(), this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == Activity.RESULT_OK) {
+            //resultView.setImageURI(Crop.getOutput(result));
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(getActivity(), Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

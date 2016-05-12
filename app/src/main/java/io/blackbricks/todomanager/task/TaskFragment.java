@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,6 +62,7 @@ import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
+import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
@@ -500,10 +503,31 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == Activity.RESULT_OK) {
-            //resultView.setImageURI(Crop.getOutput(result));
+            String path = Crop.getOutput(result).getPath();
+            addAttachmentByFilePath(path);
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(getActivity(), Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void addAttachmentByFilePath(String path) {
+        Attachment attachment = new Attachment.Builder()
+                .path(path)
+                .build();
+        File file = new File(path);
+        Bitmap bitmap = null;
+        if (file.exists()) {
+            bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        }
+        AttachmentPresentation attachmentPresentation = new AttachmentPresentation.Builder()
+                .attachment(attachment)
+                .bitmap(bitmap)
+                .build();
+        taskPresentation.getAddedAttachmentPresentations()
+                .add(attachmentPresentation);
+        taskPresentation.getAttachmentPresentations()
+                .add(attachmentPresentation);
+        attachmentListAdapter.notifyDataSetChanged();
     }
 
     //// View interface implementation

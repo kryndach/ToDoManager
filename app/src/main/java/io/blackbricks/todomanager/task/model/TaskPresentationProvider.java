@@ -110,6 +110,7 @@ public class TaskPresentationProvider {
                                 .task(task)
                                 .group(group)
                                 .attachmentPresentations(attachments)
+                                .addedAttachmentPresentations(new ArrayList<AttachmentPresentation>())
                                 .removedAttachmentPresentations(new ArrayList<AttachmentPresentation>())
                                 .groupList(new ArrayList<>(groups))
                                 .iconList(new ArrayList<>(icons))

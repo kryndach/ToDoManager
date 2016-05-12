@@ -20,6 +20,7 @@ public class TaskPresentation implements Parcelable {
     Task task;
     Group group;
     ArrayList<AttachmentPresentation> attachmentPresentations;
+    ArrayList<AttachmentPresentation> addedAttachmentPresentations;
     ArrayList<AttachmentPresentation> removedAttachmentPresentations;
     ArrayList<Group> groupList;
     ArrayList<Integer> iconList;
@@ -29,8 +30,9 @@ public class TaskPresentation implements Parcelable {
 
     private TaskPresentation(Builder builder) {
         task = builder.task;
-        group = builder.group;
+        setGroup(builder.group);
         attachmentPresentations = builder.attachmentPresentations;
+        addedAttachmentPresentations = builder.addedAttachmentPresentations;
         removedAttachmentPresentations = builder.removedAttachmentPresentations;
         groupList = builder.groupList;
         iconList = builder.iconList;
@@ -46,6 +48,10 @@ public class TaskPresentation implements Parcelable {
 
     public ArrayList<AttachmentPresentation> getAttachmentPresentations() {
         return attachmentPresentations;
+    }
+
+    public ArrayList<AttachmentPresentation> getAddedAttachmentPresentations() {
+        return addedAttachmentPresentations;
     }
 
     public ArrayList<AttachmentPresentation> getRemovedAttachmentPresentations() {
@@ -90,6 +96,7 @@ public class TaskPresentation implements Parcelable {
         private Task task;
         private Group group;
         private ArrayList<AttachmentPresentation> attachmentPresentations;
+        private ArrayList<AttachmentPresentation> addedAttachmentPresentations;
         private ArrayList<AttachmentPresentation> removedAttachmentPresentations;
         private ArrayList<Group> groupList;
         private ArrayList<Integer> iconList;
@@ -109,6 +116,11 @@ public class TaskPresentation implements Parcelable {
 
         public Builder attachmentPresentations(ArrayList<AttachmentPresentation> val) {
             attachmentPresentations = val;
+            return this;
+        }
+
+        public Builder addedAttachmentPresentations(ArrayList<AttachmentPresentation> val) {
+            addedAttachmentPresentations = val;
             return this;
         }
 

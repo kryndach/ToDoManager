@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import io.blackbricks.todomanager.events.AttachmentInserterEvent;
 import io.blackbricks.todomanager.events.GroupInsertedEvent;
 import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
@@ -17,6 +18,7 @@ import io.blackbricks.todomanager.events.GroupListUpdatedEvent;
 import io.blackbricks.todomanager.events.TaskInsertedEvent;
 import io.blackbricks.todomanager.events.TaskUpdatedEvent;
 import io.blackbricks.todomanager.events.TaskRemovedEvent;
+import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskProvider;
@@ -106,7 +108,7 @@ public class DatabaseOperationHelper {
         updateGroupTaskCount();
     }
 
-    public void putTask(Task task) {
+    public PutResult putTask(Task task) {
         PutResult putResult = storio.put()
                 .object(task)
                 .prepare()
@@ -130,5 +132,28 @@ public class DatabaseOperationHelper {
         }
 
         updateGroupTaskCount();
+        return putResult;
+    }
+
+    // Attachment
+
+    public void putAttachment(Attachment attachment) {
+        PutResult putResult = storio.put()
+                .object(attachment)
+                .prepare()
+                .executeAsBlocking();
+
+        attachment = storio
+                .get()
+                .object(Attachment.class)
+                .withQuery(Query.builder()
+                        .table(DatabaseHelper.TABLE_ATTACHMENT)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(putResult.insertedId().intValue())
+                        .build())
+                .prepare()
+                .executeAsBlocking();
+        eventBus.post(new AttachmentInserterEvent(attachment));
+
     }
 }

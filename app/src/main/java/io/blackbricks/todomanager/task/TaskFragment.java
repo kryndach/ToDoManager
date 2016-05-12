@@ -568,7 +568,13 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Override
     public void onAttachmentClicked(AttachmentPresentation attachmentPresentation) {
+        ImageView image = new ImageView(getActivity());
+        image.setImageBitmap(attachmentPresentation.getBitmap());
 
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(getActivity()).
+                        setView(image);
+        builder.create().show();
     }
 
     @Override

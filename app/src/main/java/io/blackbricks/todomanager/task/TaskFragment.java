@@ -66,6 +66,7 @@ import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
+import io.blackbricks.todomanager.ui.AspectRatioImageView;
 import io.blackbricks.todomanager.ui.AttachmentListAdapter;
 import io.blackbricks.todomanager.ui.GridInsetDecoration;
 import io.blackbricks.todomanager.ui.GroupListAdapter;
@@ -568,13 +569,22 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Override
     public void onAttachmentClicked(AttachmentPresentation attachmentPresentation) {
-        ImageView image = new ImageView(getActivity());
-        image.setImageBitmap(attachmentPresentation.getBitmap());
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.dialog_attachment, null);
+        AspectRatioImageView imageView = (AspectRatioImageView) view.findViewById(R.id.image);
+        imageView.setImageBitmap(attachmentPresentation.getBitmap());
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(getActivity()).
-                        setView(image);
-        builder.create().show();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
     }
 
     @Override

@@ -66,7 +66,6 @@ import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
-import io.blackbricks.todomanager.ui.AspectRatioImageView;
 import io.blackbricks.todomanager.ui.AttachmentListAdapter;
 import io.blackbricks.todomanager.ui.GridInsetDecoration;
 import io.blackbricks.todomanager.ui.GroupListAdapter;
@@ -571,7 +570,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     public void onAttachmentClicked(AttachmentPresentation attachmentPresentation) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.dialog_attachment, null);
-        AspectRatioImageView imageView = (AspectRatioImageView) view.findViewById(R.id.image);
+        ImageView imageView = (ImageView) view.findViewById(R.id.image);
         imageView.setImageBitmap(attachmentPresentation.getBitmap());
 
         view.setOnClickListener(new View.OnClickListener() {

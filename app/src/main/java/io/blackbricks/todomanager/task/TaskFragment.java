@@ -489,6 +489,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
         if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) {
             beginCrop(result.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {

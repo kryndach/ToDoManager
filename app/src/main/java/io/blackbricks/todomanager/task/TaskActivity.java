@@ -68,38 +68,43 @@ public class TaskActivity extends BaseActivity {
         }
         String title = intent.getStringExtra(KEY_TITLE);
 
-        TaskFragmentBuilder fragmentBuilder = new TaskFragmentBuilder();
-        if (taskId != null) {
-            fragmentBuilder.taskId(taskId);
-        }
-        if (groupId != null) {
-            fragmentBuilder.groupId(groupId);
-        }
-        final TaskFragment fragment = fragmentBuilder.build();
+        if (savedInstanceState == null) {
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentView, fragment)
-                .commit();
+            TaskFragmentBuilder fragmentBuilder = new TaskFragmentBuilder();
+            if (taskId != null) {
+                fragmentBuilder.taskId(taskId);
+            }
+            if (groupId != null) {
+                fragmentBuilder.groupId(groupId);
+            }
+            final TaskFragment fragment = fragmentBuilder.build();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentView, fragment)
+                    .commit();
+
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.done) {
+                        fragment.done();
+                        return true;
+                    }
+                    if (item.getItemId() == R.id.save) {
+                        fragment.save();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
 
         if (taskId != null) {
             toolbar.inflateMenu(R.menu.edit_task_menu);
         } else {
             toolbar.inflateMenu(R.menu.create_task_menu);
         }
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.done) {
-                    fragment.done();
-                    return true;
-                }
-                if (item.getItemId() == R.id.save) {
-                    fragment.save();
-                    return true;
-                }
-                return false;
-            }
-        });
+
         toolbarTitle.setText(title);
     }
 

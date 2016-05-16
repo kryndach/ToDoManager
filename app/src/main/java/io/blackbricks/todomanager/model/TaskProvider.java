@@ -95,6 +95,7 @@ public class TaskProvider {
                 condition = DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId;
                 break;
             }
+            case ALL:
             default: {
                 condition = "";
                 break;

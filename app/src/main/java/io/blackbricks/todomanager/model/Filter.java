@@ -19,7 +19,8 @@ public class Filter implements Parcelable {
         HOT("Hot"),
         DONE("Done"),
         OVERDUE("Overdue"),
-        GROUP("Group");
+        GROUP("Group"),
+        ALL("All");
 
         private final String text;
 

@@ -556,13 +556,24 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     public void done() {
-        dbOperationHelper.putTask(taskPresentation.getTask());
+        putTask();
         getActivity().finish();
     }
 
     public void save() {
-        dbOperationHelper.putTask(taskPresentation.getTask());
+        putTask();
         getActivity().finish();
+    }
+
+    private void putTask() {
+        int taskId = dbOperationHelper.putTask(taskPresentation.getTask());
+        for(AttachmentPresentation attachmentPresentation : taskPresentation.getRemovedAttachmentPresentations()) {
+            dbOperationHelper.deleteAttachment(attachmentPresentation.getAttachment().getId());
+        }
+        for(AttachmentPresentation attachmentPresentation : taskPresentation.getAddedAttachmentPresentations()) {
+            attachmentPresentation.getAttachment().setTaskId(taskId);
+            dbOperationHelper.putAttachment(attachmentPresentation.getAttachment());
+        }
     }
 
     //// Adapters interface

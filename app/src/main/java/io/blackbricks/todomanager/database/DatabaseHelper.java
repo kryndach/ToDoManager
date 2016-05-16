@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_ATTACHMENT = "CREATE TABLE " + TABLE_ATTACHMENT
             + "("
             + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + ATTACHMENT_TYPE_COLUMN + " INTEGER NOT NULL, "
+            + ATTACHMENT_TYPE_COLUMN + " INTEGER, "
             + ATTACHMENT_FILE_PATH_COLUMN + " TEXT NOT NULL, "
             + ATTACHMENT_TASK_ID_COLUMN + " INTEGER NOT NULL, "
             + "FOREIGN KEY(" + ATTACHMENT_TASK_ID_COLUMN + ") "

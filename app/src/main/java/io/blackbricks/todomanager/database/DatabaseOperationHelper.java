@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.events.AttachmentInserterEvent;
+import io.blackbricks.todomanager.events.AttachmentRemovedEvent;
 import io.blackbricks.todomanager.events.GroupInsertedEvent;
 import io.blackbricks.todomanager.events.GroupUpdatedEvent;
 import io.blackbricks.todomanager.events.GroupRemovedEvent;
@@ -108,12 +109,13 @@ public class DatabaseOperationHelper {
         updateGroupTaskCount();
     }
 
-    public PutResult putTask(Task task) {
+    public int putTask(Task task) {
         PutResult putResult = storio.put()
                 .object(task)
                 .prepare()
                 .executeAsBlocking();
 
+        int taskId;
         if (putResult.wasInserted()) {
             task = storio
                     .get()
@@ -126,13 +128,15 @@ public class DatabaseOperationHelper {
                     .withGetResolver(TaskProvider.getResolver())
                     .prepare()
                     .executeAsBlocking();
+            taskId = putResult.insertedId().intValue();
             eventBus.post(new TaskInsertedEvent(task));
         } else {
+            taskId = task.getId();
             eventBus.post(new TaskUpdatedEvent(task));
         }
 
         updateGroupTaskCount();
-        return putResult;
+        return taskId;
     }
 
     // Attachment
@@ -154,6 +158,18 @@ public class DatabaseOperationHelper {
                 .prepare()
                 .executeAsBlocking();
         eventBus.post(new AttachmentInserterEvent(attachment));
+    }
 
+    public void deleteAttachment(Integer attachmentId) {
+        storio.delete()
+                .byQuery(DeleteQuery.builder()
+                        .table(DatabaseHelper.TABLE_ATTACHMENT)
+                        .where(DatabaseHelper.ID_COLUMN + " = ?")
+                        .whereArgs(attachmentId)
+                        .build())
+                .prepare()
+                .executeAsBlocking();
+        eventBus.post(new AttachmentRemovedEvent(attachmentId));
+        updateGroupTaskCount();
     }
 }

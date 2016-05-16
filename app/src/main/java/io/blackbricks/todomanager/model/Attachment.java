@@ -47,6 +47,10 @@ public class Attachment implements Parcelable {
         return taskId;
     }
 
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
     @Override
     public int describeContents() {
         return 0;

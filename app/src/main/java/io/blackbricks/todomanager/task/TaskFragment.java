@@ -58,6 +58,7 @@ import butterknife.OnTextChanged;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
+import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
@@ -134,6 +135,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     @Inject
     IntentStarter intentStarter;
+
+    @Inject
+    Alarm alarm;
 
     private AlertDialog dialog;
 
@@ -573,6 +577,11 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         for(AttachmentPresentation attachmentPresentation : taskPresentation.getAddedAttachmentPresentations()) {
             attachmentPresentation.getAttachment().setTaskId(taskId);
             dbOperationHelper.putAttachment(attachmentPresentation.getAttachment());
+        }
+        if(taskPresentation.getTask().getDateAlarm() != null) {
+            alarm.setAlarm(getContext().getApplicationContext(), taskPresentation.getTask());
+        } else {
+            alarm.cancelAlarm(getContext().getApplicationContext(), taskPresentation.getTask());
         }
     }
 

@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
 
 /**
@@ -22,6 +23,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Task task = intent.getExtras().getParcelable("task");
+        if(task == null) {
+            return;
+        }
+
         Intent notificationIntent = new Intent(context, TaskListActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, notificationIntent,
@@ -35,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setContentTitle("Напоминание")
-                .setContentText("Пора покормить кота");
+                .setContentText(task.getTitle());
         Uri ringURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringURI);
         builder.setOngoing(true);

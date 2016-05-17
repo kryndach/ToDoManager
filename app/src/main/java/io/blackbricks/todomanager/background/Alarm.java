@@ -40,6 +40,10 @@ public class Alarm {
             return;
         }
 
+        if(task.getDateAlarm().getTime() < System.currentTimeMillis()) {
+            return;
+        }
+
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmReceiver.class);

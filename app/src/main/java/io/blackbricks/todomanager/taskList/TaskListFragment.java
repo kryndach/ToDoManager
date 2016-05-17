@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
+import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
@@ -68,6 +69,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Inject
     EventBus eventBus;
+
+    @Inject
+    Alarm alarm;
 
     private TaskListPresentation taskListPresentation;
     private TaskListAdapter taskListAdapter;

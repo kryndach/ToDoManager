@@ -5,6 +5,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.dagger.ToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;

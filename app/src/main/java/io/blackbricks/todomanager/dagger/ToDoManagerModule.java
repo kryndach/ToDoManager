@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.blackbricks.todomanager.ToDoManagerApp;
+import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.menu.model.MenuProvider;
 
 /**

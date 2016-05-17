@@ -12,6 +12,7 @@ import android.net.Uri;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.task.TaskActivity;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
 
 /**
@@ -29,7 +30,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             return;
         }
 
-        Intent notificationIntent = new Intent(context, TaskListActivity.class);
+        Intent notificationIntent = new Intent(context, TaskActivity.class);
+        notificationIntent.putExtra(TaskActivity.KEY_TASK_ID, task.getId());
+        notificationIntent.putExtra(TaskActivity.KEY_TITLE, "Edit task");
+
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, notificationIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);

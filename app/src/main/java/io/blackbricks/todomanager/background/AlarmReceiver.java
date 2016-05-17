@@ -38,14 +38,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         builder.setContentIntent(contentIntent)
                 .setSmallIcon(R.drawable.ic_add_black_24dp)
-                .setTicker("Последнее китайское предупреждение!")
+                .setTicker("Alarm!")
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
-                .setContentTitle("Напоминание")
+                .setContentTitle("Alarm!")
                 .setContentText(task.getTitle());
         Uri ringURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringURI);
         builder.setOngoing(true);
+
+        if(task.getIconId() != null) {
+            builder.setSmallIcon(task.getIconId());
+        }
 
         Notification notification = builder.build();
 

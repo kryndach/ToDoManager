@@ -33,6 +33,8 @@ public class Alarm {
                 }
             }
         });
+
+
     }
 
     public void setAlarm(Context context, Task task) {
@@ -49,6 +51,7 @@ public class Alarm {
         Intent intent = new Intent(context, AlarmReceiver.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("task", task);
+        bundle.putString("type", "taskAlarm");
         intent.putExtras(bundle);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getId(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT );

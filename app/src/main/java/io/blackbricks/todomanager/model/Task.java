@@ -140,19 +140,19 @@ public class Task implements Parcelable {
     }
 
     public void setDateAlarm(Date dateAlarm) {
-        this.dateAlarm = dateAlarm.getTime();
+        this.dateAlarm = dateAlarm == null ? null : dateAlarm.getTime();
     }
 
     public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated.getTime();
+        this.dateCreated = dateCreated == null ? null : dateCreated.getTime();
     }
 
     public void setDateDeadline(Date dateDeadline) {
-        this.dateDeadline = dateDeadline.getTime();
+        this.dateDeadline = dateDeadline == null ? null : dateDeadline.getTime();
     }
 
     public void setDateStatusUpdated(Date dateStatusUpdated) {
-        this.dateStatusUpdated = dateStatusUpdated.getTime();
+        this.dateStatusUpdated = dateStatusUpdated == null ? null : dateStatusUpdated.getTime();
     }
 
     public void setStatus(Status status) {

@@ -28,6 +28,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -41,6 +42,9 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -48,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -74,11 +79,12 @@ import io.blackbricks.todomanager.ui.GroupListAdapter;
 import io.blackbricks.todomanager.ui.IconListAdapter;
 import rx.functions.Action1;
 
+
 /**
  * Created by yegorkryndach on 19/04/16.
  */
 public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation, TaskView, TaskPresenter>
-        implements TaskView, AttachmentListAdapter.AttachmentClickListener, GroupListAdapter.GroupClickListener, IconListAdapter.IconClickListener {
+        implements TaskView, AttachmentListAdapter.AttachmentClickListener, GroupListAdapter.GroupClickListener, IconListAdapter.IconClickListener, Validator.ValidationListener {
 
     @Arg(required = false)
     Integer taskId;
@@ -86,6 +92,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Arg(required = false)
     Integer groupId;
 
+    @NotEmpty
     @Bind(R.id.title_edit_text)
     EditText titleEditText;
     @Bind(R.id.title_clear_view)
@@ -151,6 +158,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private Uri tempImageUri;
 
+    private Validator validator;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_task;
@@ -164,6 +173,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         attachmentListAdapter = new AttachmentListAdapter(getActivity(), null, this);
         groupListAdapter = new GroupListAdapter(getActivity(), null, this);
@@ -559,17 +571,17 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     public void done() {
-        putTask();
-        getActivity().finish();
+        validator.validate();
     }
 
     public void save() {
-        putTask();
-        getActivity().finish();
+        validator.validate();
     }
 
     private void putTask() {
         int taskId = dbOperationHelper.putTask(taskPresentation.getTask());
+        taskPresentation.getTask().setId(taskId);
+
         for(AttachmentPresentation attachmentPresentation : taskPresentation.getRemovedAttachmentPresentations()) {
             dbOperationHelper.deleteAttachment(attachmentPresentation.getAttachment().getId());
         }
@@ -622,5 +634,26 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         taskPresentation.getTask().setIconId(iconId);
         updateIcon();
         dialog.dismiss();
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        putTask();
+        getActivity().finish();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

@@ -49,10 +49,8 @@ public class Alarm {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
         am.cancel(pendingIntent);
-//        am.setRepeating(AlarmManager.RTC_WAKEUP, getEndOfDay(new Date()).getTime(),
-//                AlarmManager.INTERVAL_DAY, pendingIntent);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, new Date().getTime(),
-                1000, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, getEndOfDay(new Date()).getTime(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private Date getEndOfDay(Date date) {

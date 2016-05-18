@@ -65,6 +65,7 @@ import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
+import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 import io.blackbricks.todomanager.task.model.TaskPresentation;
 import io.blackbricks.todomanager.ui.AttachmentListAdapter;
@@ -580,6 +581,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             alarm.setAlarm(getContext().getApplicationContext(), taskPresentation.getTask());
         } else {
             alarm.cancelAlarm(getContext().getApplicationContext(), taskPresentation.getTask());
+        }
+        if(taskPresentation.getTask().getStatus() == Task.Status.OVERDUE) {
+            taskPresentation.getTask().setStatus(Task.Status.UNDONE);
         }
     }
 

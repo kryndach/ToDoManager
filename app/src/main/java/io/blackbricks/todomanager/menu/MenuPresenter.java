@@ -75,7 +75,7 @@ public class MenuPresenter extends BaseRxLcePresenter<MenuView, Menu> {
     }
 
     @Subscribe
-    void onTaskListEnterEven(TaskListEnterEvent event) {
+    void onTaskListEnterEvent(TaskListEnterEvent event) {
         if(event.type == Filter.Type.GROUP) {
             getView().selectGroup(event.groupId);
         } else {

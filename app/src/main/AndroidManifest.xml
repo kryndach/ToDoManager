@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".background.AlarmReceiver" />
+        <receiver android:name=".background.AlarmEndOfDayReceiver" />
         <activity
             android:name=".taskList.TaskListActivity"
             android:screenOrientation="portrait">

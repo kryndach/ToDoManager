@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,7 +36,28 @@ public class Alarm {
             }
         });
 
+        setAlarmEndOfDay(context);
+    }
 
+    private void setAlarmEndOfDay(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, AlarmEndOfDayReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        am.cancel(pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, getEndOfDay(new Date()).getTime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    private Date getEndOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime();
     }
 
     public void setAlarm(Context context, Task task) {

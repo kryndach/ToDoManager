@@ -139,6 +139,24 @@ public class DatabaseOperationHelper {
         return taskId;
     }
 
+    public void updateTaskOverdue() {
+        storio.executeSQL()
+                .withQuery(RawQuery.builder()
+                        .query("UPDATE " + DatabaseHelper.TABLE_TASK
+                                + " SET " + DatabaseHelper.TASK_STATUS_COLUMN + " = "
+                                + Task.Status.OVERDUE.getValue()
+                                + " WHERE " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN
+                                + " < date('now')"
+                                + " AND "
+                                + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN
+                                + " IS NOT NULL"
+                                )
+                        .affectsTables(DatabaseHelper.TABLE_TASK)
+                        .build())
+                .prepare()
+                .executeAsBlocking();
+    }
+
     // Attachment
 
     public void putAttachment(Attachment attachment) {

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskProvider;
@@ -26,7 +27,7 @@ import rx.functions.Action1;
 public class Alarm {
 
     @Inject
-    public Alarm(final Context context, TaskProvider taskProvider) {
+    public Alarm(final Context context, TaskProvider taskProvider, DatabaseOperationHelper dbOperationHelper) {
         taskProvider.getTasks(Filter.Type.ALL, null).subscribe(new Action1<List<Task>>() {
             @Override
             public void call(List<Task> tasks) {
@@ -36,6 +37,7 @@ public class Alarm {
             }
         });
 
+        dbOperationHelper.updateTaskOverdue();
         setAlarmEndOfDay(context);
     }
 
@@ -47,7 +49,10 @@ public class Alarm {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
         am.cancel(pendingIntent);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, getEndOfDay(new Date()).getTime(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//        am.setRepeating(AlarmManager.RTC_WAKEUP, getEndOfDay(new Date()).getTime(),
+//                AlarmManager.INTERVAL_DAY, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, new Date().getTime(),
+                1000, pendingIntent);
     }
 
     private Date getEndOfDay(Date date) {

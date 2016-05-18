@@ -50,8 +50,6 @@ public class CameraFragment extends BaseLceFragment<FrameLayout, CameraPresentat
     protected void injectDependencies() {
         cameraComponent = DaggerCameraComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         cameraComponent.inject(this);
     }

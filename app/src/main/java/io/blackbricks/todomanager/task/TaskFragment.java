@@ -199,8 +199,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     protected void injectDependencies() {
         taskComponent = DaggerTaskComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         taskComponent.inject(this);
     }

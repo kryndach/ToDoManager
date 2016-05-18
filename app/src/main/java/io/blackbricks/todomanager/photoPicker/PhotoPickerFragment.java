@@ -58,8 +58,6 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
     protected void injectDependencies() {
         photoPickerComponent = DaggerPhotoPickerComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         photoPickerComponent.inject(this);
     }

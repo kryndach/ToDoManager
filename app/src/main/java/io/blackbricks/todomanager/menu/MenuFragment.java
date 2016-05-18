@@ -99,8 +99,6 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     protected void injectDependencies() {
         menuComponent = DaggerMenuComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         menuComponent.inject(this);
     }

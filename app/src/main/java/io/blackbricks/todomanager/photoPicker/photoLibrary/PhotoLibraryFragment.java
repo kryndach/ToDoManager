@@ -50,8 +50,6 @@ public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibr
     protected void injectDependencies() {
         photoLibraryComponent = DaggerPhotoLibraryComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         photoLibraryComponent.inject(this);
     }

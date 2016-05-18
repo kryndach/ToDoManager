@@ -17,6 +17,7 @@ import io.blackbricks.todomanager.background.AlarmReceiver;
 import io.blackbricks.todomanager.dagger.DaggerToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerAppComponent;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
+import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Task;
@@ -36,6 +37,7 @@ public class ToDoManagerApp extends Application {
         super.onCreate();
         appComponent = DaggerToDoManagerAppComponent.builder()
                 .toDoManagerModule(new ToDoManagerModule(this))
+                .databaseModule(new DatabaseModule())
                 .build();
         refWatcher = LeakCanary.install(this);
     }

@@ -142,8 +142,6 @@ public class TaskListActivity extends BaseActivity {
     protected void injectDependencies() {
         taskListComponent = DaggerTaskListComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this)))
                 .build();
         taskListComponent.inject(this);
     }

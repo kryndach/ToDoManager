@@ -132,8 +132,6 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     protected void injectDependencies() {
         taskListComponent = DaggerTaskListComponent.builder()
                 .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
-                .databaseModule(new DatabaseModule())
-                .toDoManagerModule(new ToDoManagerModule(ToDoManagerApp.get(this.getActivity())))
                 .build();
         taskListComponent.inject(this);
     }

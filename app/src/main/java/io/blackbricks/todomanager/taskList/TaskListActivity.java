@@ -100,24 +100,14 @@ public class TaskListActivity extends BaseActivity {
         final TaskListFragment currentFragment = (TaskListFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentView);
 
-        boolean sameType = currentFragment.type == event.type;
-        boolean sameGroup = false;
-        if (currentFragment.groupId == null
-                && event.groupId == null) {
-            sameGroup = true;
-        } else if (currentFragment.groupId != null
-                && event.groupId != null
-                && currentFragment.groupId.equals(event.groupId)) {
-            sameGroup = true;
-        }
+        boolean sameFragment = isSameFragment(event, currentFragment);
 
-        if (!sameType || !sameGroup) {
+        if (!sameFragment) {
             TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.title, event.type);
             if (event.groupId != null) {
                 fragmentBuilder.groupId(event.groupId);
             }
             final TaskListFragment fragment = fragmentBuilder.build();
-
 
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -137,6 +127,20 @@ public class TaskListActivity extends BaseActivity {
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    private boolean isSameFragment(TaskListPushEvent event, TaskListFragment currentFragment) {
+        boolean sameType = currentFragment.type == event.type;
+        boolean sameGroup = false;
+        if (currentFragment.groupId == null
+                && event.groupId == null) {
+            sameGroup = true;
+        } else if (currentFragment.groupId != null
+                && event.groupId != null
+                && currentFragment.groupId.equals(event.groupId)) {
+            sameGroup = true;
+        }
+        return sameType && sameGroup;
     }
 
     @Subscribe

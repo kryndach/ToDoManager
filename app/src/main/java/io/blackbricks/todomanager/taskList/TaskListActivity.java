@@ -95,31 +95,48 @@ public class TaskListActivity extends BaseActivity {
 
     @Subscribe
     void onTaskListPushEvent(TaskListPushEvent event) {
-        TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.title, event.type);
-        if (event.groupId != null) {
-            fragmentBuilder.groupId(event.groupId);
-        }
-        final TaskListFragment fragment = fragmentBuilder.build();
-
         drawerLayout.closeDrawers();
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.done) {
-                    fragment.done();
-                    return true;
-                }
-                return false;
-            }
-        });
-        toolbarTitle.setText(event.title);
+        final TaskListFragment currentFragment = (TaskListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentView);
 
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.enter, R.anim.exit)
-                .replace(R.id.contentView, fragment)
-                .addToBackStack(null)
-                .commit();
+        boolean sameType = currentFragment.type == event.type;
+        boolean sameGroup = false;
+        if (currentFragment.groupId == null
+                && event.groupId == null) {
+            sameGroup = true;
+        } else if (currentFragment.groupId != null
+                && event.groupId != null
+                && currentFragment.groupId.equals(event.groupId)) {
+            sameGroup = true;
+        }
+
+        if (!sameType || !sameGroup) {
+            TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.title, event.type);
+            if (event.groupId != null) {
+                fragmentBuilder.groupId(event.groupId);
+            }
+            final TaskListFragment fragment = fragmentBuilder.build();
+
+
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.done) {
+                        fragment.done();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            toolbarTitle.setText(event.title);
+
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter, R.anim.exit)
+                    .replace(R.id.contentView, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Subscribe

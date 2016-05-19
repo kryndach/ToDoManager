@@ -40,7 +40,7 @@ import io.blackbricks.todomanager.model.Group;
  */
 public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, MenuPresenter>
         implements MenuView, MenuAdapter.FilterClickListener, MenuAdapter.GroupClickListener,
-        MenuAdapter.OptionalClickListener {
+        MenuAdapter.OptionalClickListener, MenuAdapter.GroupLongClickListener {
 
     private MenuComponent menuComponent;
     private Menu menu;
@@ -75,7 +75,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        menuAdapter = new MenuAdapter(getActivity(), menu, this, this, this);
+        menuAdapter = new MenuAdapter(getActivity(), menu, this, this, this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(menuAdapter);
     }
@@ -180,5 +180,28 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void selectGroup(int groupId) {
         menuAdapter.selectGroup(groupId);
+    }
+
+    @Override
+    public void onGroupLongClicked(final Group group) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
+        builder.setTitle(String.format("Are you sure to remove %s group?", group.getName()));
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbOperationHelper.deleteGroup(group.getId());
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

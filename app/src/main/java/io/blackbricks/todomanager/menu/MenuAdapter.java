@@ -36,6 +36,10 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
         public void onGroupClicked(Group group);
     }
 
+    public interface GroupLongClickListener {
+        public void onGroupLongClicked(Group group);
+    }
+
     @ViewType(layout = R.layout.list_filter_menu_item,
             initMethod = true,
             views = {
@@ -70,15 +74,18 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     private FilterClickListener filterClickListener;
     private OptionalClickListener optionalClickListener;
     private GroupClickListener groupClickListener;
+    private GroupLongClickListener groupLongClickListener;
 
     public MenuAdapter(Context context, Menu menu, FilterClickListener filterClickListener,
                        OptionalClickListener optionalClickListener,
-                       GroupClickListener groupClickListener) {
+                       GroupClickListener groupClickListener,
+                       GroupLongClickListener groupLongClickListener) {
         super(context);
         this.menu = menu;
         this.filterClickListener = filterClickListener;
         this.optionalClickListener = optionalClickListener;
         this.groupClickListener = groupClickListener;
+        this.groupLongClickListener = groupLongClickListener;
     }
 
     public Menu getMenu() {
@@ -99,6 +106,10 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     public void setGroupClickListener(GroupClickListener groupClickListener) {
         this.groupClickListener = groupClickListener;
+    }
+
+    public void setGroupLongClickListener(GroupLongClickListener groupLongClickListener) {
+        this.groupLongClickListener = groupLongClickListener;
     }
 
     @Override
@@ -187,6 +198,13 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             @Override
             public void onClick(View v) {
                 groupClickListener.onGroupClicked(groupMenuItem.getGroup());
+            }
+        });
+        vh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                groupLongClickListener.onGroupLongClicked(groupMenuItem.getGroup());
+                return true;
             }
         });
         updateViewHolderSelection(vh, position);

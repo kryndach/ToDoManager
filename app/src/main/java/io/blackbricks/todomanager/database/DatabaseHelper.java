@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Group table create statement
     public static final String TABLE_GROUP = "groups";
     public static final String GROUP_NAME_COLUMN = "name";
-    public static final String GROUP_ORDER = "order";
+    public static final String GROUP_ORDER = "sort_order";
     public static final String GROUP_TASK_COUNT_COLUMN = "task_count";
     public static final String GROUP_HOT_TASK_COUNT_COLUMN = "hot_task_count";
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUP

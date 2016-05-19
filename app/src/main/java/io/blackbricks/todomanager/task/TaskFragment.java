@@ -84,7 +84,9 @@ import rx.functions.Action1;
  * Created by yegorkryndach on 19/04/16.
  */
 public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation, TaskView, TaskPresenter>
-        implements TaskView, AttachmentListAdapter.AttachmentClickListener, GroupListAdapter.GroupClickListener, IconListAdapter.IconClickListener, Validator.ValidationListener {
+        implements TaskView, AttachmentListAdapter.AttachmentClickListener,
+        GroupListAdapter.GroupClickListener, IconListAdapter.IconClickListener,
+        Validator.ValidationListener, AttachmentListAdapter.AttachmentLongClickListener {
 
     @Arg(required = false)
     Integer taskId;
@@ -177,7 +179,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         validator = new Validator(this);
         validator.setValidationListener(this);
 
-        attachmentListAdapter = new AttachmentListAdapter(getActivity(), null, this);
+        attachmentListAdapter = new AttachmentListAdapter(getActivity(), null, this, this);
         groupListAdapter = new GroupListAdapter(getActivity(), null, this);
         iconListAdapter = new IconListAdapter(getActivity(), null, this);
 
@@ -618,6 +620,36 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
         builder.setView(view);
         dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onAttachmentLongClicked(final AttachmentPresentation attachmentPresentation) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Are you sure to remove this image?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(taskPresentation.getAddedAttachmentPresentations().contains(attachmentPresentation)){
+                    taskPresentation.getAddedAttachmentPresentations().remove(attachmentPresentation);
+                } else {
+                    taskPresentation.getRemovedAttachmentPresentations().add(attachmentPresentation);
+                }
+                taskPresentation.getAttachmentPresentations()
+                        .remove(attachmentPresentation);
+                attachmentListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
 

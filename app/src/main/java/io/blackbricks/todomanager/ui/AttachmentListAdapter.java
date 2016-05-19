@@ -26,6 +26,10 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
         public void onAttachmentClicked(AttachmentPresentation attachmentPresentation);
     }
 
+    public interface AttachmentLongClickListener {
+        public void onAttachmentLongClicked(AttachmentPresentation attachmentPresentation);
+    }
+
     @ViewType(layout = R.layout.list_attachment_item,
             initMethod = true,
             views = {
@@ -35,13 +39,15 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
 
     ArrayList<AttachmentPresentation> attachmentPresentationList;
     private AttachmentClickListener attachmentClickListener;
+    private AttachmentLongClickListener attachmentLongClickListener;
 
-    public AttachmentListAdapter(Context context,
-                                 ArrayList<AttachmentPresentation> attachmentPresentationList,
-                                 AttachmentClickListener attachmentClickListener) {
+    public AttachmentListAdapter(Context context, ArrayList<AttachmentPresentation> attachmentPresentationList,
+                                 AttachmentClickListener attachmentClickListener,
+                                 AttachmentLongClickListener attachmentLongClickListener) {
         super(context);
         this.attachmentPresentationList = attachmentPresentationList;
         this.attachmentClickListener = attachmentClickListener;
+        this.attachmentLongClickListener = attachmentLongClickListener;
     }
 
     public ArrayList<AttachmentPresentation> getAttachmentPresentationList() {
@@ -70,6 +76,13 @@ public class AttachmentListAdapter extends SupportAnnotatedAdapter implements At
             @Override
             public void onClick(View v) {
                 attachmentClickListener.onAttachmentClicked(attachmentPresentation);
+            }
+        });
+        vh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                attachmentLongClickListener.onAttachmentLongClicked(attachmentPresentation);
+                return true;
             }
         });
     }

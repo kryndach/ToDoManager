@@ -12,10 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.blackbricks.todomanager.database.DatabaseHelper;
-import io.blackbricks.todomanager.database.transforms.CursorToGroup;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 /**
  * Created by yegorkryndach on 19/04/16.

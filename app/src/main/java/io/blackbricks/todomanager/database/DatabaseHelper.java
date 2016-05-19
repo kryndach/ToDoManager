@@ -25,12 +25,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Group table create statement
     public static final String TABLE_GROUP = "groups";
     public static final String GROUP_NAME_COLUMN = "name";
+    public static final String GROUP_ORDER = "order";
     public static final String GROUP_TASK_COUNT_COLUMN = "task_count";
     public static final String GROUP_HOT_TASK_COUNT_COLUMN = "hot_task_count";
     private static final String CREATE_TABLE_GROUP = "CREATE TABLE " + TABLE_GROUP
             + "("
             + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + GROUP_NAME_COLUMN + " TEXT NOT NULL, "
+            + GROUP_ORDER + " INTEGER NOT NULL, "
             // Counters
             + GROUP_TASK_COUNT_COLUMN + " INTEGER NOT NULL, "
             + GROUP_HOT_TASK_COUNT_COLUMN + " INTEGER NOT NULL"

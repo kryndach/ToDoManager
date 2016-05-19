@@ -23,6 +23,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.internal.operators.OperatorAny;
 import rx.internal.operators.OperatorMap;
 
@@ -67,7 +68,13 @@ public class MenuProvider {
                         return Menu.getGroupMenuItem(group);
                     }
                 })
-                .toList()
+                .toSortedList(new Func2<GroupMenuItem, GroupMenuItem, Integer>() {
+                    @Override
+                    public Integer call(GroupMenuItem groupMenuItem, GroupMenuItem groupMenuItem2) {
+                        return groupMenuItem.getGroup().getOrder()
+                                .compareTo(groupMenuItem2.getGroup().getOrder());
+                    }
+                })
                 .map(new Func1<List<GroupMenuItem>, Menu>() {
                     @Override
                     public Menu call(List<GroupMenuItem> groupMenuItems) {

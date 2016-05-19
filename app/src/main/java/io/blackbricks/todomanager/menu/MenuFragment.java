@@ -135,6 +135,8 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
         builder.setTitle("Name");
 
+        final int groupCount = menu.getGroupMenuItemList().size();
+
         final EditText input = new EditText(MenuFragment.this.getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
@@ -148,6 +150,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
                             .name(resultText)
                             .taskCount(0)
                             .hotTaskCount(0)
+                            .order(groupCount)
                             .build());
                 } else {
                     new AlertDialog.Builder(MenuFragment.this.getContext())

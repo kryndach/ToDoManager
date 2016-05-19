@@ -22,6 +22,9 @@ public class Group implements Parcelable {
     @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_NAME_COLUMN)
     String name;
 
+    @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_ORDER)
+    Integer order;
+
     @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_TASK_COUNT_COLUMN)
     Integer taskCount;
 
@@ -34,6 +37,7 @@ public class Group implements Parcelable {
     private Group(Builder builder) {
         id = builder.id;
         name = builder.name;
+        order = builder.order;
         taskCount = builder.taskCount;
         hotTaskCount = builder.hotTaskCount;
     }
@@ -46,12 +50,20 @@ public class Group implements Parcelable {
         return name;
     }
 
+    public Integer getOrder() {
+        return order;
+    }
+
     public Integer getTaskCount() {
         return taskCount;
     }
 
     public Integer getHotTaskCount() {
         return hotTaskCount;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     @Override
@@ -79,6 +91,7 @@ public class Group implements Parcelable {
     public static final class Builder {
         private Integer id;
         private String name;
+        private Integer order;
         private Integer taskCount;
         private Integer hotTaskCount;
 
@@ -92,6 +105,11 @@ public class Group implements Parcelable {
 
         public Builder name(String val) {
             name = val;
+            return this;
+        }
+
+        public Builder order(Integer val) {
+            order = val;
             return this;
         }
 

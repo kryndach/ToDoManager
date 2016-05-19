@@ -2,6 +2,8 @@ package io.blackbricks.todomanager.taskList;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +25,7 @@ import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.model.Filter;
+import io.blackbricks.todomanager.model.GroupProvider;
 import io.blackbricks.todomanager.utils.BuildUtils;
 
 /**
@@ -44,6 +47,9 @@ public class TaskListActivity extends BaseActivity {
     @Inject
     EventBus eventBus;
 
+    @Inject
+    GroupProvider groupProvider;
+
     private TaskListComponent taskListComponent;
 
     @Override
@@ -61,7 +67,7 @@ public class TaskListActivity extends BaseActivity {
             Filter.Type type = Filter.Type.INBOX;
             String title = type.toString();
 
-            final TaskListFragment fragment = new TaskListFragmentBuilder(type).build();
+            final TaskListFragment fragment = new TaskListFragmentBuilder(title, type).build();
 
             drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                     R.string.drawer_close);
@@ -89,8 +95,8 @@ public class TaskListActivity extends BaseActivity {
 
     @Subscribe
     void onTaskListPushEvent(TaskListPushEvent event) {
-        TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.type);
-        if(event.groupId != null) {
+        TaskListFragmentBuilder fragmentBuilder = new TaskListFragmentBuilder(event.title, event.type);
+        if (event.groupId != null) {
             fragmentBuilder.groupId(event.groupId);
         }
         final TaskListFragment fragment = fragmentBuilder.build();
@@ -114,6 +120,23 @@ public class TaskListActivity extends BaseActivity {
                 .replace(R.id.contentView, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Subscribe
+    void onTaskListEnterEvent(TaskListEnterEvent event) {
+        final TaskListFragment fragment = (TaskListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentView);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.done) {
+                    fragment.done();
+                    return true;
+                }
+                return false;
+            }
+        });
+        toolbarTitle.setText(event.title);
     }
 
     @Override

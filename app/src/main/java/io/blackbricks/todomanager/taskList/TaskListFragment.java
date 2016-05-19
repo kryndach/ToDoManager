@@ -52,6 +52,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Arg(required = false)
     Integer groupId;
 
+    @Arg
+    String title;
+
     @Bind(R.id.contentView)
     ViewGroup contentView;
 
@@ -110,7 +113,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onStart() {
         super.onStart();
-        eventBus.post(new TaskListEnterEvent(type, groupId));
+        eventBus.post(new TaskListEnterEvent(type, groupId, title));
     }
 
     @Override

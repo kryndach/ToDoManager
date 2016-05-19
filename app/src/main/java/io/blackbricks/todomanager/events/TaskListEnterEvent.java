@@ -8,9 +8,11 @@ import io.blackbricks.todomanager.model.Filter;
 public class TaskListEnterEvent {
     public final Filter.Type type;
     public final Integer groupId;
+    public final String title;
 
-    public TaskListEnterEvent(Filter.Type type, Integer groupId) {
+    public TaskListEnterEvent(Filter.Type type, Integer groupId, String title) {
         this.type = type;
         this.groupId = groupId;
+        this.title = title;
     }
 }

@@ -55,9 +55,12 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
                     @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
                     @ViewField(id = R.id.done_background, name = "done_background", type = LinearLayout.class),
+                    @ViewField(id = R.id.done_title, name = "done_title", type = TextView.class),
                     @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
                     @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
+                    @ViewField(id = R.id.hot_title, name = "hot_title", type = TextView.class),
                     @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
+                    @ViewField(id = R.id.delete_title, name = "delete_title", type = TextView.class),
             })
     public final int taskItem = 0;
 
@@ -112,15 +115,21 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
         if(task.getStatus() == Task.Status.HOT) {
             vh.hot_background.setBackgroundResource(R.color.unhot);
+            vh.hot_title.setText("bjnujkn");
         } else {
             vh.hot_background.setBackgroundResource(R.color.hot);
+            vh.hot_title.setText("bjnujkn");
         }
 
         if(task.getStatus() == Task.Status.DONE) {
             vh.done_background.setBackgroundResource(R.color.undone);
+            vh.done_title.setText("bjnujkn");
         } else {
             vh.done_background.setBackgroundResource(R.color.done);
+            vh.done_title.setText("bjnujkn");
         }
+
+        vh.delete_title.setText("bjnujkn");
 
         mItemManger.bindView(vh.itemView, position);
         vh.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {

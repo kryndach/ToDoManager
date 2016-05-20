@@ -33,18 +33,32 @@
 
                 <LinearLayout
                     android:id="@+id/done"
-                    android:layout_width="80dp"
+                    android:layout_width="46dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:contentDescription=""
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription=""
+                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/done_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#F00"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
@@ -60,18 +74,33 @@
 
                 <LinearLayout
                     android:id="@+id/hot"
-                    android:layout_width="80dp"
+                    android:layout_width="46dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:contentDescription=""
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:contentDescription=""
+                            android:src="@drawable/ic_assignment_turned_in_black_24dp" /> />
+
+                        <TextView
+                            android:id="@+id/hot_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#F00"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
@@ -87,18 +116,33 @@
 
             <LinearLayout
                 android:id="@+id/delete"
-                android:layout_width="80dp"
+                android:layout_width="46dp"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
                 android:orientation="vertical">
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:contentDescription=""
-                    android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:contentDescription=""
+                        android:src="@drawable/ic_assignment_turned_in_black_24dp" /> />
+
+                    <TextView
+                        android:id="@+id/delete_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#F00"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

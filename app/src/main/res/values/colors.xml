@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="menu">#333333</color>
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#1663a1</color>
     <color name="colorPrimaryLight">#6cbeff</color>
-    <color name="colorAccent">#6721f3</color>
+    <color name="colorAccent">#1de265</color>
+
+    <color name="menu">#333333</color>
+    <color name="menu.selected">#4e4e4e</color>
 
     <color name="white">#FFFFFF</color>
     <color name="toolbar_drawer_color">@color/white</color>
 
-    <color name="hot">#FF4400</color>
-    <color name="unhot">#FF9900</color>
-    <color name="done">#99FF11</color>
-    <color name="undone">#668811</color>
-    <color name="delete">#EE3311</color>
+    <color name="hot">#ff8054</color>
+    <color name="unhot">#ff8054</color>
+    <color name="done">#a0d367</color>
+    <color name="undone">#a0d367</color>
+    <color name="delete">#fe3824</color>
 </resources>

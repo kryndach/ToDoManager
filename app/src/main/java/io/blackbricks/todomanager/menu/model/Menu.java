@@ -56,15 +56,10 @@ public class Menu implements Parcelable {
     }
 
     public static GroupMenuItem getGroupMenuItem(Group group) {
-        String description = "Tasks " + group.getTaskCount();
-        if (group.getHotTaskCount() > 0) {
-            description = "Hot " + group.getHotTaskCount() + ", " + description;
-        }
-
         return new GroupMenuItem.Builder()
                 .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
                 .title(group.getName())
-                .description(description)
+                .description(group.getDescription())
                 .group(group)
                 .build();
     }

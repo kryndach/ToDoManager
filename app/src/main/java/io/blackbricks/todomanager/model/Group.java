@@ -66,6 +66,15 @@ public class Group implements Parcelable {
         this.order = order;
     }
 
+    public String getDescription() {
+        String description = "Tasks " + this.getTaskCount();
+        if (this.getHotTaskCount() > 0) {
+            description = "Hot " + this.getHotTaskCount() + ", " + description;
+        }
+
+        return description;
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -27,7 +27,9 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
     @ViewType(layout = R.layout.list_group_item,
             initMethod = true,
             views = {
+                    @ViewField(id = R.id.icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.title, name = "title", type = TextView.class),
+                    @ViewField(id = R.id.description, name = "description", type = TextView.class),
             })
     public final int groupItem = 0;
 
@@ -63,6 +65,8 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
     public void bindViewHolder(GroupListAdapterHolders.GroupItemViewHolder vh, int position) {
         final Group group = groupList.get(position);
         vh.title.setText(group.getName());
+        vh.description.setText(group.getDescription());
+        vh.icon.setImageResource(R.drawable.ic_assignment_turned_in_black_24dp);
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

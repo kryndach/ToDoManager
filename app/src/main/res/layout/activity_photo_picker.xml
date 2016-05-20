@@ -8,19 +8,18 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
-        android:background="?attr/colorPrimary"
-        android:colorControlNormal="#FFF"
-        android:elevation="0dp">
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Toolbar Title"
+            android:text="@string/toolbar_title"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/toolbar.title.size" />
     </android.support.v7.widget.Toolbar>
+
     <!-- The main content view -->
     <LinearLayout
         android:id="@+id/contentView"

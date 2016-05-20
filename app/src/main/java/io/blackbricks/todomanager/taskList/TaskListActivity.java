@@ -73,18 +73,6 @@ public class TaskListActivity extends BaseActivity {
                     R.string.drawer_close);
             drawerLayout.setDrawerListener(drawerToggle);
 
-
-            toolbar.inflateMenu(R.menu.task_list_menu);
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if (item.getItemId() == R.id.done) {
-                        fragment.done();
-                        return true;
-                    }
-                    return false;
-                }
-            });
             toolbarTitle.setText(title);
 
             getSupportFragmentManager().beginTransaction()

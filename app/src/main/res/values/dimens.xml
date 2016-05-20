@@ -5,7 +5,8 @@
     <dimen name="grid_inset">8dp</dimen>
 
     <!-- Toolbar -->
-    <dimen name="toolbar.title.size">21sp</dimen>
+    <dimen name="toolbar.title.font.size">18sp</dimen>
+    <dimen name="toolbar.menu.font.size">18sp</dimen>
     <dimen name="toolbar.elevation">0dp</dimen>
 
     <!--Drawer-->

@@ -29,6 +29,8 @@
     <style name="MenuTextAppearance" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">Helvetica</item>
     </style>
 
     <style name="CircularThemeProgressBar" parent="android:Widget.Holo.ProgressBar">

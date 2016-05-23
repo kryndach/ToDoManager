@@ -39,7 +39,7 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:gravity="start|center_vertical"
-                        android:hint="Title"
+                        android:hint="@string/title"
                         android:inputType=""
                         android:singleLine="true" />
 
@@ -58,7 +58,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -99,7 +98,7 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:gravity="start|center_vertical"
-                        android:hint="Description"
+                        android:hint="@string/description"
                         android:inputType="textMultiLine" />
 
                     <FrameLayout
@@ -117,7 +116,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -166,7 +164,7 @@
                         android:layout_gravity="start|center_vertical"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:hint="Select group" />
+                        android:hint="@string/select_group" />
 
                     <FrameLayout
                         android:id="@+id/group_clear_view"
@@ -183,7 +181,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -232,7 +229,7 @@
                         android:layout_gravity="start|center_vertical"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:hint="Select alert" />
+                        android:hint="@string/select_alert" />
 
                     <FrameLayout
                         android:id="@+id/alarm_clear_view"
@@ -249,7 +246,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -298,7 +294,7 @@
                         android:layout_gravity="start|center_vertical"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:hint="Select deadline" />
+                        android:hint="@string/select_deadline" />
 
                     <FrameLayout
                         android:id="@+id/deadline_clear_view"
@@ -315,7 +311,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -365,7 +360,7 @@
                         android:layout_gravity="start|center_vertical"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:text="Icon" />
+                        android:text="@string/icon" />
 
                     <FrameLayout
                         android:id="@+id/icon_clear_view"
@@ -382,7 +377,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:contentDescription="Action"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     </FrameLayout>
@@ -432,7 +426,7 @@
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:text="Add photo" />
+                        android:text="@string/add_photo" />
 
                 </LinearLayout>
 

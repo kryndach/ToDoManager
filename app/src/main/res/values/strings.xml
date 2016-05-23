@@ -6,4 +6,19 @@
     <string name="AlarmDateFormat">MMMM d, yyyy \'at\' h:mm a</string>
     <string name="DeadlineDateFormat">MMMM d, yyyy</string>
     <string name="TimeStampDateFormat">yyyyMMdd_HHmmss</string>
+    <string name="save">Save</string>
+    <string name="done">Done</string>
+    <string name="attachment">Attachment</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="select_group">Select group</string>
+    <string name="select_alert">Select alert</string>
+    <string name="select_deadline">Select deadline</string>
+    <string name="icon">Icon</string>
+    <string name="add_photo">Add photo</string>
+    <string name="chose_photo">Chose Photo</string>
+    <string name="unhot">Unhot</string>
+    <string name="hot">Hot</string>
+    <string name="undone">Undone</string>
+    <string name="delete">Delete</string>
 </resources>

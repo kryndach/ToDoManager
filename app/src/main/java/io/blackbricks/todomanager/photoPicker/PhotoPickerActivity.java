@@ -65,6 +65,6 @@ public class PhotoPickerActivity extends BaseActivity {
                 return false;
             }
         });
-        toolbarTitle.setText("Chose Photo");
+        toolbarTitle.setText(R.string.chose_photo);
     }
 }

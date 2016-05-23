@@ -115,21 +115,21 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
         if(task.getStatus() == Task.Status.HOT) {
             vh.hot_background.setBackgroundResource(R.color.unhot);
-            vh.hot_title.setText("bjnujkn");
+            vh.hot_title.setText(R.string.unhot);
         } else {
             vh.hot_background.setBackgroundResource(R.color.hot);
-            vh.hot_title.setText("bjnujkn");
+            vh.hot_title.setText(R.string.hot);
         }
 
         if(task.getStatus() == Task.Status.DONE) {
             vh.done_background.setBackgroundResource(R.color.undone);
-            vh.done_title.setText("bjnujkn");
+            vh.done_title.setText(R.string.undone);
         } else {
             vh.done_background.setBackgroundResource(R.color.done);
-            vh.done_title.setText("bjnujkn");
+            vh.done_title.setText(R.string.done);
         }
 
-        vh.delete_title.setText("bjnujkn");
+        vh.delete_title.setText(R.string.delete);
 
         mItemManger.bindView(vh.itemView, position);
         vh.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {

@@ -161,7 +161,6 @@
                 android:layout_height="20dp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_margin="13dp"
-                android:contentDescription="task item icon"
                 android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
             <LinearLayout

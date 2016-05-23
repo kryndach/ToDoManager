@@ -71,7 +71,7 @@ public class TaskListActivity extends BaseActivity {
 
             drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                     R.string.drawer_close);
-            drawerLayout.setDrawerListener(drawerToggle);
+            drawerLayout.addDrawerListener(drawerToggle);
 
             toolbarTitle.setText(title);
 

@@ -16,8 +16,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="start|center_vertical"
-            android:layout_margin="13dp"
-            android:contentDescription="filter icon" />
+            android:layout_margin="13dp" />
 
         <TextView
             android:id="@+id/menu_item_filter_title"

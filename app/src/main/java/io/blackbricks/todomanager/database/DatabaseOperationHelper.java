@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.blackbricks.todomanager.events.AttachmentInserterEvent;
+import io.blackbricks.todomanager.events.AttachmentInsertedEvent;
 import io.blackbricks.todomanager.events.AttachmentRemovedEvent;
 import io.blackbricks.todomanager.events.GroupInsertedEvent;
 import io.blackbricks.todomanager.events.GroupUpdatedEvent;
@@ -175,7 +175,7 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-        eventBus.post(new AttachmentInserterEvent(attachment));
+        eventBus.post(new AttachmentInsertedEvent(attachment));
     }
 
     public void deleteAttachment(Integer attachmentId) {

@@ -338,7 +338,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void updateAlarm() {
         if (taskPresentation.getTask().getDateAlarm() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
+            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.AlarmDateFormat));
             String textAlarm = format.format(taskPresentation.getTask().getDateAlarm());
             alarmTextView.setText(textAlarm);
             alarmClearView.setVisibility(View.VISIBLE);
@@ -362,7 +362,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void updateDeadline() {
         if (taskPresentation.getTask().getDateDeadline() != null) {
-            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.DeadlineDateFormat));
             String textAlarm = format.format(taskPresentation.getTask().getDateDeadline());
             deadlineTextView.setText(textAlarm);
             deadlineClearView.setVisibility(View.VISIBLE);
@@ -496,7 +496,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     private Uri getImageUri() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+        String timeStamp = new SimpleDateFormat(getString(R.string.TimeStampDateFormat))
                 .format(new Date());
         File imagesFolder = new File(Environment.getExternalStorageDirectory(), "images");
         imagesFolder.mkdirs();

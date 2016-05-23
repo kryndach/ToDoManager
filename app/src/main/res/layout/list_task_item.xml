@@ -91,7 +91,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:contentDescription=""
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" /> />
+                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                         <TextView
                             android:id="@+id/hot_title"

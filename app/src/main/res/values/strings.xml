@@ -3,4 +3,7 @@
     <string name="drawer_open">Open menu</string>
     <string name="drawer_close">Close menu</string>
     <string name="toolbar_title">Toolbar Title</string>
+    <string name="AlarmDateFormat">MMMM d, yyyy \'at\' h:mm a</string>
+    <string name="DeadlineDateFormat">MMMM d, yyyy</string>
+    <string name="TimeStampDateFormat">yyyyMMdd_HHmmss</string>
 </resources>

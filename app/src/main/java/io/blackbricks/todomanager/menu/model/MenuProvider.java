@@ -91,7 +91,7 @@ public class MenuProvider {
 
         optionalMenuItemList.add(
                 new OptionalMenuItem.Builder()
-                        .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                        .iconRes(R.drawable.email)
                         .title("Support")
                         .description(null)
                         .type(OptionalMenuItem.Type.SUPPORT)
@@ -116,7 +116,7 @@ public class MenuProvider {
         for (Filter.Type type : filterList) {
             filterMenuItemList.add(
                     new FilterMenuItem.Builder()
-                            .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                            .iconRes(R.drawable.inbox)
                             .title(type.toString())
                             .description(null)
                             .filter(new Filter(type))

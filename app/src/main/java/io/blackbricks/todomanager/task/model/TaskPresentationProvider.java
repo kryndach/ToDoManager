@@ -83,6 +83,7 @@ public class TaskPresentationProvider {
             taskObservable = Observable.just(new Task.Builder()
                     .dateCreated(new Date())
                     .dateStatusUpdated(new Date())
+                    .groupId(groupId)
                     .status(Task.Status.UNDONE)
                     .build());
             attachmentListObservable = Observable.just(new ArrayList<AttachmentPresentation>());

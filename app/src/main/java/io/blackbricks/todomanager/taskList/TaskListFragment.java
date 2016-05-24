@@ -171,7 +171,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @OnClick(R.id.addButton)
     void onAddClick() {
-        intentStarter.createTask(getActivity());
+        intentStarter.createTask(getActivity(), groupId);
     }
 
     @Override

@@ -63,7 +63,7 @@ public class TaskActivity extends BaseActivity {
             taskId = intent.getIntExtra(KEY_TASK_ID, 0);
         }
         Integer groupId = null;
-        if (intent.hasExtra(KEY_TASK_ID)) {
+        if (intent.hasExtra(KEY_GROUP_ID)) {
             groupId = intent.getIntExtra(KEY_GROUP_ID, 0);
         }
         String title = intent.getStringExtra(KEY_TITLE);

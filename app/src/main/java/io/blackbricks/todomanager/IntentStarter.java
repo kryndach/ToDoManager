@@ -37,9 +37,12 @@ public class IntentStarter {
         return context.getResources().getBoolean(R.bool.tablet);
     }
 
-    public void createTask(Context context) {
+    public void createTask(Context context, Integer groupId) {
         Intent i = new Intent(context, TaskActivity.class);
         i.putExtra(TaskActivity.KEY_TITLE, "Create task");
+        if(groupId != null) {
+            i.putExtra(TaskActivity.KEY_GROUP_ID, groupId);
+        }
         context.startActivity(i);
     }
 

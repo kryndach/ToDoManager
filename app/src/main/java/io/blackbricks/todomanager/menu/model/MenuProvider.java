@@ -104,25 +104,68 @@ public class MenuProvider {
     private ArrayList<FilterMenuItem> getFilterMenuItems() {
         ArrayList<FilterMenuItem> filterMenuItemList = new ArrayList<>();
 
-        Filter.Type[] filterList = {
-                Filter.Type.INBOX,
-                Filter.Type.TODAY,
-                Filter.Type.TOMORROW,
-                Filter.Type.WEEK,
-                Filter.Type.HOT,
-                Filter.Type.DONE,
-                Filter.Type.OVERDUE,
-        };
-        for (Filter.Type type : filterList) {
-            filterMenuItemList.add(
-                    new FilterMenuItem.Builder()
-                            .iconRes(R.drawable.inbox)
-                            .title(type.toString())
-                            .description(null)
-                            .filter(new Filter(type))
-                            .build()
-            );
-        }
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.inbox)
+                        .title(Filter.Type.INBOX.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.INBOX))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.calendar_today)
+                        .title(Filter.Type.TODAY.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.TODAY))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.calendar_tomorrow)
+                        .title(Filter.Type.TOMORROW.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.TOMORROW))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.calendar_week)
+                        .title(Filter.Type.WEEK.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.WEEK))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.fire)
+                        .title(Filter.Type.HOT.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.HOT))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.check)
+                        .title(Filter.Type.DONE.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.DONE))
+                        .build()
+        );
+
+        filterMenuItemList.add(
+                new FilterMenuItem.Builder()
+                        .iconRes(R.drawable.clock)
+                        .title(Filter.Type.OVERDUE.toString())
+                        .description(null)
+                        .filter(new Filter(Filter.Type.OVERDUE))
+                        .build()
+        );
 
         return filterMenuItemList;
     }

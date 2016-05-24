@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.taskList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -185,11 +187,29 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public void onTaskDelete(Task task, int position) {
-        dbOperationHelper.deleteTask(task.getId());
-        taskListAdapter.notifyItemRemoved(position);
-        taskListPresentation.getTaskList().remove(task);
-        taskListAdapter.closeAllItems();
+    public void onTaskDelete(final Task task, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(String.format("Are you sure to remove %s task?", task.getTitle()));
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbOperationHelper.deleteTask(task.getId());
+                taskListAdapter.notifyItemRemoved(position);
+                taskListPresentation.getTaskList().remove(task);
+                taskListAdapter.closeAllItems();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

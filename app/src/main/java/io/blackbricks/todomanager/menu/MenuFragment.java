@@ -185,19 +185,26 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void onGroupLongClicked(final Group group) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
-        builder.setTitle(String.format("Are you sure to remove %s group?", group.getName()));
+        builder.setTitle(String.format("Remove %s group with all tasks?", group.getName()));
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbOperationHelper.deleteGroup(group.getId());
+                dbOperationHelper.deleteGroup(group.getId(), true);
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbOperationHelper.deleteGroup(group.getId(), false);
             }
         });
 

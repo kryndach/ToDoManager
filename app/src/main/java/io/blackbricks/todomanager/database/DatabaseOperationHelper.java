@@ -65,6 +65,10 @@ public class DatabaseOperationHelper {
     }
 
     public void deleteGroup(Integer groupId) {
+        deleteGroup(groupId, false);
+    }
+
+    public void deleteGroup(Integer groupId, boolean removeTasks) {
         storio.delete()
                 .byQuery(DeleteQuery.builder()
                         .table(DatabaseHelper.TABLE_GROUP)
@@ -73,6 +77,27 @@ public class DatabaseOperationHelper {
                         .build())
                 .prepare()
                 .executeAsBlocking();
+        if (removeTasks) {
+            storio.delete()
+                    .byQuery(DeleteQuery.builder()
+                            .table(DatabaseHelper.TABLE_TASK)
+                            .where(DatabaseHelper.TASK_GROUP_ID_COLUMN + " = ?")
+                            .whereArgs(groupId)
+                            .build())
+                    .prepare()
+                    .executeAsBlocking();
+        } else {
+            storio.executeSQL()
+                    .withQuery(RawQuery.builder()
+                            .query("UPDATE " + DatabaseHelper.TABLE_TASK
+                                    + " SET " + DatabaseHelper.TASK_GROUP_ID_COLUMN + " = NULL"
+                                    + " WHERE " + DatabaseHelper.TASK_GROUP_ID_COLUMN
+                                    + " = " + groupId)
+                            .affectsTables(DatabaseHelper.TABLE_TASK)
+                            .build())
+                    .prepare()
+                    .executeAsBlocking();
+        }
         eventBus.post(new GroupRemovedEvent(groupId));
     }
 
@@ -150,7 +175,7 @@ public class DatabaseOperationHelper {
                                 + " AND "
                                 + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN
                                 + " IS NOT NULL"
-                                )
+                        )
                         .affectsTables(DatabaseHelper.TABLE_TASK)
                         .build())
                 .prepare()

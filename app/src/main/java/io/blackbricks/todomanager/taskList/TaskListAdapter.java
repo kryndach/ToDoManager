@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,15 +54,15 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.title, name = "title", type = TextView.class),
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
-                    @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
+                    @ViewField(id = R.id.done, name = "done", type = FrameLayout.class),
                     @ViewField(id = R.id.done_background, name = "done_background", type = LinearLayout.class),
                     @ViewField(id = R.id.done_title, name = "done_title", type = TextView.class),
                     @ViewField(id = R.id.done_image, name = "done_image", type = ImageView.class),
-                    @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
+                    @ViewField(id = R.id.hot, name = "hot", type = FrameLayout.class),
                     @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
                     @ViewField(id = R.id.hot_title, name = "hot_title", type = TextView.class),
                     @ViewField(id = R.id.hot_image, name = "hot_image", type = ImageView.class),
-                    @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
+                    @ViewField(id = R.id.delete, name = "delete", type = FrameLayout.class),
                     @ViewField(id = R.id.delete_title, name = "delete_title", type = TextView.class),
             })
     public final int taskItem = 0;

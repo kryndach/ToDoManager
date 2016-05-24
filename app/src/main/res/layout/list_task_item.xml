@@ -31,7 +31,7 @@
                 android:focusable="true"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/done"
                     android:layout_width="46dp"
                     android:layout_height="match_parent"
@@ -57,11 +57,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="#F00"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
-                </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +73,7 @@
                 android:clickable="true"
                 android:focusable="true">
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/hot"
                     android:layout_width="46dp"
                     android:layout_height="match_parent"
@@ -100,11 +100,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="#F00"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
-                </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -116,7 +116,7 @@
             android:clickable="true"
             android:focusable="true">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/delete"
                 android:layout_width="46dp"
                 android:layout_height="match_parent"
@@ -136,18 +136,18 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:contentDescription=""
-                        android:src="@drawable/delete_forever" /> />
+                        android:src="@drawable/delete_forever" />
 
                     <TextView
                         android:id="@+id/delete_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="#F00"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout

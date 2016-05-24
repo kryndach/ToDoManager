@@ -110,6 +110,8 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
         final Task task = taskList.get(position);
         if (task.getIconId() != null) {
             vh.icon.setImageResource(task.getIconId());
+        } else {
+            vh.icon.setImageResource(R.drawable.briefcase_black);
         }
         vh.title.setText(task.getTitle());
 

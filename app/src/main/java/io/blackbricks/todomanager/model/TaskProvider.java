@@ -155,6 +155,8 @@ public class TaskProvider {
                     object.dateDeadline = cursor.getLong(cursor.getColumnIndex("date_deadline"));
                 if (!cursor.isNull(cursor.getColumnIndex("icon_id")))
                     object.iconId = cursor.getInt(cursor.getColumnIndex("icon_id"));
+                else
+                    object.iconId = null;
                 if (!cursor.isNull(cursor.getColumnIndex("title")))
                     object.title = cursor.getString(cursor.getColumnIndex("title"));
                 if (!cursor.isNull(cursor.getColumnIndex("status")))

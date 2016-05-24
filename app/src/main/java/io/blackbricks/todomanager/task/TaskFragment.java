@@ -453,7 +453,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             iconImageView.setImageResource(taskPresentation.getTask().getIconId());
             iconClearView.setVisibility(View.VISIBLE);
         } else {
-            //TODO set default image
+            iconImageView.setImageResource(R.drawable.briefcase_black);
             iconClearView.setVisibility(View.GONE);
         }
     }

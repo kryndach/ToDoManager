@@ -22,7 +22,6 @@ public class IconProvider {
     public Observable<List<Integer>> getIcons(){
         ArrayList<Integer> icons = new ArrayList<>();
         icons.add(R.drawable.folder_outline_black);
-        icons.add(R.drawable.briefcase_black);
 
         return Observable.just((List<Integer>) icons);
     }

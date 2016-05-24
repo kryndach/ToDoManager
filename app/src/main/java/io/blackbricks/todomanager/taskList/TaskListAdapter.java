@@ -56,9 +56,11 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
                     @ViewField(id = R.id.done, name = "done", type = LinearLayout.class),
                     @ViewField(id = R.id.done_background, name = "done_background", type = LinearLayout.class),
                     @ViewField(id = R.id.done_title, name = "done_title", type = TextView.class),
+                    @ViewField(id = R.id.done_image, name = "done_image", type = ImageView.class),
                     @ViewField(id = R.id.hot, name = "hot", type = LinearLayout.class),
                     @ViewField(id = R.id.hot_background, name = "hot_background", type = LinearLayout.class),
                     @ViewField(id = R.id.hot_title, name = "hot_title", type = TextView.class),
+                    @ViewField(id = R.id.hot_image, name = "hot_image", type = ImageView.class),
                     @ViewField(id = R.id.delete, name = "delete", type = LinearLayout.class),
                     @ViewField(id = R.id.delete_title, name = "delete_title", type = TextView.class),
             })
@@ -118,17 +120,21 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
         if(task.getStatus() == Task.Status.HOT) {
             vh.hot_background.setBackgroundResource(R.color.unhot);
             vh.hot_title.setText(R.string.unhot);
+            vh.hot_image.setImageResource(R.drawable.fire_cross);
         } else {
             vh.hot_background.setBackgroundResource(R.color.hot);
             vh.hot_title.setText(R.string.hot);
+            vh.hot_image.setImageResource(R.drawable.fire);
         }
 
         if(task.getStatus() == Task.Status.DONE) {
             vh.done_background.setBackgroundResource(R.color.undone);
             vh.done_title.setText(R.string.undone);
+            vh.done_image.setImageResource(R.drawable.close);
         } else {
             vh.done_background.setBackgroundResource(R.color.done);
             vh.done_title.setText(R.string.done);
+            vh.done_image.setImageResource(R.drawable.check);
         }
 
         vh.delete_title.setText(R.string.delete);

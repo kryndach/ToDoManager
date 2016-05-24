@@ -160,11 +160,20 @@
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:layout_margin="13dp"
                 android:src="@drawable/briefcase_black" />
+
+            <ImageView
+                android:id="@+id/hot_status_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="-22dp"
+                android:layout_marginTop="-10dp"
+                android:src="@drawable/fire_orange" />
 
             <LinearLayout
                 android:layout_width="match_parent"

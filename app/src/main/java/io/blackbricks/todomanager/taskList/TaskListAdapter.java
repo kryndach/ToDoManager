@@ -53,6 +53,7 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             views = {
                     @ViewField(id = R.id.icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.title, name = "title", type = TextView.class),
+                    @ViewField(id = R.id.hot_status_icon, name = "hot_status_icon", type = ImageView.class),
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
                     @ViewField(id = R.id.done, name = "done", type = FrameLayout.class),
                     @ViewField(id = R.id.done_background, name = "done_background", type = LinearLayout.class),
@@ -122,10 +123,12 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             vh.hot_background.setBackgroundResource(R.color.unhot);
             vh.hot_title.setText(R.string.unhot);
             vh.hot_image.setImageResource(R.drawable.fire_cross);
+            vh.hot_status_icon.setVisibility(View.VISIBLE);
         } else {
             vh.hot_background.setBackgroundResource(R.color.hot);
             vh.hot_title.setText(R.string.hot);
             vh.hot_image.setImageResource(R.drawable.fire);
+            vh.hot_status_icon.setVisibility(View.GONE);
         }
 
         if(task.getStatus() == Task.Status.DONE) {

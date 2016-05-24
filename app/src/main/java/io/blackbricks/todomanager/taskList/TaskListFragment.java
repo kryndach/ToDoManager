@@ -181,7 +181,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void onTaskClicked(Task task, int position) {
-        intentStarter.editTask(getActivity(), task.getId());
+        intentStarter.editTask(getActivity(), task.getId(), task.getGroupId());
     }
 
     @Override

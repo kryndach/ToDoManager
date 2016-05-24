@@ -43,10 +43,13 @@ public class IntentStarter {
         context.startActivity(i);
     }
 
-    public void editTask(Context context, Integer taskId) {
+    public void editTask(Context context, Integer taskId, Integer groupId) {
         Intent i = new Intent(context, TaskActivity.class);
         i.putExtra(TaskActivity.KEY_TASK_ID, taskId);
         i.putExtra(TaskActivity.KEY_TITLE, "Edit task");
+        if(groupId != null) {
+            i.putExtra(TaskActivity.KEY_GROUP_ID, groupId);
+        }
         context.startActivity(i);
     }
 

@@ -57,7 +57,7 @@ public class Menu implements Parcelable {
 
     public static GroupMenuItem getGroupMenuItem(Group group) {
         return new GroupMenuItem.Builder()
-                .iconRes(R.drawable.ic_assignment_turned_in_black_24dp)
+                .iconRes(R.drawable.folder_outline)
                 .title(group.getName())
                 .description(group.getDescription())
                 .group(group)

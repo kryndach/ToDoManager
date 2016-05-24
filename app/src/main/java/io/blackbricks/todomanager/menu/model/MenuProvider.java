@@ -89,14 +89,14 @@ public class MenuProvider {
     private ArrayList<OptionalMenuItem> getOptionalMenuItems() {
         ArrayList<OptionalMenuItem> optionalMenuItemList = new ArrayList<>();
 
-        optionalMenuItemList.add(
-                new OptionalMenuItem.Builder()
-                        .iconRes(R.drawable.email)
-                        .title("Support")
-                        .description(null)
-                        .type(OptionalMenuItem.Type.SUPPORT)
-                        .build()
-        );
+//        optionalMenuItemList.add(
+//                new OptionalMenuItem.Builder()
+//                        .iconRes(R.drawable.email)
+//                        .title(OptionalMenuItem.Type.SUPPORT.toString())
+//                        .description(null)
+//                        .type(OptionalMenuItem.Type.SUPPORT)
+//                        .build()
+//        );
         return optionalMenuItemList;
     }
 

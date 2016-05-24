@@ -58,7 +58,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -155,7 +155,7 @@
                         android:layout_weight="0"
                         android:contentDescription=""
                         android:gravity="start|center_vertical"
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:src="@drawable/folder_outline_black" />
 
                     <TextView
                         android:id="@+id/group_text_view"
@@ -181,7 +181,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -220,7 +220,7 @@
                         android:layout_weight="0"
                         android:contentDescription=""
                         android:gravity="start|center_vertical"
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:src="@drawable/bell_black" />
 
                     <TextView
                         android:id="@+id/alarm_text_view"
@@ -246,7 +246,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -285,7 +285,7 @@
                         android:layout_weight="0"
                         android:contentDescription=""
                         android:gravity="start|center_vertical"
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:src="@drawable/timer_black" />
 
                     <TextView
                         android:id="@+id/deadline_text_view"
@@ -311,7 +311,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -351,7 +351,7 @@
                         android:layout_weight="0"
                         android:contentDescription=""
                         android:gravity="start|center_vertical"
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:src="@drawable/briefcase_black" />
 
                     <TextView
                         android:id="@+id/icon_text_view"
@@ -377,7 +377,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/close_black" />
 
                     </FrameLayout>
 
@@ -416,7 +416,7 @@
                         android:layout_weight="0"
                         android:contentDescription=""
                         android:gravity="start|center_vertical"
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                        android:src="@drawable/image_black" />
 
                     <TextView
                         android:id="@+id/photo_text_view"

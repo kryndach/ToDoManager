@@ -66,7 +66,7 @@ public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupLi
         final Group group = groupList.get(position);
         vh.title.setText(group.getName());
         vh.description.setText(group.getDescription());
-        vh.icon.setImageResource(R.drawable.ic_assignment_turned_in_black_24dp);
+        vh.icon.setImageResource(R.drawable.folder_outline_black);
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -49,7 +49,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:contentDescription=""
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/check" />
 
                         <TextView
                             android:id="@+id/done_title"
@@ -91,7 +91,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:contentDescription=""
-                            android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                            android:src="@drawable/fire" />
 
                         <TextView
                             android:id="@+id/hot_title"
@@ -133,7 +133,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:contentDescription=""
-                        android:src="@drawable/ic_assignment_turned_in_black_24dp" /> />
+                        android:src="@drawable/delete_forever" /> />
 
                     <TextView
                         android:id="@+id/delete_title"
@@ -161,7 +161,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_margin="13dp"
-                android:src="@drawable/ic_assignment_turned_in_black_24dp" />
+                android:src="@drawable/briefcase_black" />
 
             <LinearLayout
                 android:layout_width="match_parent"

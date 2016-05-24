@@ -12,7 +12,18 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 public class OptionalMenuItem extends MenuItem implements Parcelable {
 
     public enum Type {
-        SUPPORT
+        SUPPORT("Support");
+
+        private final String text;
+
+        Type(final String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 
     Type type;

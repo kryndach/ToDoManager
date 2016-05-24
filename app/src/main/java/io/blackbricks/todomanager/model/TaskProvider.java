@@ -68,7 +68,7 @@ public class TaskProvider {
             }
             case WEEK: {
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.DAY_OF_WEEK, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                 calendar.set(Calendar.HOUR, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);

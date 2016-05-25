@@ -62,6 +62,10 @@ public class Group implements Parcelable {
         return hotTaskCount;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setOrder(Integer order) {
         this.order = order;
     }

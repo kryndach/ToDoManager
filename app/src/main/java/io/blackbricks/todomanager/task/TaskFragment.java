@@ -25,9 +25,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -292,18 +294,84 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     // Group
     @OnClick(R.id.group_view)
     void onClickGroup() {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        RecyclerView groupRecyclerView = (RecyclerView) inflater.inflate(R.layout.dialog_group_list, null);
+        if(taskPresentation.getGroupList().size() != 0) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            RecyclerView groupRecyclerView = (RecyclerView) inflater.inflate(R.layout.dialog_group_list, null);
 
-        LinearLayoutManager linearLayoutManagerFilter = new LinearLayoutManager(getContext());
-        groupRecyclerView.setLayoutManager(linearLayoutManagerFilter);
-        groupRecyclerView.setAdapter(groupListAdapter);
+            LinearLayoutManager linearLayoutManagerFilter = new LinearLayoutManager(getContext());
+            groupRecyclerView.setLayoutManager(linearLayoutManagerFilter);
+            groupRecyclerView.setAdapter(groupListAdapter);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
-        builder.setView(groupRecyclerView);
-        builder.setTitle("Chose group");
-        dialog = builder.create();
-        dialog.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
+            builder.setView(groupRecyclerView);
+            builder.setTitle("Chose group");
+            dialog = builder.create();
+            dialog.show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("You don't have any groups. Create one?");
+
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    // Group creation
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TaskFragment.this.getContext());
+                    builder.setTitle("Name");
+
+                    final EditText input = new EditText(TaskFragment.this.getContext());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String resultText = input.getText().toString();
+                            if (resultText.length() > 0) {
+                                Group group = new Group.Builder()
+                                        .name(resultText)
+                                        .taskCount(0)
+                                        .hotTaskCount(0)
+                                        .order(0)
+                                        .build();
+                                int groupId = dbOperationHelper.putGroup(group);
+                                group.setId(groupId);
+                                taskPresentation.getGroupList().add(group);
+                                taskPresentation.setGroup(group);
+                                taskPresentation.getTask().setGroupId(group.getId());
+                                updateGroup();
+                                dialog.dismiss();
+                            } else {
+                                new AlertDialog.Builder(TaskFragment.this.getContext())
+                                        .setTitle("Error")
+                                        .setMessage("Need some symbols!")
+                                        .show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    dialogInterface.cancel();
+                    AlertDialog dialog = builder.create();
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                    dialog.show();
+                }
+            });
+
+            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     @OnClick(R.id.group_clear_view)

@@ -41,12 +41,13 @@ public class DatabaseOperationHelper {
 
     // Group
 
-    public void putGroup(Group group) {
+    public int putGroup(Group group) {
         PutResult putResult = storio.put()
                 .object(group)
                 .prepare()
                 .executeAsBlocking();
 
+        int groupId;
         if (putResult.wasInserted()) {
             group = storio
                     .get()
@@ -59,9 +60,13 @@ public class DatabaseOperationHelper {
                     .prepare()
                     .executeAsBlocking();
             eventBus.post(new GroupInsertedEvent(group));
+            groupId = putResult.insertedId().intValue();
         } else {
             eventBus.post(new GroupUpdatedEvent(group));
+            groupId = group.getId();
         }
+
+        return groupId;
     }
 
     public void deleteGroup(Integer groupId) {

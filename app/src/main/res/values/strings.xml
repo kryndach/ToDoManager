@@ -5,6 +5,7 @@
     <string name="toolbar_title">Toolbar Title</string>
     <string name="AlarmDateFormat">MMMM d, yyyy \'at\' h:mm a</string>
     <string name="DeadlineDateFormat">MMMM d, yyyy</string>
+    <string name="TaskDeadlineDateFormat">d.MM.yyyy</string>
     <string name="TimeStampDateFormat">yyyyMMdd_HHmmss</string>
     <string name="save">Save</string>
     <string name="done">Done</string>

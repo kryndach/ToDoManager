@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.taskList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.hannesdorfmann.annotatedadapter.annotation.ViewField;
 import com.hannesdorfmann.annotatedadapter.annotation.ViewType;
 import com.hannesdorfmann.annotatedadapter.support.recyclerview.SupportAnnotatedAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             views = {
                     @ViewField(id = R.id.icon, name = "icon", type = ImageView.class),
                     @ViewField(id = R.id.title, name = "title", type = TextView.class),
+                    @ViewField(id = R.id.deadline, name = "deadline", type = TextView.class),
                     @ViewField(id = R.id.hot_status_icon, name = "hot_status_icon", type = ImageView.class),
                     @ViewField(id = R.id.swipe_layout, name = "swipeLayout", type = SwipeLayout.class),
                     @ViewField(id = R.id.done, name = "done", type = FrameLayout.class),
@@ -75,11 +78,13 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
     private TaskHotListener taskHotListener;
     private TaskDeleteListener taskDeleteListener;
 
+    private Context context;
 
     public TaskListAdapter(Context context, ArrayList<Task> taskList,
                            TaskClickListener taskClickListener, TaskDoneListener taskDoneListener,
                            TaskHotListener taskHotListener, TaskDeleteListener taskDeleteListener) {
         super(context);
+        this.context = context;
         this.taskList = taskList;
         this.taskClickListener = taskClickListener;
         this.taskDoneListener = taskDoneListener;
@@ -124,11 +129,22 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             vh.hot_title.setText(R.string.unhot);
             vh.hot_image.setImageResource(R.drawable.fire_cross);
             vh.hot_status_icon.setVisibility(View.VISIBLE);
+            vh.title.setTextColor(ContextCompat.getColor(context, R.color.hot));
         } else {
             vh.hot_background.setBackgroundResource(R.color.hot);
             vh.hot_title.setText(R.string.hot);
             vh.hot_image.setImageResource(R.drawable.fire);
             vh.hot_status_icon.setVisibility(View.GONE);
+            vh.title.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        }
+
+        if(task.getDateDeadline() != null) {
+            SimpleDateFormat format = new SimpleDateFormat(context.getString(R.string.TaskDeadlineDateFormat));
+            String textDeadline = format.format(task.getDateDeadline());
+            vh.deadline.setText(textDeadline);
+            vh.deadline.setVisibility(View.VISIBLE);
+        } else {
+            vh.deadline.setVisibility(View.GONE);
         }
 
         if(task.getStatus() == Task.Status.DONE) {

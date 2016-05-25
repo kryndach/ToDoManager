@@ -176,9 +176,12 @@
                 android:src="@drawable/fire_orange" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -189,6 +192,16 @@
                     android:textColor="#000" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:text="21.01.2016"
+                android:layout_marginRight="8dp"
+                android:textSize="13sp"
+                android:textColor="#000" />
         </LinearLayout>
 
     </com.daimajia.swipe.SwipeLayout>

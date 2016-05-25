@@ -108,6 +108,7 @@ public class TaskProvider {
                 .withQuery(Query.builder()
                         .table(DatabaseHelper.TABLE_TASK)
                         .where(condition)
+                        .orderBy(DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC")
                         .build())
                 .withGetResolver(getResolver())
                 .prepare()

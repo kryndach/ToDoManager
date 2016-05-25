@@ -30,7 +30,6 @@ public class IconProvider {
         icons.add(R.drawable.android_studio);
         icons.add(R.drawable.appnet);
         icons.add(R.drawable.at);
-        icons.add(R.drawable.account);
         icons.add(R.drawable.attachment);
         icons.add(R.drawable.baby);
         icons.add(R.drawable.basecamp);

@@ -40,7 +40,7 @@ public class TaskProvider {
         switch (filterType) {
             case INBOX: {
                 condition = DatabaseHelper.TASK_GROUP_ID_COLUMN + " IS NULL"
-                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " != " + Task.Status.DONE.getValue();
                 order = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " ASC, "
                 + DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC";
                 break;
@@ -55,7 +55,7 @@ public class TaskProvider {
                 Date todayEnd = calendar.getTime();
                 condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + todayStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + todayEnd.getTime()
-                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " != " + Task.Status.DONE.getValue();
                 order = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " ASC, "
                         + DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC";
                 break;
@@ -71,7 +71,7 @@ public class TaskProvider {
                 Date tomorrowEnd = calendar.getTime();
                 condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + tomorrowStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + tomorrowEnd.getTime()
-                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " != " + Task.Status.DONE.getValue();
                 order = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " ASC, "
                         + DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC";
                 break;
@@ -87,7 +87,7 @@ public class TaskProvider {
                 Date weekEnd = calendar.getTime();
                 condition = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " > " + weekStart.getTime()
                         + " AND " + DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " < " + weekEnd.getTime()
-                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " != " + Task.Status.DONE.getValue();
                 order = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " ASC, "
                         + DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC";
                 break;
@@ -109,7 +109,7 @@ public class TaskProvider {
             }
             case GROUP: {
                 condition = DatabaseHelper.TASK_GROUP_ID_COLUMN + " = " + groupId
-                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " = " + Task.Status.DONE.getValue();
+                        + " AND " + DatabaseHelper.TASK_STATUS_COLUMN + " != " + Task.Status.DONE.getValue();
                 order = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN + " ASC, "
                         + DatabaseHelper.TASK_DATE_CREATED_COLUMN + " DESC";
                 break;

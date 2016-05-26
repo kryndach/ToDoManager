@@ -19,6 +19,9 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
     public int getItemCount() {
         int itemCount = 0;
         for (int section = 0; section < getSectionCount(); section++) {
+            if(supportHeader(section)) {
+                itemCount++;
+            }
             itemCount += getItemCount(section);
         }
         return itemCount;
@@ -27,10 +30,18 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
     @Override
     public int getItemViewType(int position) {
         int section = getSection(position);
+        if(supportHeader(section)) {
+            int positionInSection = getPositionInSection(position);
+            if(positionInSection == 0) {
+                return ITEM_SECTION_HEADER;
+            }
+        }
         return getItemViewTypeBySection(section);
     }
 
     abstract int getItemCount(int section);
+
+    abstract boolean supportHeader(int section);
 
     abstract int getSectionCount();
 

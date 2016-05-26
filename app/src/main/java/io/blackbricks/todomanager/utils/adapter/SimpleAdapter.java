@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.utils;
+package io.blackbricks.todomanager.utils.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

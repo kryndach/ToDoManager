@@ -22,7 +22,7 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
             if(supportHeader(section)) {
                 itemCount++;
             }
-            itemCount += getItemCount(section);
+            itemCount += getSectionItemCount(section);
         }
         return itemCount;
     }
@@ -39,23 +39,19 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
         return getItemViewTypeBySection(section);
     }
 
-    abstract int getItemCount(int section);
+    protected abstract int getSectionItemCount(int section);
 
-    abstract boolean supportHeader(int section);
+    protected abstract boolean supportHeader(int section);
 
-    abstract int getSectionCount();
+    protected abstract int getSectionCount();
 
-    abstract int getItemViewTypeBySection(int section);
+    protected abstract int getItemViewTypeBySection(int section);
 
     protected int getPositionInSection(int position) {
         int itemCount = 0;
         int section;
         for (section = 0; section < getSectionCount(); section++) {
-            int curItemCount = 0;
-            if(supportHeader(section)) {
-                curItemCount++;
-            }
-            curItemCount += getItemCount(section);
+            int curItemCount = getSectionItemCount(section) + (supportHeader(section) ? 1 : 0);
             itemCount += curItemCount;
             if(itemCount > position)
                 return curItemCount - (itemCount - position);
@@ -63,14 +59,21 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
         return 0;
     }
 
+    protected int getPositionStartSection(int section) {
+        int itemCount = 0;
+        for (int curSection = 0; curSection < section; curSection++) {
+            int curItemCount = getSectionItemCount(curSection) + (supportHeader(curSection) ? 1 : 0);
+            itemCount += curItemCount;
+        }
+        return itemCount;
+    }
+
     private int getSection(int position) {
         int itemCount = 0;
         int section;
         for (section = 0; section < getSectionCount(); section++) {
-            if(supportHeader(section)) {
-                itemCount++;
-            }
-            itemCount += getItemCount(section);
+            int curItemCount = getSectionItemCount(section) + (supportHeader(section) ? 1 : 0);
+            itemCount += curItemCount;
             if(itemCount > position)
                 return section - 1;
         }

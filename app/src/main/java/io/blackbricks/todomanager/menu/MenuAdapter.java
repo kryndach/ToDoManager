@@ -18,11 +18,12 @@ import io.blackbricks.todomanager.menu.model.items.GroupMenuItem;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Group;
+import io.blackbricks.todomanager.utils.adapter.SectionedAdapter;
 
 /**
  * Created by yegorkryndach on 16/04/16.
  */
-public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterBinder {
+public class MenuAdapter extends SectionedAdapter implements MenuAdapterBinder {
 
     public interface FilterClickListener {
         public void onFilterClicked(Filter filter);
@@ -68,7 +69,7 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     @ViewType(layout = R.layout.list_separator_menu_item,
             initMethod = true,
             views = {})
-    public final int menuItemSeparator = 3;
+    public final int menuItemSeparator = ITEM_SECTION_HEADER;
 
     private Menu menu;
     private FilterClickListener filterClickListener;
@@ -113,53 +114,45 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
     }
 
     @Override
-    public int getItemCount() {
+    protected int getSectionItemCount(int section) {
         if (menu == null)
             return 0;
-
-        int itemCount = 0;
-        // add filters count
-        itemCount += menu.getFilterMenuItemList().size();
-        // Add 1 for separator between filter and optional section
-        itemCount++;
-        // add optionals count
-        itemCount += menu.getOptionalMenuItemList().size();
-        // Add 1 for separator between optional and group section
-        itemCount++;
-        // add groups count
-        itemCount += menu.getGroupMenuItemList().size();
-
-        return itemCount;
+        switch (section) {
+            case 0:
+                return menu.getFilterMenuItemList().size();
+            case 1:
+                return menu.getOptionalMenuItemList().size();
+            case 2:
+                return menu.getGroupMenuItemList().size();
+            default:
+                return 0;
+        }
     }
 
     @Override
-    public int getItemViewType(int position) {
+    protected boolean supportHeader(int section) {
+        return section != 0;
+    }
+
+    @Override
+    protected int getSectionCount() {
         if (menu == null)
             return 0;
+        return 3;
+    }
 
-        int itemCount = 0;
-        // add filters count
-        itemCount += menu.getFilterMenuItemList().size();
-        if(position < itemCount)
-            return menuItemFilter;
-        // Add 1 for separator between filter and optional section
-        itemCount++;
-        if(position < itemCount)
-            return menuItemSeparator;
-        // add optionals count
-        itemCount += menu.getOptionalMenuItemList().size();
-        if(position < itemCount)
-            return menuItemOptional;
-        // Add 1 for separator between optional and group section
-        itemCount++;
-        if(position < itemCount)
-            return menuItemSeparator;
-        // add groups count
-        itemCount += menu.getGroupMenuItemList().size();
-        if(position < itemCount)
-            return menuItemGroup;
-
-        return 0;
+    @Override
+    protected int getItemViewTypeBySection(int section) {
+        switch (section) {
+            case 0:
+                return menuItemFilter;
+            case 1:
+                return menuItemOptional;
+            case 2:
+                return menuItemGroup;
+            default:
+                return 0;
+        }
     }
 
     @Override
@@ -169,7 +162,8 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemFilterViewHolder vh, int position) {
-        final FilterMenuItem filterMenuItem = menu.getFilterMenuItemList().get(position);
+        int positionInSection = getPositionInSection(position);
+        final FilterMenuItem filterMenuItem = menu.getFilterMenuItemList().get(positionInSection);
         vh.icon.setImageResource(filterMenuItem.getIconRes());
         vh.title.setText(filterMenuItem.getTitle());
         vh.itemView.setOnClickListener(new View.OnClickListener() {
@@ -188,9 +182,8 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemGroupViewHolder vh, int position) {
-        int positionInItemList = position - menu.getFilterMenuItemList().size() - 1
-                - menu.getOptionalMenuItemList().size() - 1;
-        final GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(positionInItemList);
+        int positionInSection = getPositionInSection(position);
+        final GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(positionInSection);
         vh.icon.setImageResource(groupMenuItem.getIconRes());
         vh.title.setText(groupMenuItem.getTitle());
         vh.description.setText(groupMenuItem.getDescription());
@@ -217,8 +210,8 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
 
     @Override
     public void bindViewHolder(MenuAdapterHolders.MenuItemOptionalViewHolder vh, int position) {
-        int positionInItemList = position - menu.getFilterMenuItemList().size() - 1;
-        final OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(positionInItemList);
+        int positionInSection = getPositionInSection(position);
+        final OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(positionInSection);
         vh.icon.setImageResource(optionalMenuItem.getIconRes());
         vh.title.setText(optionalMenuItem.getTitle());
         vh.itemView.setOnClickListener(new View.OnClickListener() {
@@ -259,16 +252,11 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             }
         }
 
-        selectItemNumber(filterNumber);
+        int position = filterNumber + getPositionStartSection(0);
+        selectItemNumber(position);
     }
 
     public void selectOptional(OptionalMenuItem.Type type) {
-        int itemNumber = 0;
-        // add filters count
-        itemNumber += menu.getFilterMenuItemList().size();
-        // Add 1 for separator between filter and optional section
-        itemNumber++;
-
         int optionalNumber = 0;
         for(int i = 0; i < menu.getOptionalMenuItemList().size(); i++) {
             OptionalMenuItem optionalMenuItem = menu.getOptionalMenuItemList().get(i);
@@ -278,21 +266,11 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             }
         }
 
-        itemNumber += optionalNumber;
-        selectItemNumber(itemNumber);
+        int position = optionalNumber + getPositionStartSection(1);
+        selectItemNumber(position);
     }
 
     public void selectGroup(int groupId) {
-        int itemNumber = 0;
-        // add filters count
-        itemNumber += menu.getFilterMenuItemList().size();
-        // Add 1 for separator between filter and optional section
-        itemNumber++;
-        // add optionals count
-        itemNumber += menu.getOptionalMenuItemList().size();
-        // Add 1 for separator between optional and group section
-        itemNumber++;
-
         int groupNumber = 0;
         for(int i = 0; i < menu.getGroupMenuItemList().size(); i++) {
             GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(i);
@@ -302,8 +280,8 @@ public class MenuAdapter extends SupportAnnotatedAdapter implements MenuAdapterB
             }
         }
 
-        itemNumber += groupNumber;
-        selectItemNumber(itemNumber);
+        int position = groupNumber + getPositionStartSection(2);
+        selectItemNumber(position);
     }
 
     private void selectItemNumber(int itemNumber) {

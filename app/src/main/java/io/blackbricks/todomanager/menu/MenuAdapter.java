@@ -131,7 +131,7 @@ public class MenuAdapter extends SectionedAdapter implements MenuAdapterBinder {
 
     @Override
     protected boolean supportHeader(int section) {
-        return section != 0;
+        return getSectionItemCount(section) != 0 && section != 0;
     }
 
     @Override

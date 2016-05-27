@@ -32,7 +32,7 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
         int section = getSection(position);
         if(supportHeader(section)) {
             int positionInSection = getPositionInSection(position);
-            if(positionInSection == 0) {
+            if(positionInSection == -1) {
                 return ITEM_SECTION_HEADER;
             }
         }
@@ -54,7 +54,7 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
             int curItemCount = getSectionItemCount(section) + (supportHeader(section) ? 1 : 0);
             itemCount += curItemCount;
             if(itemCount > position)
-                return curItemCount - (itemCount - position);
+                return position - (itemCount - curItemCount) - (supportHeader(section) ? 1 : 0);
         }
         return 0;
     }
@@ -75,7 +75,7 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
             int curItemCount = getSectionItemCount(section) + (supportHeader(section) ? 1 : 0);
             itemCount += curItemCount;
             if(itemCount > position)
-                return section - 1;
+                return section;
         }
         return section;
     }

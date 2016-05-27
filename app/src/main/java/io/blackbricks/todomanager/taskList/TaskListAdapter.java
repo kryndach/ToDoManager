@@ -3,6 +3,7 @@ package io.blackbricks.todomanager.taskList;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -25,11 +26,12 @@ import java.util.List;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.utils.adapter.SectionedAdapter;
 
 /**
  * Created by yegorkryndach on 22/04/16.
  */
-public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskListAdapterBinder,
+public class TaskListAdapter extends SectionedAdapter implements TaskListAdapterBinder,
         SwipeItemMangerInterface, SwipeAdapterInterface {
 
     public interface TaskClickListener {
@@ -71,7 +73,12 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
             })
     public final int taskItem = 0;
 
-    ArrayList<Task> taskList;
+    @ViewType(layout = R.layout.list_task_section_header,
+            initMethod = true,
+            views = {})
+    public final int sectionHeader = ITEM_SECTION_HEADER;
+
+    ArrayList<Pair<String, ArrayList<Task>>> sectionList;
 
     private TaskClickListener taskClickListener;
     private TaskDoneListener taskDoneListener;
@@ -80,33 +87,49 @@ public class TaskListAdapter extends SupportAnnotatedAdapter implements TaskList
 
     private Context context;
 
-    public TaskListAdapter(Context context, ArrayList<Task> taskList,
-                           TaskClickListener taskClickListener, TaskDoneListener taskDoneListener,
-                           TaskHotListener taskHotListener, TaskDeleteListener taskDeleteListener) {
+    public TaskListAdapter(Context context, ArrayList<Pair<String,
+            ArrayList<Task>>> sectionList, TaskClickListener taskClickListener,
+                           TaskDoneListener taskDoneListener, TaskHotListener taskHotListener,
+                           TaskDeleteListener taskDeleteListener) {
         super(context);
-        this.context = context;
-        this.taskList = taskList;
+        this.sectionList = sectionList;
         this.taskClickListener = taskClickListener;
         this.taskDoneListener = taskDoneListener;
         this.taskHotListener = taskHotListener;
         this.taskDeleteListener = taskDeleteListener;
+        this.context = context;
     }
 
     public void setTaskClickListener(TaskClickListener taskClickListener) {
         this.taskClickListener = taskClickListener;
     }
 
-    public ArrayList<Task> getTaskList() {
-        return taskList;
+    public ArrayList<Pair<String, ArrayList<Task>>> getSectionList() {
+        return sectionList;
     }
 
-    public void setTaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public void setSectionList(ArrayList<Pair<String, ArrayList<Task>>> sectionList) {
+        this.sectionList = sectionList;
     }
 
     @Override
-    public int getItemCount() {
-        return taskList == null ? 0 : taskList.size();
+    protected int getSectionItemCount(int section) {
+        return 0;
+    }
+
+    @Override
+    protected boolean supportHeader(int section) {
+        return false;
+    }
+
+    @Override
+    protected int getSectionCount() {
+        return 0;
+    }
+
+    @Override
+    protected int getItemViewTypeBySection(int section) {
+        return 0;
     }
 
     @Override

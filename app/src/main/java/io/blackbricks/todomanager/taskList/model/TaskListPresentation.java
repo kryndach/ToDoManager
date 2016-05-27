@@ -2,6 +2,7 @@ package io.blackbricks.todomanager.taskList.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.util.Pair;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
@@ -15,39 +16,17 @@ import io.blackbricks.todomanager.model.Task;
 @ParcelablePlease
 public class TaskListPresentation implements Parcelable {
 
-    ArrayList<Task> taskList;
+    ArrayList<Pair<String, ArrayList<Task>>> sectionList;
 
     private TaskListPresentation() {
     }
 
     private TaskListPresentation(Builder builder) {
-        taskList = builder.taskList;
+        sectionList = builder.sectionList;
     }
 
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void insertTask(Task task) {
-        taskList.add(task);
-    }
-
-    public Integer updateTask(Task task) {
-        Integer index = null;
-        int size = taskList.size();
-        for (int i = 0; i < size; i++) {
-            Task taskInList = taskList.get(i);
-            if (taskInList.getId().equals(task.getId())) {
-                index = i;
-                break;
-            }
-        }
-
-        if(index != null) {
-            taskList.set(index, task);
-        }
-
-        return index;
+    public ArrayList<Pair<String, ArrayList<Task>>> getSectionList() {
+        return sectionList;
     }
 
     @Override
@@ -73,18 +52,18 @@ public class TaskListPresentation implements Parcelable {
     };
 
     public static final class Builder {
-        private ArrayList<Task> taskList;
+        private ArrayList<Pair<String, ArrayList<Task>>> sectionList;
 
         public Builder() {
         }
 
-        public Builder taskList(ArrayList<Task> val) {
-            taskList = val;
-            return this;
-        }
-
         public TaskListPresentation build() {
             return new TaskListPresentation(this);
+        }
+
+        public Builder sectionList(ArrayList<Pair<String, ArrayList<Task>>> val) {
+            sectionList = val;
+            return this;
         }
     }
 }

@@ -31,14 +31,14 @@ public class TaskListPresentationProvider {
                 .map(new Func1<List<Task>, TaskListPresentation>() {
                     @Override
                     public TaskListPresentation call(List<Task> tasks) {
-                        if(type == Filter.Type.WEEK) {
-                            ArrayList<Pair<String, ArrayList<Task>>> sectionList =
+                        if (type == Filter.Type.WEEK) {
+                            ArrayList<TaskListSection> sectionList =
                                     TaskListPresentationProvider.this.getSectionList(tasks);
                             return new TaskListPresentation.Builder()
                                     .sectionList(sectionList)
                                     .build();
                         } else {
-                            ArrayList<Pair<String, ArrayList<Task>>> sectionList =
+                            ArrayList<TaskListSection> sectionList =
                                     TaskListPresentationProvider.this.getSimpleSectionList(tasks);
                             return new TaskListPresentation.Builder()
                                     .sectionList(sectionList)
@@ -48,15 +48,21 @@ public class TaskListPresentationProvider {
                 });
     }
 
-    private ArrayList<Pair<String, ArrayList<Task>>> getSectionList(List<Task> tasks) {
-        ArrayList<Pair<String, ArrayList<Task>>> sectionList = new ArrayList<>();
-        sectionList.add(new Pair<String, ArrayList<Task>>(null, new ArrayList<>(tasks)));
+    private ArrayList<TaskListSection> getSectionList(List<Task> tasks) {
+        ArrayList<TaskListSection> sectionList = new ArrayList<>();
+        sectionList.add(new TaskListSection.Builder()
+                .title("asdfgh")
+                .taskList(new ArrayList<>(tasks))
+                .build());
         return sectionList;
     }
 
-    private ArrayList<Pair<String, ArrayList<Task>>> getSimpleSectionList(List<Task> tasks) {
-        ArrayList<Pair<String, ArrayList<Task>>> sectionList = new ArrayList<>();
-        sectionList.add(new Pair<String, ArrayList<Task>>(null, new ArrayList<>(tasks)));
+    private ArrayList<TaskListSection> getSimpleSectionList(List<Task> tasks) {
+        ArrayList<TaskListSection> sectionList = new ArrayList<>();
+        sectionList.add(new TaskListSection.Builder()
+                .title("12345678")
+                .taskList(new ArrayList<>(tasks))
+                .build());
         return sectionList;
     }
 

@@ -16,7 +16,7 @@ import io.blackbricks.todomanager.model.Task;
 @ParcelablePlease
 public class TaskListPresentation implements Parcelable {
 
-    ArrayList<Pair<String, ArrayList<Task>>> sectionList;
+    ArrayList<TaskListSection> sectionList;
 
     private TaskListPresentation() {
     }
@@ -25,7 +25,7 @@ public class TaskListPresentation implements Parcelable {
         sectionList = builder.sectionList;
     }
 
-    public ArrayList<Pair<String, ArrayList<Task>>> getSectionList() {
+    public ArrayList<TaskListSection> getSectionList() {
         return sectionList;
     }
 
@@ -52,7 +52,8 @@ public class TaskListPresentation implements Parcelable {
     };
 
     public static final class Builder {
-        private ArrayList<Pair<String, ArrayList<Task>>> sectionList;
+
+        private ArrayList<TaskListSection> sectionList;
 
         public Builder() {
         }
@@ -61,7 +62,7 @@ public class TaskListPresentation implements Parcelable {
             return new TaskListPresentation(this);
         }
 
-        public Builder sectionList(ArrayList<Pair<String, ArrayList<Task>>> val) {
+        public Builder sectionList(ArrayList<TaskListSection> val) {
             sectionList = val;
             return this;
         }

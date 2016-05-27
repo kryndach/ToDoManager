@@ -68,7 +68,7 @@ public abstract class SectionedAdapter extends SupportAnnotatedAdapter {
         return itemCount;
     }
 
-    private int getSection(int position) {
+    protected int getSection(int position) {
         int itemCount = 0;
         int section;
         for (section = 0; section < getSectionCount(); section++) {

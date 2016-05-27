@@ -11,6 +11,8 @@
     <color name="white">#FFFFFF</color>
     <color name="toolbar_drawer_color">@color/white</color>
 
+    <color name="gray">#cfcfcf</color>
+
     <color name="hot">#ff8054</color>
     <color name="unhot">#ff8054</color>
     <color name="done">#a0d367</color>

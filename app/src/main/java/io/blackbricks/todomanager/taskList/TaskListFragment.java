@@ -20,6 +20,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -144,7 +145,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void setData(TaskListPresentation data) {
         this.taskListPresentation = data;
-        taskListAdapter.setTaskList(data.getTaskList());
+        taskListAdapter.setSectionList(data.getSectionList());
         taskListAdapter.notifyDataSetChanged();
         taskListAdapter.closeAllExcept(null);
     }
@@ -187,7 +188,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     }
 
     @Override
-    public void onTaskDelete(final Task task, final int position) {
+    public void onTaskDelete(final Task task, final int section, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(String.format("Are you sure to remove %s task?", task.getTitle()));
 
@@ -196,7 +197,11 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
             public void onClick(DialogInterface dialog, int which) {
                 dbOperationHelper.deleteTask(task.getId());
                 taskListAdapter.notifyItemRemoved(position);
-                taskListPresentation.getTaskList().remove(task);
+                ArrayList taskList = taskListPresentation.getSectionList().get(section).getTaskList();
+                taskList.remove(task);
+                if(taskList.size() == 0) {
+                    taskListPresentation.getSectionList().remove(section);
+                }
                 taskListAdapter.closeAllItems();
             }
         });

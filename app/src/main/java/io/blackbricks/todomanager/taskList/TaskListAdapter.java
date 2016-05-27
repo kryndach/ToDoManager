@@ -26,6 +26,7 @@ import java.util.List;
 
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Task;
+import io.blackbricks.todomanager.taskList.model.TaskListSection;
 import io.blackbricks.todomanager.utils.adapter.SectionedAdapter;
 
 /**
@@ -47,7 +48,7 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
     }
 
     public interface TaskDeleteListener {
-        public void onTaskDelete(Task task, int position);
+        public void onTaskDelete(Task task, int section,int position);
     }
 
     public SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
@@ -75,10 +76,12 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
 
     @ViewType(layout = R.layout.list_task_section_header,
             initMethod = true,
-            views = {})
+            views = {
+                    @ViewField(id = R.id.title, name = "title", type = TextView.class),
+            })
     public final int sectionHeader = ITEM_SECTION_HEADER;
 
-    ArrayList<Pair<String, ArrayList<Task>>> sectionList;
+    ArrayList<TaskListSection> sectionList;
 
     private TaskClickListener taskClickListener;
     private TaskDoneListener taskDoneListener;
@@ -87,8 +90,8 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
 
     private Context context;
 
-    public TaskListAdapter(Context context, ArrayList<Pair<String,
-            ArrayList<Task>>> sectionList, TaskClickListener taskClickListener,
+    public TaskListAdapter(Context context, ArrayList<TaskListSection> sectionList,
+                           TaskClickListener taskClickListener,
                            TaskDoneListener taskDoneListener, TaskHotListener taskHotListener,
                            TaskDeleteListener taskDeleteListener) {
         super(context);
@@ -104,32 +107,32 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
         this.taskClickListener = taskClickListener;
     }
 
-    public ArrayList<Pair<String, ArrayList<Task>>> getSectionList() {
+    public ArrayList<TaskListSection> getSectionList() {
         return sectionList;
     }
 
-    public void setSectionList(ArrayList<Pair<String, ArrayList<Task>>> sectionList) {
+    public void setSectionList(ArrayList<TaskListSection> sectionList) {
         this.sectionList = sectionList;
     }
 
     @Override
     protected int getSectionItemCount(int section) {
-        return 0;
+        return sectionList.get(section).getTaskList().size();
     }
 
     @Override
     protected boolean supportHeader(int section) {
-        return false;
+        return sectionList.get(section).getTitle() != null;
     }
 
     @Override
     protected int getSectionCount() {
-        return 0;
+        return sectionList.size();
     }
 
     @Override
     protected int getItemViewTypeBySection(int section) {
-        return 0;
+        return taskItem;
     }
 
     @Override
@@ -139,7 +142,9 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
 
     @Override
     public void bindViewHolder(TaskListAdapterHolders.TaskItemViewHolder vh, final int position) {
-        final Task task = taskList.get(position);
+        final int section = getSection(position);
+        int positionInSection = getPositionInSection(position);
+        final Task task = sectionList.get(section).getTaskList().get(positionInSection);
         if (task.getIconId() != null) {
             vh.icon.setImageResource(task.getIconId());
         } else {
@@ -204,9 +209,20 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
         vh.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskDeleteListener.onTaskDelete(task, position);
+                taskDeleteListener.onTaskDelete(task, section, position);
             }
         });
+    }
+
+    @Override
+    public void initViewHolder(TaskListAdapterHolders.SectionHeaderViewHolder vh, View view, ViewGroup parent) {
+
+    }
+
+    @Override
+    public void bindViewHolder(TaskListAdapterHolders.SectionHeaderViewHolder vh, int position) {
+        int section = getSection(position);
+        vh.title.setText(sectionList.get(section).getTitle().toUpperCase());
     }
 
     @Override

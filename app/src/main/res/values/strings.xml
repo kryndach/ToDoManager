@@ -5,8 +5,9 @@
     <string name="toolbar_title">Toolbar Title</string>
     <string name="AlarmDateFormat">MMMM d, yyyy \'at\' h:mm a</string>
     <string name="DeadlineDateFormat">MMMM d, yyyy</string>
-    <string name="TaskDeadlineDateFormat">d.MM.yyyy</string>
+    <string name="TaskDeadlineDateFormat">dd.MM.yyyy</string>
     <string name="TimeStampDateFormat">yyyyMMdd_HHmmss</string>
+    <string name="SectionDateFormat">EEEE, dd.MM.yyyy</string>
     <string name="save">Save</string>
     <string name="done">Done</string>
     <string name="attachment">Attachment</string>
@@ -22,4 +23,6 @@
     <string name="hot">Hot</string>
     <string name="undone">Undone</string>
     <string name="delete">Delete</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>

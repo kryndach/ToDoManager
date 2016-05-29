@@ -23,6 +23,7 @@ import io.blackbricks.todomanager.model.GroupProvider;
 import io.blackbricks.todomanager.model.IconProvider;
 import io.blackbricks.todomanager.model.TaskProvider;
 import io.blackbricks.todomanager.photoPicker.model.PhotoPickerProvider;
+import io.blackbricks.todomanager.taskList.model.TaskListPresentationProvider;
 
 /**
  * Created by yegorkryndach on 15/04/16.
@@ -46,4 +47,6 @@ public interface ToDoManagerAppComponent {
     TaskProvider taskProvider();
     AttachmentProvider attachmentProvider();
     PhotoPickerProvider photoPickerProvider();
+
+    TaskListPresentationProvider taskListPresentationProvider();
 }

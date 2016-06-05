@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.model.Filter;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.model.TaskProvider;
@@ -30,9 +31,6 @@ public class TaskListPresentationProvider {
 
     @Inject
     TaskProvider taskProvider;
-
-    @Inject
-    Context context;
 
     @Inject
     public TaskListPresentationProvider() {
@@ -79,11 +77,11 @@ public class TaskListPresentationProvider {
         Calendar currentCalendar = Calendar.getInstance();
 
         if(currentCalendar.get(Calendar.DAY_OF_YEAR) == targetCalendar.get(Calendar.DAY_OF_YEAR) ){
-            return context.getString(R.string.today);
+            return ToDoManagerApp.getContext().getString(R.string.today);
         }else if(currentCalendar.get(Calendar.DAY_OF_YEAR) + 1 == targetCalendar.get(Calendar.DAY_OF_YEAR) ){
-            return context.getString(R.string.tomorrow);
+            return ToDoManagerApp.getContext().getString(R.string.tomorrow);
         }else
-            return DateFormat.format(context.getString(R.string.SectionDateFormat), date).toString();
+            return DateFormat.format(ToDoManagerApp.getContext().getString(R.string.SectionDateFormat), date).toString();
     }
 
     private Date getSectionDay(Date date){

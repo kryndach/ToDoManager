@@ -47,6 +47,4 @@ public interface ToDoManagerAppComponent {
     TaskProvider taskProvider();
     AttachmentProvider attachmentProvider();
     PhotoPickerProvider photoPickerProvider();
-
-    TaskListPresentationProvider taskListPresentationProvider();
 }

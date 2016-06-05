@@ -32,6 +32,7 @@ public class ToDoManagerApp extends Application {
     private RefWatcher refWatcher;
 
     private static ToDoManagerAppComponent appComponent;
+    private static Context mContext;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -40,6 +41,7 @@ public class ToDoManagerApp extends Application {
                 .databaseModule(new DatabaseModule())
                 .build();
         refWatcher = LeakCanary.install(this);
+        mContext = this;
     }
 
     public static RefWatcher getRefWatcher(Context context) {
@@ -53,5 +55,9 @@ public class ToDoManagerApp extends Application {
 
     public static ToDoManagerApp get(Context context) {
         return (ToDoManagerApp) context.getApplicationContext();
+    }
+
+    public static Context getContext(){
+        return mContext;
     }
 }

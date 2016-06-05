@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 
 import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.task.TaskActivity;
 import io.blackbricks.todomanager.taskList.TaskListActivity;
@@ -25,14 +26,14 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Task task = intent.getExtras().getParcelable("task");
+        Task task = intent.getExtras().getParcelable(Alarm.TASK_KEY);
         if (task == null) {
             return;
         }
 
         Intent notificationIntent = new Intent(context, TaskActivity.class);
         notificationIntent.putExtra(TaskActivity.KEY_TASK_ID, task.getId());
-        notificationIntent.putExtra(TaskActivity.KEY_TITLE, "Edit task");
+        notificationIntent.putExtra(TaskActivity.KEY_TITLE, ToDoManagerApp.getContext().getString(R.string.edit_task));
 
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, notificationIntent,
@@ -42,10 +43,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         builder.setContentIntent(contentIntent)
                 .setSmallIcon(R.drawable.ic_add_black_24dp)
-                .setTicker("Alarm!")
+                .setTicker(ToDoManagerApp.getContext().getString(R.string.alarm))
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
-                .setContentTitle("Alarm!")
+                .setContentTitle(ToDoManagerApp.getContext().getString(R.string.alarm))
                 .setContentText(task.getTitle());
         Uri ringURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringURI);

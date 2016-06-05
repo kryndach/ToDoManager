@@ -26,6 +26,8 @@ import rx.functions.Action1;
 @Singleton
 public class Alarm {
 
+    public static final String TASK_KEY = "task";
+
     @Inject
     public Alarm(final Context context, TaskProvider taskProvider, DatabaseOperationHelper dbOperationHelper) {
         taskProvider.getTasks(Filter.Type.ALL, null).subscribe(new Action1<List<Task>>() {
@@ -76,8 +78,7 @@ public class Alarm {
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("task", task);
-        bundle.putString("type", "taskAlarm");
+        bundle.putParcelable(TASK_KEY, task);
         intent.putExtras(bundle);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getId(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT );

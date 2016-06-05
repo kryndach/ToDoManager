@@ -39,7 +39,7 @@ public class IntentStarter {
 
     public void createTask(Context context, Integer groupId) {
         Intent i = new Intent(context, TaskActivity.class);
-        i.putExtra(TaskActivity.KEY_TITLE, "Create task");
+        i.putExtra(TaskActivity.KEY_TITLE, ToDoManagerApp.getContext().getString(R.string.create_task));
         if(groupId != null) {
             i.putExtra(TaskActivity.KEY_GROUP_ID, groupId);
         }
@@ -49,7 +49,7 @@ public class IntentStarter {
     public void editTask(Context context, Integer taskId, Integer groupId) {
         Intent i = new Intent(context, TaskActivity.class);
         i.putExtra(TaskActivity.KEY_TASK_ID, taskId);
-        i.putExtra(TaskActivity.KEY_TITLE, "Edit task");
+        i.putExtra(TaskActivity.KEY_TITLE, ToDoManagerApp.getContext().getString(R.string.edit_task));
         if(groupId != null) {
             i.putExtra(TaskActivity.KEY_GROUP_ID, groupId);
         }

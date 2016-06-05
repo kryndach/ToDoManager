@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
+import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
+
 /**
  * Created by yegorkryndach on 14/04/16.
  */
@@ -12,15 +15,15 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 public class Filter implements Parcelable {
 
     public enum Type {
-        INBOX("Inbox"),
-        TODAY("Today"),
-        TOMORROW("Tomorrow"),
-        WEEK("Week"),
-        HOT("Hot"),
-        DONE("Done"),
-        OVERDUE("Overdue"),
-        GROUP("Group"),
-        ALL("All");
+        INBOX(ToDoManagerApp.getContext().getString(R.string.inbox)),
+        TODAY(ToDoManagerApp.getContext().getString(R.string.today)),
+        TOMORROW(ToDoManagerApp.getContext().getString(R.string.tomorrow)),
+        WEEK(ToDoManagerApp.getContext().getString(R.string.week)),
+        HOT(ToDoManagerApp.getContext().getString(R.string.hot)),
+        DONE(ToDoManagerApp.getContext().getString(R.string.done)),
+        OVERDUE(ToDoManagerApp.getContext().getString(R.string.overdue)),
+        GROUP(ToDoManagerApp.getContext().getString(R.string.group)),
+        ALL(ToDoManagerApp.getContext().getString(R.string.all));
 
         private final String text;
 

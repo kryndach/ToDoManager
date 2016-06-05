@@ -28,4 +28,9 @@
     <string name="alarm">Alarm!</string>
     <string name="edit_task">Edit task</string>
     <string name="create_task">Create task</string>
+    <string name="inbox">Inbox</string>
+    <string name="week">Week</string>
+    <string name="overdue">Overdue</string>
+    <string name="group">Group</string>
+    <string name="all">All</string>
 </resources>

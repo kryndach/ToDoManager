@@ -133,7 +133,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @OnClick(R.id.addButton)
     void onAddClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
-        builder.setTitle("Name");
+        builder.setTitle(R.string.name);
 
         final int groupCount = menu.getGroupMenuItemList().size();
 
@@ -141,7 +141,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String resultText = input.getText().toString();
@@ -154,13 +154,13 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
                             .build());
                 } else {
                     new AlertDialog.Builder(MenuFragment.this.getContext())
-                            .setTitle("Error")
-                            .setMessage("Need some symbols!")
+                            .setTitle(R.string.error)
+                            .setMessage(R.string.need_some_symbols)
                             .show();
                 }
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -185,23 +185,23 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     public void onGroupLongClicked(final Group group) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MenuFragment.this.getContext());
-        builder.setTitle(String.format("Remove %s group with all tasks?", group.getName()));
+        builder.setTitle(String.format(getContext().getString(R.string.remove_group_question), group.getName()));
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dbOperationHelper.deleteGroup(group.getId(), true);
             }
         });
 
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dbOperationHelper.deleteGroup(group.getId(), false);

@@ -161,28 +161,28 @@ public class TaskProvider {
             public Task mapFromCursor(@NonNull Cursor cursor) {
                 Task object = new Task();
 
-                if (!cursor.isNull(cursor.getColumnIndex("date_alarm")))
-                    object.dateAlarm = cursor.getLong(cursor.getColumnIndex("date_alarm"));
-                if (!cursor.isNull(cursor.getColumnIndex("date_status_updated")))
-                    object.dateStatusUpdated = cursor.getLong(cursor.getColumnIndex("date_status_updated"));
-                if (!cursor.isNull(cursor.getColumnIndex("group_id")))
-                    object.groupId = cursor.getInt(cursor.getColumnIndex("group_id"));
-                if (!cursor.isNull(cursor.getColumnIndex("date_created")))
-                    object.dateCreated = cursor.getLong(cursor.getColumnIndex("date_created"));
-                if (!cursor.isNull(cursor.getColumnIndex("description")))
-                    object.description = cursor.getString(cursor.getColumnIndex("description"));
-                if (!cursor.isNull(cursor.getColumnIndex("id")))
-                    object.id = cursor.getInt(cursor.getColumnIndex("id"));
-                if (!cursor.isNull(cursor.getColumnIndex("date_deadline")))
-                    object.dateDeadline = cursor.getLong(cursor.getColumnIndex("date_deadline"));
-                if (!cursor.isNull(cursor.getColumnIndex("icon_id")))
-                    object.iconId = cursor.getInt(cursor.getColumnIndex("icon_id"));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_ALARM_COLUMN)))
+                    object.dateAlarm = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_ALARM_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN)))
+                    object.dateStatusUpdated = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_GROUP_ID_COLUMN)))
+                    object.groupId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TASK_GROUP_ID_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_CREATED_COLUMN)))
+                    object.dateCreated = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_CREATED_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DESCRIPTION_COLUMN)))
+                    object.description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TASK_DESCRIPTION_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN)))
+                    object.id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN)))
+                    object.dateDeadline = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_ICON_ID_COLUMN)))
+                    object.iconId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TASK_ICON_ID_COLUMN));
                 else
                     object.iconId = null;
-                if (!cursor.isNull(cursor.getColumnIndex("title")))
-                    object.title = cursor.getString(cursor.getColumnIndex("title"));
-                if (!cursor.isNull(cursor.getColumnIndex("status")))
-                    object.status = cursor.getInt(cursor.getColumnIndex("status"));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_TITLE_COLUMN)))
+                    object.title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TASK_TITLE_COLUMN));
+                if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_STATUS_COLUMN)))
+                    object.status = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.TASK_STATUS_COLUMN));
 
                 return object;
             }

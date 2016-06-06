@@ -33,4 +33,22 @@
     <string name="overdue">Overdue</string>
     <string name="group">Group</string>
     <string name="all">All</string>
+    <string name="tasks">Tasks</string>
+    <string name="cancel">Cancel</string>
+    <string name="OK">OK</string>
+    <string name="name">Name</string>
+    <string name="error">Error</string>
+    <string name="need_some_symbols">Need some symbols!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="remove_group_question">Remove %s group with all tasks?</string>
+    <string name="support">Support</string>
+    <string name="camera">Camera</string>
+    <string name="library">Library</string>
+    <string name="chose_group">Chose group</string>
+    <string name="create_group_question">You don\'t have any groups. Create one?</string>
+    <string name="chose_icon">Chose icon</string>
+    <string name="photo">Photo</string>
+    <string name="remove_image_question">Are you sure to remove this image?</string>
+    <string name="remove_task_question">Are you sure to remove %s task?</string>
 </resources>

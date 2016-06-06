@@ -304,25 +304,25 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
             builder.setView(groupRecyclerView);
-            builder.setTitle("Chose group");
+            builder.setTitle(R.string.chose_group);
             dialog = builder.create();
             dialog.show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("You don't have any groups. Create one?");
+            builder.setTitle(R.string.create_group_question);
 
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
                     // Group creation
                     AlertDialog.Builder builder = new AlertDialog.Builder(TaskFragment.this.getContext());
-                    builder.setTitle("Name");
+                    builder.setTitle(R.string.name);
 
                     final EditText input = new EditText(TaskFragment.this.getContext());
                     input.setInputType(InputType.TYPE_CLASS_TEXT);
                     builder.setView(input);
 
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String resultText = input.getText().toString();
@@ -342,13 +342,13 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                 dialog.dismiss();
                             } else {
                                 new AlertDialog.Builder(TaskFragment.this.getContext())
-                                        .setTitle("Error")
-                                        .setMessage("Need some symbols!")
+                                        .setTitle(R.string.error)
+                                        .setMessage(R.string.need_some_symbols)
                                         .show();
                             }
                         }
                     });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
@@ -362,7 +362,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                 }
             });
 
-            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -505,7 +505,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
         builder.setView(iconRecyclerView);
-        builder.setTitle("Chose icon");
+        builder.setTitle(R.string.chose_icon);
         dialog = builder.create();
         dialog.show();
     }
@@ -529,7 +529,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     // Attachments
     @OnClick(R.id.photo_view)
     void onClickAddAttachment() {
-        final CharSequence[] attachmentTypes = {"Photo", "Library"};
+        final CharSequence[] attachmentTypes = {getContext().getString(R.string.photo), getContext().getString(R.string.library)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(attachmentTypes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -566,9 +566,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     private Uri getImageUri() {
         String timeStamp = new SimpleDateFormat(getString(R.string.TimeStampDateFormat))
                 .format(new Date());
-        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "images");
+        File imagesFolder = new File(Environment.getExternalStorageDirectory(), Attachment.image_path);
         imagesFolder.mkdirs();
-        File image = new File(imagesFolder, timeStamp + ".jpg");
+        File image = new File(imagesFolder, timeStamp + Attachment.image_extension);
         return Uri.fromFile(image);
     }
 
@@ -694,9 +694,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void onAttachmentLongClicked(final AttachmentPresentation attachmentPresentation) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Are you sure to remove this image?");
+        builder.setTitle(R.string.remove_image_question);
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(taskPresentation.getAddedAttachmentPresentations().contains(attachmentPresentation)){
@@ -710,7 +710,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
+import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
+
 /**
  * Created by yegorkryndach on 17/04/16.
  */
@@ -12,7 +15,7 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 public class OptionalMenuItem extends MenuItem implements Parcelable {
 
     public enum Type {
-        SUPPORT("Support");
+        SUPPORT(ToDoManagerApp.getContext().getString(R.string.support));
 
         private final String text;
 

@@ -190,9 +190,9 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     public void onTaskDelete(final Task task, final int section, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(String.format("Are you sure to remove %s task?", task.getTitle()));
+        builder.setTitle(String.format(getContext().getString(R.string.remove_task_question), task.getTitle()));
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dbOperationHelper.deleteTask(task.getId());
@@ -206,7 +206,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

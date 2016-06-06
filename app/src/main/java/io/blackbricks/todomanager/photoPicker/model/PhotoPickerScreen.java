@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
+import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
+
 /**
  * Created by yegorkryndach on 11/05/16.
  */
@@ -13,8 +16,8 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 public class PhotoPickerScreen implements Parcelable {
 
     public enum Type {
-        CAMERA("Camera"),
-        LIBRARY("Library");
+        CAMERA(ToDoManagerApp.getContext().getString(R.string.camera)),
+        LIBRARY(ToDoManagerApp.getContext().getString(R.string.library));
 
         private final String text;
 

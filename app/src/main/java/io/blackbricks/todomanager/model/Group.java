@@ -7,6 +7,8 @@ import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
+import io.blackbricks.todomanager.R;
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 
 /**
@@ -71,9 +73,9 @@ public class Group implements Parcelable {
     }
 
     public String getDescription() {
-        String description = "Tasks " + this.getTaskCount();
+        String description = ToDoManagerApp.getContext().getString(R.string.tasks) + " " + this.getTaskCount();
         if (this.getHotTaskCount() > 0) {
-            description = "Hot " + this.getHotTaskCount() + ", " + description;
+            description = ToDoManagerApp.getContext().getString(R.string.hot) + " " + this.getHotTaskCount() + ", " + description;
         }
 
         return description;

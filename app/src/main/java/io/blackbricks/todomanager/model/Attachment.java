@@ -17,6 +17,9 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 @ParcelablePlease
 public class Attachment implements Parcelable {
 
+    public static final String image_path = "images";
+    public static final String image_extension = ".jpg";
+
     @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
     Integer id;
 

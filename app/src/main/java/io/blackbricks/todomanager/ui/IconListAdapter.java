@@ -19,7 +19,7 @@ import io.blackbricks.todomanager.R;
 public class IconListAdapter extends SupportAnnotatedAdapter implements IconListAdapterBinder {
 
     public interface IconClickListener {
-        public void onIconClicked(Integer iconId);
+        void onIconClicked(Integer iconId);
     }
 
     @ViewType(layout = R.layout.list_icon_item,

@@ -36,19 +36,19 @@ public class TaskListAdapter extends SectionedAdapter implements TaskListAdapter
         SwipeItemMangerInterface, SwipeAdapterInterface {
 
     public interface TaskClickListener {
-        public void onTaskClicked(Task task, int position);
+        void onTaskClicked(Task task, int position);
     }
 
     public interface TaskDoneListener {
-        public void onTaskDone(Task task, int position);
+        void onTaskDone(Task task, int position);
     }
 
     public interface TaskHotListener {
-        public void onTaskHot(Task task, int position);
+        void onTaskHot(Task task, int position);
     }
 
     public interface TaskDeleteListener {
-        public void onTaskDelete(Task task, int section,int position);
+        void onTaskDelete(Task task, int section, int position);
     }
 
     public SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);

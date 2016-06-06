@@ -26,19 +26,19 @@ import io.blackbricks.todomanager.utils.adapter.SectionedAdapter;
 public class MenuAdapter extends SectionedAdapter implements MenuAdapterBinder {
 
     public interface FilterClickListener {
-        public void onFilterClicked(Filter filter);
+        void onFilterClicked(Filter filter);
     }
 
     public interface OptionalClickListener {
-        public void onOptionalClicked(OptionalMenuItem.Type type);
+        void onOptionalClicked(OptionalMenuItem.Type type);
     }
 
     public interface GroupClickListener {
-        public void onGroupClicked(Group group);
+        void onGroupClicked(Group group);
     }
 
     public interface GroupLongClickListener {
-        public void onGroupLongClicked(Group group);
+        void onGroupLongClicked(Group group);
     }
 
     @ViewType(layout = R.layout.list_filter_menu_item,

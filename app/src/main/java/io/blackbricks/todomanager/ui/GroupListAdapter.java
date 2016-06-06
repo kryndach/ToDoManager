@@ -21,7 +21,7 @@ import io.blackbricks.todomanager.model.Group;
 public class GroupListAdapter extends SupportAnnotatedAdapter implements GroupListAdapterBinder {
 
     public interface GroupClickListener {
-        public void onGroupClicked(Group group);
+        void onGroupClicked(Group group);
     }
 
     @ViewType(layout = R.layout.list_group_item,

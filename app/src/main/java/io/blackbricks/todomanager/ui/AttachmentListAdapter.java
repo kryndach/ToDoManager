@@ -23,11 +23,11 @@ import io.blackbricks.todomanager.task.model.AttachmentPresentation;
 public class AttachmentListAdapter extends SupportAnnotatedAdapter implements AttachmentListAdapterBinder {
 
     public interface AttachmentClickListener {
-        public void onAttachmentClicked(AttachmentPresentation attachmentPresentation);
+        void onAttachmentClicked(AttachmentPresentation attachmentPresentation);
     }
 
     public interface AttachmentLongClickListener {
-        public void onAttachmentLongClicked(AttachmentPresentation attachmentPresentation);
+        void onAttachmentLongClicked(AttachmentPresentation attachmentPresentation);
     }
 
     @ViewType(layout = R.layout.list_attachment_item,

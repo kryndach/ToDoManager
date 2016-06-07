@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.task.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,7 +17,7 @@ import io.blackbricks.todomanager.model.Task;
  * Created by yegorkryndach on 19/04/16.
  */
 @ParcelablePlease
-public class TaskPresentation implements Parcelable {
+public class TaskPresentation extends BaseObservable implements Parcelable {
 
     Task task;
     Group group;
@@ -38,6 +40,7 @@ public class TaskPresentation implements Parcelable {
         iconList = builder.iconList;
     }
 
+    @Bindable
     public Task getTask() {
         return task;
     }

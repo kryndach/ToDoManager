@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
+import android.databinding.adapters.FrameLayoutBindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -70,6 +72,7 @@ import io.blackbricks.todomanager.base.view.BaseLceFragment;
 import io.blackbricks.todomanager.dagger.ToDoManagerModule;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
+import io.blackbricks.todomanager.databinding.FragmentTaskBinding;
 import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
@@ -151,6 +154,8 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Inject
     Alarm alarm;
 
+    private FragmentTaskBinding binding;
+
     private AlertDialog dialog;
 
     private TaskComponent taskComponent;
@@ -172,6 +177,14 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public LceViewState<TaskPresentation, TaskView> createViewState() {
         return new ParcelableDataLceViewState<>();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        binding = FragmentTaskBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -226,11 +239,9 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.title_clear_view)
     void onClickClearTitle() {
         taskPresentation.getTask().setTitle(null);
-        titleEditText.setText(null);
         updateTitleClearButton();
     }
 
-    @OnTextChanged(value = R.id.title_edit_text)
     void onTextChangedTitle(CharSequence text) {
         if (text.length() > 0) {
             taskPresentation.getTask().setTitle(text.toString());
@@ -246,15 +257,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         } else {
             titleClearView.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void updateTitle() {
-        if (taskPresentation.getTask().getTitle() == null) {
-            titleEditText.setText(null);
-        } else {
-            titleEditText.setText(taskPresentation.getTask().getTitle());
-        }
-        updateTitleClearButton();
     }
 
     // Description
@@ -621,7 +623,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void setData(TaskPresentation data) {
         this.taskPresentation = data;
-        updateTitle();
+        binding.setTaskPresentation(data);
         updateDescription();
         updateGroup();
         updateAlarm();

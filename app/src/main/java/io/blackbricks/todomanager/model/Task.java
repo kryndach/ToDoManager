@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,7 +19,7 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 
 @StorIOSQLiteType(table = "tasks")
 @ParcelablePlease
-public class Task implements Parcelable {
+public class Task extends BaseObservable implements Parcelable {
 
     public enum Status {
         UNDONE(0), DONE(1), DELAYED(2), HOT(3), OVERDUE(4);
@@ -57,6 +59,7 @@ public class Task implements Parcelable {
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_STATUS_COLUMN)
     Integer status;
 
+    @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_TITLE_COLUMN)
     String title;
 

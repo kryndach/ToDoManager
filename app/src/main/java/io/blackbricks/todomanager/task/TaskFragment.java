@@ -184,6 +184,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = FragmentTaskBinding.inflate(inflater, container, false);
+        binding.setTaskHandlers(this);
         return binding.getRoot();
     }
 
@@ -248,8 +249,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     }
 
     // Group
-    @OnClick(R.id.group_view)
-    void onClickGroup() {
+    public void onClickGroup(View view) {
         if(taskPresentation.getGroupList().size() != 0) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             RecyclerView groupRecyclerView = (RecyclerView) inflater.inflate(R.layout.dialog_group_list, null);

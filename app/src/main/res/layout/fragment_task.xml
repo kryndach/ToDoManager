@@ -10,6 +10,10 @@
         <variable
             name="taskPresentation"
             type="io.blackbricks.todomanager.task.model.TaskPresentation" />
+
+        <variable
+            name="taskHandlers"
+            type="io.blackbricks.todomanager.task.TaskFragment" />
     </data>
 
     <FrameLayout
@@ -115,7 +119,8 @@
                             android:background="@android:color/transparent"
                             android:gravity="start|center_vertical"
                             android:hint="@string/description"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@={taskPresentation.task.description}" />
 
                         <FrameLayout
                             android:id="@+id/description_clear_view"
@@ -156,6 +161,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{taskHandlers.onClickGroup}"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -249,8 +255,7 @@
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
                             android:hint="@string/select_alert"
-                            android:text="@{DateConverter.alertConvert(taskPresentation.task.dateAlarm)}"
-                            />
+                            android:text="@{DateConverter.alertConvert(taskPresentation.task.dateAlarm)}" />
 
                         <FrameLayout
                             android:id="@+id/alarm_clear_view"
@@ -316,8 +321,8 @@
                             android:layout_gravity="start|center_vertical"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
-                            android:text="@{DateConverter.deadlineConvert(taskPresentation.task.dateDeadline)}"
-                            android:hint="@string/select_deadline" />
+                            android:hint="@string/select_deadline"
+                            android:text="@{DateConverter.deadlineConvert(taskPresentation.task.dateDeadline)}" />
 
                         <FrameLayout
                             android:id="@+id/deadline_clear_view"

@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
@@ -124,6 +125,7 @@ public class Task extends BaseObservable implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+        notifyPropertyChanged(BR.title);
     }
 
     public void setId(Integer id) {

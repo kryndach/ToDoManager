@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="taskPresentation"
             type="io.blackbricks.todomanager.task.model.TaskPresentation" />
@@ -52,7 +52,7 @@
                             android:hint="@string/title"
                             android:inputType=""
                             android:singleLine="true"
-                            android:text="@{taskPresentation.task.title}" />
+                            android:text="@={taskPresentation.task.title}" />
 
                         <FrameLayout
                             android:id="@+id/title_clear_view"
@@ -69,6 +69,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:visibility="@{taskPresentation.task.title.length() == 0 ? View.GONE : View.VISIBLE}"
                                 android:src="@drawable/close_black" />
 
                         </FrameLayout>

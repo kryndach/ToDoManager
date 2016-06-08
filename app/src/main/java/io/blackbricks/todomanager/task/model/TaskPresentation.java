@@ -2,8 +2,10 @@ package io.blackbricks.todomanager.task.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.opengl.Visibility;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 

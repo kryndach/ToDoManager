@@ -239,24 +239,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.title_clear_view)
     void onClickClearTitle() {
         taskPresentation.getTask().setTitle(null);
-        updateTitleClearButton();
-    }
-
-    void onTextChangedTitle(CharSequence text) {
-        if (text.length() > 0) {
-            taskPresentation.getTask().setTitle(text.toString());
-        } else {
-            taskPresentation.getTask().setTitle(null);
-        }
-        updateTitleClearButton();
-    }
-
-    private void updateTitleClearButton() {
-        if (taskPresentation.getTask().getTitle() == null) {
-            titleClearView.setVisibility(View.GONE);
-        } else {
-            titleClearView.setVisibility(View.VISIBLE);
-        }
     }
 
     // Description

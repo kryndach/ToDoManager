@@ -245,34 +245,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.description_clear_view)
     void onClickClearDescription() {
         taskPresentation.getTask().setDescription(null);
-        descriptionEditText.setText(null);
-        updateDescriptionClearButton();
-    }
-
-    @OnTextChanged(value = R.id.description_edit_text)
-    void onTextChangedDescription(CharSequence text) {
-        if (text.length() > 0) {
-            taskPresentation.getTask().setDescription(text.toString());
-        } else {
-            taskPresentation.getTask().setDescription(null);
-        }
-        updateDescriptionClearButton();
-    }
-
-    private void updateDescriptionClearButton() {
-        if (taskPresentation.getTask().getDescription() == null) {
-            descriptionClearView.setVisibility(View.GONE);
-        } else {
-            descriptionClearView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void updateDescription() {
-        if (taskPresentation.getTask().getDescription() == null) {
-            descriptionEditText.setText(null);
-        } else {
-            descriptionEditText.setText(taskPresentation.getTask().getDescription());
-        }
     }
 
     // Group
@@ -322,7 +294,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                 taskPresentation.getGroupList().add(group);
                                 taskPresentation.setGroup(group);
                                 taskPresentation.getTask().setGroupId(group.getId());
-                                updateGroup();
                                 dialog.dismiss();
                             } else {
                                 new AlertDialog.Builder(TaskFragment.this.getContext())
@@ -362,18 +333,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     void onClickClearGroup() {
         taskPresentation.setGroup(null);
         taskPresentation.getTask().setGroupId(null);
-        updateGroup();
-    }
-
-    private void updateGroup() {
-        Group group = taskPresentation.getGroup();
-        if (group != null) {
-            groupTextView.setText(group.getName());
-            groupClearView.setVisibility(View.VISIBLE);
-        } else {
-            groupTextView.setText(null);
-            groupClearView.setVisibility(View.GONE);
-        }
     }
 
     // Alert
@@ -385,19 +344,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.alarm_clear_view)
     void onClickClearAlarm() {
         taskPresentation.getTask().setDateAlarm(null);
-        updateAlarm();
-    }
-
-    private void updateAlarm() {
-        if (taskPresentation.getTask().getDateAlarm() != null) {
-            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.AlarmDateFormat));
-            String textAlarm = format.format(taskPresentation.getTask().getDateAlarm());
-            alarmTextView.setText(textAlarm);
-            alarmClearView.setVisibility(View.VISIBLE);
-        } else {
-            alarmTextView.setText(null);
-            alarmClearView.setVisibility(View.GONE);
-        }
     }
 
     // Deadline
@@ -409,19 +355,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.deadline_clear_view)
     void onClickClearDeadline() {
         taskPresentation.getTask().setDateDeadline(null);
-        updateDeadline();
-    }
-
-    private void updateDeadline() {
-        if (taskPresentation.getTask().getDateDeadline() != null) {
-            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.DeadlineDateFormat));
-            String textAlarm = format.format(taskPresentation.getTask().getDateDeadline());
-            deadlineTextView.setText(textAlarm);
-            deadlineClearView.setVisibility(View.VISIBLE);
-        } else {
-            deadlineTextView.setText(null);
-            deadlineClearView.setVisibility(View.GONE);
-        }
     }
 
     private void showDatePickerDialog(DatePickerDialog.OnDateSetListener onDateSetListener) {
@@ -445,7 +378,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             Calendar calendar = Calendar.getInstance();
             calendar.set(datePickerYear, datePickerMonth, datePickerDay, hourOfDay, minute);
             taskPresentation.getTask().setDateAlarm(calendar.getTime());
-            updateAlarm();
         }
     };
 
@@ -471,7 +403,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, monthOfYear, dayOfMonth);
             taskPresentation.getTask().setDateDeadline(calendar.getTime());
-            updateDeadline();
         }
     };
 
@@ -497,17 +428,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @OnClick(R.id.icon_clear_view)
     void onClickClearIcon() {
         taskPresentation.getTask().setIconId(null);
-        updateIcon();
-    }
-
-    private void updateIcon() {
-        if (taskPresentation.getTask().getIconId() != null) {
-            iconImageView.setImageResource(taskPresentation.getTask().getIconId());
-            iconClearView.setVisibility(View.VISIBLE);
-        } else {
-            iconImageView.setImageResource(R.drawable.briefcase_black);
-            iconClearView.setVisibility(View.GONE);
-        }
     }
 
     // Attachments
@@ -606,11 +526,6 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     public void setData(TaskPresentation data) {
         this.taskPresentation = data;
         binding.setTaskPresentation(data);
-        updateDescription();
-        updateGroup();
-        updateAlarm();
-        updateDeadline();
-        updateIcon();
         attachmentListAdapter.setAttachmentPresentationList(data.getAttachmentPresentations());
         attachmentListAdapter.notifyDataSetChanged();
         iconListAdapter.setIconList(data.getIconList());
@@ -709,14 +624,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     public void onGroupClicked(Group group) {
         taskPresentation.setGroup(group);
         taskPresentation.getTask().setGroupId(group.getId());
-        updateGroup();
         dialog.dismiss();
     }
 
     @Override
     public void onIconClicked(Integer iconId) {
         taskPresentation.getTask().setIconId(iconId);
-        updateIcon();
         dialog.dismiss();
     }
 

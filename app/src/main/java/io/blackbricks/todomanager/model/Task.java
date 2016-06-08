@@ -138,18 +138,22 @@ public class Task extends BaseObservable implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+        notifyPropertyChanged(BR.description);
     }
 
     public void setIconId(Integer iconId) {
         this.iconId = iconId;
+        notifyPropertyChanged(BR.iconId);
     }
 
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
+        notifyPropertyChanged(BR.group);
     }
 
     public void setDateAlarm(Date dateAlarm) {
         this.dateAlarm = dateAlarm == null ? null : dateAlarm.getTime();
+        notifyPropertyChanged(BR.dateAlarm);
     }
 
     public void setDateCreated(Date dateCreated) {
@@ -158,6 +162,7 @@ public class Task extends BaseObservable implements Parcelable {
 
     public void setDateDeadline(Date dateDeadline) {
         this.dateDeadline = dateDeadline == null ? null : dateDeadline.getTime();
+        notifyPropertyChanged(BR.dateDeadline);
     }
 
     public void setDateStatusUpdated(Date dateStatusUpdated) {

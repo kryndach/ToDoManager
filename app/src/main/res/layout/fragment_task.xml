@@ -5,6 +5,8 @@
 
         <import type="android.view.View" />
 
+        <import type="io.blackbricks.todomanager.utils.converters.DateConverter" />
+
         <variable
             name="taskPresentation"
             type="io.blackbricks.todomanager.task.model.TaskPresentation" />
@@ -179,8 +181,8 @@
                             android:layout_gravity="start|center_vertical"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
-                            android:text="@{taskPresentation.group.name}"
-                            android:hint="@string/select_group" />
+                            android:hint="@string/select_group"
+                            android:text="@{taskPresentation.group.name}" />
 
                         <FrameLayout
                             android:id="@+id/group_clear_view"
@@ -246,7 +248,9 @@
                             android:layout_gravity="start|center_vertical"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/select_alert" />
+                            android:hint="@string/select_alert"
+                            android:text="@{DateConverter.alertConvert(taskPresentation.task.dateAlarm)}"
+                            />
 
                         <FrameLayout
                             android:id="@+id/alarm_clear_view"
@@ -312,6 +316,7 @@
                             android:layout_gravity="start|center_vertical"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
+                            android:text="@{DateConverter.deadlineConvert(taskPresentation.task.dateDeadline)}"
                             android:hint="@string/select_deadline" />
 
                         <FrameLayout

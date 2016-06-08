@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class TaskPresentation extends BaseObservable implements Parcelable {
 
     public void setGroup(Group group) {
         this.group = group;
+        notifyPropertyChanged(BR.group);
     }
 
     @Override

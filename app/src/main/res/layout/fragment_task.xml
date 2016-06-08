@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="taskPresentation"
             type="io.blackbricks.todomanager.task.model.TaskPresentation" />
@@ -63,13 +65,13 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.task.title.length() == 0 ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:visibility="@{taskPresentation.task.title.length() == 0 ? View.GONE : View.VISIBLE}"
                                 android:src="@drawable/close_black" />
 
                         </FrameLayout>
@@ -122,7 +124,8 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.task.description.length() == 0 ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -176,6 +179,7 @@
                             android:layout_gravity="start|center_vertical"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
+                            android:text="@{taskPresentation.group.name}"
                             android:hint="@string/select_group" />
 
                         <FrameLayout
@@ -187,7 +191,8 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.group == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -252,7 +257,8 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.task.dateAlarm == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -317,7 +323,8 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.task.dateDeadline == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -383,7 +390,8 @@
                             android:layout_weight="0"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:visibility="@{taskPresentation.task.iconId == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="wrap_content"

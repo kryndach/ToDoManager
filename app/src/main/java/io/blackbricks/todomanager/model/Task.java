@@ -39,21 +39,25 @@ public class Task extends BaseObservable implements Parcelable {
     @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
     Integer id;
 
+    @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_ALARM_COLUMN)
     Long dateAlarm;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_CREATED_COLUMN)
     Long dateCreated;
 
+    @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_DEADLINE_COLUMN)
     Long dateDeadline;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_STATUS_UPDATED_COLUMN)
     Long dateStatusUpdated;
 
+    @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DESCRIPTION_COLUMN)
     String description;
 
+    @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_ICON_ID_COLUMN)
     Integer iconId;
 

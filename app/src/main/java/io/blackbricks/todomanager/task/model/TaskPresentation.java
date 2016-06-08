@@ -47,6 +47,7 @@ public class TaskPresentation extends BaseObservable implements Parcelable {
         return task;
     }
 
+    @Bindable
     public Group getGroup() {
         return group;
     }

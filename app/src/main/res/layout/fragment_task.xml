@@ -72,6 +72,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearTitle}"
                             android:visibility="@{taskPresentation.task.title.length() == 0 ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -132,6 +133,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearDescription}"
                             android:visibility="@{taskPresentation.task.description.length() == 0 ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -200,6 +202,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearGroup}"
                             android:visibility="@{taskPresentation.group == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -229,6 +232,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{taskHandlers.onClickAlarm}"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -267,6 +271,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearAlarm}"
                             android:visibility="@{taskPresentation.task.dateAlarm == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -296,6 +301,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{taskHandlers.onClickDeadline}"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -334,6 +340,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearDeadline}"
                             android:visibility="@{taskPresentation.task.dateDeadline == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -363,6 +370,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{taskHandlers.onClickIcon}"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -401,6 +409,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:onClick="@{taskHandlers.onClickClearIcon}"
                             android:visibility="@{taskPresentation.task.iconId == null ? View.GONE : View.VISIBLE}">
 
                             <ImageView
@@ -436,6 +445,7 @@
                         android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
+                        android:onClick="@{taskHandlers.onClickAddAttachment}"
                         android:orientation="horizontal">
 
                         <ImageView

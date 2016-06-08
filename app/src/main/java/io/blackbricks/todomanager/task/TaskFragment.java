@@ -237,14 +237,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     //// User actions
 
     // Title
-    @OnClick(R.id.title_clear_view)
-    void onClickClearTitle() {
+    public void onClickClearTitle(View view) {
         taskPresentation.getTask().setTitle(null);
     }
 
     // Description
-    @OnClick(R.id.description_clear_view)
-    void onClickClearDescription() {
+    public void onClickClearDescription(View view) {
         taskPresentation.getTask().setDescription(null);
     }
 
@@ -329,31 +327,26 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         }
     }
 
-    @OnClick(R.id.group_clear_view)
-    void onClickClearGroup() {
+    public void onClickClearGroup(View view) {
         taskPresentation.setGroup(null);
         taskPresentation.getTask().setGroupId(null);
     }
 
     // Alert
-    @OnClick(R.id.alarm_view)
-    void onClickAlarm() {
+    public void onClickAlarm(View view) {
         showDatePickerDialog(onAlarmDateSetListener);
     }
 
-    @OnClick(R.id.alarm_clear_view)
-    void onClickClearAlarm() {
+    public void onClickClearAlarm(View view) {
         taskPresentation.getTask().setDateAlarm(null);
     }
 
     // Deadline
-    @OnClick(R.id.deadline_view)
-    void onClickDeadline() {
+    public void onClickDeadline(View view) {
         showDatePickerDialog(onDeadlineDateSetListener);
     }
 
-    @OnClick(R.id.deadline_clear_view)
-    void onClickClearDeadline() {
+    public void onClickClearDeadline(View view) {
         taskPresentation.getTask().setDateDeadline(null);
     }
 
@@ -407,8 +400,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     };
 
     // Icon
-    @OnClick(R.id.icon_view)
-    void onClickIcon() {
+    public void onClickIcon(View view) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         RecyclerView iconRecyclerView = (RecyclerView) inflater.inflate(R.layout.dialog_icon_list, null);
 
@@ -425,14 +417,12 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
         dialog.show();
     }
 
-    @OnClick(R.id.icon_clear_view)
-    void onClickClearIcon() {
+    public void onClickClearIcon(View view) {
         taskPresentation.getTask().setIconId(null);
     }
 
     // Attachments
-    @OnClick(R.id.photo_view)
-    void onClickAddAttachment() {
+    public void onClickAddAttachment(View view) {
         final CharSequence[] attachmentTypes = {getContext().getString(R.string.photo), getContext().getString(R.string.library)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(attachmentTypes, new DialogInterface.OnClickListener() {

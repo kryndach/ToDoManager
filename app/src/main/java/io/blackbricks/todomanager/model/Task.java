@@ -2,8 +2,12 @@ package io.blackbricks.todomanager.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingConversion;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
@@ -12,6 +16,7 @@ import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteType;
 
 import java.util.Date;
 
+import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.database.DatabaseHelper;
 
 /**

@@ -2,16 +2,19 @@ package io.blackbricks.todomanager.task.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
 import android.opengl.Visibility;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.hannesdorfmann.parcelableplease.annotation.ParcelablePlease;
 
 import java.util.ArrayList;
 
+import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.model.Attachment;
 import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
@@ -76,6 +79,15 @@ public class TaskPresentation extends BaseObservable implements Parcelable {
     public void setGroup(Group group) {
         this.group = group;
         notifyPropertyChanged(BR.group);
+    }
+
+    @BindingAdapter({"android:imgId"})
+    public static void bindImgId(ImageView imageView, Integer imgId) {
+        if(imgId != null) {
+            imageView.setImageResource(imgId);
+        } else {
+            imageView.setImageResource(R.drawable.briefcase_black);
+        }
     }
 
     @Override

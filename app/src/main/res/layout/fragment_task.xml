@@ -388,7 +388,8 @@
                             android:layout_weight="0"
                             android:contentDescription=""
                             android:gravity="start|center_vertical"
-                            android:src="@drawable/briefcase_black" />
+                            android:imgId="@{taskPresentation.task.iconId}"
+                            />
 
                         <TextView
                             android:id="@+id/icon_text_view"

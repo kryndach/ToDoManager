@@ -36,6 +36,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
 
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
 
     apt 'com.hannesdorfmann.annotatedadapter:processor:1.1.1'
     compile 'com.hannesdorfmann.annotatedadapter:annotation:1.1.1'

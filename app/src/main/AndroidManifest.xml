@@ -20,14 +20,21 @@
         android:theme="@style/AppTheme">
         <receiver android:name=".background.AlarmReceiver" />
         <receiver android:name=".background.AlarmEndOfDayReceiver" />
+
         <activity
-            android:name=".taskList.TaskListActivity"
+            android:name=".auth.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".auth.registration.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".taskList.TaskListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".task.TaskActivity"
             android:screenOrientation="portrait" />

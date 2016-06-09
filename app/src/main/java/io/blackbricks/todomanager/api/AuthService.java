@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 /**
  * Created by yegorkryndach on 09/06/16.
  */
-public interface ToDoApi {
+public interface AuthService {
 
 
 }

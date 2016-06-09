@@ -39,15 +39,17 @@ public class ToDoManagerModule {
 
     @Provides
     @Singleton
-    public ToDoApi providesToDoApi() {
-
+    public RestAdapter providesRestAdapter() {
         OkHttpClient client = new OkHttpClient();
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
+        return new RestAdapter.Builder()
                 .setClient(new OkClient(client))
                 .setEndpoint(END_POINT)
                 .build();
+    }
 
+    @Provides
+    @Singleton
+    public ToDoApi providesToDoApi(RestAdapter restAdapter) {
         return restAdapter.create(ToDoApi.class);
     }
 

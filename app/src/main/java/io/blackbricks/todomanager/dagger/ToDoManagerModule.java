@@ -22,9 +22,6 @@ import retrofit.client.OkClient;
 @Module
 public class ToDoManagerModule {
 
-    private static final String END_POINT = "http://52.40.140.90:80";
-    private static final String APP_KEY = "a8536db6-2230-4a4d-9086-0e500fcd760f";
-
     private final ToDoManagerApp app;
 
     public ToDoManagerModule(ToDoManagerApp app) {
@@ -35,22 +32,6 @@ public class ToDoManagerModule {
     @Singleton
     public EventBus providesEventBus() {
         return EventBus.getDefault();
-    }
-
-    @Provides
-    @Singleton
-    public RestAdapter providesRestAdapter() {
-        OkHttpClient client = new OkHttpClient();
-        return new RestAdapter.Builder()
-                .setClient(new OkClient(client))
-                .setEndpoint(END_POINT)
-                .build();
-    }
-
-    @Provides
-    @Singleton
-    public ToDoApi providesToDoApi(RestAdapter restAdapter) {
-        return restAdapter.create(ToDoApi.class);
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package io.blackbricks.todomanager.model;
+package io.blackbricks.todomanager.api;
 
 import retrofit2.http.GET;
 import retrofit2.http.Headers;

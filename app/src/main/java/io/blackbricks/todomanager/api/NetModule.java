@@ -20,9 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetModule {
 
     private String mBaseUrl;
+    private String mAppKey;
 
-    public NetModule(String baseUrl) {
+    public NetModule(String baseUrl, String appKey) {
         this.mBaseUrl = baseUrl;
+        this.mAppKey = appKey;
     }
 
     @Provides

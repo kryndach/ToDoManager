@@ -22,7 +22,7 @@ public class CursorToGroup implements Func1<Cursor, Group> {
         Integer hotTaskCount = cursorWrap.getInteger(DatabaseHelper.GROUP_HOT_TASK_COUNT_COLUMN);
 
         return new Group.Builder()
-                .id(id)
+                .groupId(id)
                 .name(name)
                 .taskCount(taskCount)
                 .hotTaskCount(hotTaskCount)

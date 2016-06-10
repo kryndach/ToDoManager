@@ -32,7 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
         Intent notificationIntent = new Intent(context, TaskActivity.class);
-        notificationIntent.putExtra(TaskActivity.KEY_TASK_ID, task.getId());
+        notificationIntent.putExtra(TaskActivity.KEY_TASK_ID, task.getTaskId());
         notificationIntent.putExtra(TaskActivity.KEY_TITLE, ToDoManagerApp.getContext().getString(R.string.edit_task));
 
         PendingIntent contentIntent = PendingIntent.getActivity(context,

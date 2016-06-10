@@ -274,7 +274,7 @@ public class MenuAdapter extends SectionedAdapter implements MenuAdapterBinder {
         int groupNumber = 0;
         for(int i = 0; i < menu.getGroupMenuItemList().size(); i++) {
             GroupMenuItem groupMenuItem = menu.getGroupMenuItemList().get(i);
-            if(groupMenuItem.getGroup().getId() == groupId) {
+            if(groupMenuItem.getGroup().getGroupId() == groupId) {
                 groupNumber = i;
                 break;
             }

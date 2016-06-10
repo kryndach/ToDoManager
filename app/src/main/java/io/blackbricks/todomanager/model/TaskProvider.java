@@ -172,7 +172,7 @@ public class TaskProvider {
                 if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DESCRIPTION_COLUMN)))
                     object.description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TASK_DESCRIPTION_COLUMN));
                 if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN)))
-                    object.id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN));
+                    object.taskId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN));
                 if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN)))
                     object.dateDeadline = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.TASK_DATE_DEADLINE_COLUMN));
                 if (!cursor.isNull(cursor.getColumnIndex(DatabaseHelper.TASK_ICON_ID_COLUMN)))

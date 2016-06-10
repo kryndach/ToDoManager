@@ -288,10 +288,10 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
                                         .order(0)
                                         .build();
                                 int groupId = dbOperationHelper.putGroup(group);
-                                group.setId(groupId);
+                                group.setGroupId(groupId);
                                 taskPresentation.getGroupList().add(group);
                                 taskPresentation.setGroup(group);
-                                taskPresentation.getTask().setGroupId(group.getId());
+                                taskPresentation.getTask().setGroupId(group.getGroupId());
                                 dialog.dismiss();
                             } else {
                                 new AlertDialog.Builder(TaskFragment.this.getContext())
@@ -539,10 +539,10 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
 
     private void putTask() {
         int taskId = dbOperationHelper.putTask(taskPresentation.getTask());
-        taskPresentation.getTask().setId(taskId);
+        taskPresentation.getTask().setTaskId(taskId);
 
         for(AttachmentPresentation attachmentPresentation : taskPresentation.getRemovedAttachmentPresentations()) {
-            dbOperationHelper.deleteAttachment(attachmentPresentation.getAttachment().getId());
+            dbOperationHelper.deleteAttachment(attachmentPresentation.getAttachment().getAttachmentId());
         }
         for(AttachmentPresentation attachmentPresentation : taskPresentation.getAddedAttachmentPresentations()) {
             attachmentPresentation.getAttachment().setTaskId(taskId);
@@ -613,7 +613,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     public void onGroupClicked(Group group) {
         taskPresentation.setGroup(group);
-        taskPresentation.getTask().setGroupId(group.getId());
+        taskPresentation.getTask().setGroupId(group.getGroupId());
         dialog.dismiss();
     }
 

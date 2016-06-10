@@ -63,7 +63,7 @@ public class DatabaseOperationHelper {
             groupId = putResult.insertedId().intValue();
         } else {
             eventBus.post(new GroupUpdatedEvent(group));
-            groupId = group.getId();
+            groupId = group.getGroupId();
         }
 
         return groupId;
@@ -161,7 +161,7 @@ public class DatabaseOperationHelper {
             taskId = putResult.insertedId().intValue();
             eventBus.post(new TaskInsertedEvent(task));
         } else {
-            taskId = task.getId();
+            taskId = task.getTaskId();
             eventBus.post(new TaskUpdatedEvent(task));
         }
 

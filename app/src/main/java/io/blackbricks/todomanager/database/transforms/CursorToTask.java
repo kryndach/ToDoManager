@@ -34,7 +34,7 @@ public class CursorToTask implements Func1<Cursor, Task> {
         Integer groupId = cursorWrap.getInteger(DatabaseHelper.TASK_GROUP_ID_COLUMN);
 
         return new Task.Builder()
-                .id(id)
+                .taskId(id)
                 .dateAlarm(dateAlarm)
                 .dateCreated(dateCreated)
                 .dateDeadline(dateDeadline)

@@ -184,7 +184,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
 
     @Override
     public void onTaskClicked(Task task, int position) {
-        intentStarter.editTask(getActivity(), task.getId(), task.getGroupId());
+        intentStarter.editTask(getActivity(), task.getTaskId(), task.getGroupId());
     }
 
     @Override
@@ -195,7 +195,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbOperationHelper.deleteTask(task.getId());
+                dbOperationHelper.deleteTask(task.getTaskId());
                 taskListAdapter.notifyItemRemoved(position);
                 ArrayList taskList = taskListPresentation.getSectionList().get(section).getTaskList();
                 taskList.remove(task);

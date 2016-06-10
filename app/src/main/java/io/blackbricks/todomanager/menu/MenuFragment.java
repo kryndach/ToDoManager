@@ -122,7 +122,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
 
     @Override
     public void onGroupClicked(Group group) {
-        eventBus.post(new TaskListPushEvent(Filter.Type.GROUP, group.getId(), group.getName()));
+        eventBus.post(new TaskListPushEvent(Filter.Type.GROUP, group.getGroupId(), group.getName()));
     }
 
     @Override
@@ -190,7 +190,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbOperationHelper.deleteGroup(group.getId(), true);
+                dbOperationHelper.deleteGroup(group.getGroupId(), true);
             }
         });
 
@@ -204,7 +204,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbOperationHelper.deleteGroup(group.getId(), false);
+                dbOperationHelper.deleteGroup(group.getGroupId(), false);
             }
         });
 

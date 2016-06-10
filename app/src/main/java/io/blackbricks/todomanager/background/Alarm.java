@@ -80,7 +80,7 @@ public class Alarm {
         Bundle bundle = new Bundle();
         bundle.putParcelable(TASK_KEY, task);
         intent.putExtras(bundle);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getId(),
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getTaskId(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
         am.cancel(pendingIntent);
@@ -91,7 +91,7 @@ public class Alarm {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getId(),
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task.getTaskId(),
                 intent, PendingIntent.FLAG_CANCEL_CURRENT );
 
         am.cancel(pendingIntent);

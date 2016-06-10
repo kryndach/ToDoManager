@@ -25,10 +25,7 @@ import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
-import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.menu.model.Menu;
 import io.blackbricks.todomanager.menu.model.items.OptionalMenuItem;
@@ -98,7 +95,7 @@ public class MenuFragment extends BaseLceFragment<RecyclerView, Menu, MenuView, 
     @Override
     protected void injectDependencies() {
         menuComponent = DaggerMenuComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         menuComponent.inject(this);
     }

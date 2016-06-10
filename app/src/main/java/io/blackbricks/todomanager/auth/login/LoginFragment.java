@@ -19,7 +19,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @Override
     protected void injectDependencies() {
         loginComponent = DaggerLoginComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         loginComponent.inject(this);
     }

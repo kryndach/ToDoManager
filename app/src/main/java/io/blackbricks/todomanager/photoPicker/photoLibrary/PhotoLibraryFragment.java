@@ -8,8 +8,6 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewStat
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.photoPicker.photoLibrary.model.PhotoLibraryPresentation;
 
 /**
@@ -49,7 +47,7 @@ public class PhotoLibraryFragment extends BaseLceFragment<FrameLayout, PhotoLibr
     @Override
     protected void injectDependencies() {
         photoLibraryComponent = DaggerPhotoLibraryComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         photoLibraryComponent.inject(this);
     }

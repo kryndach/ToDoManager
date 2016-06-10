@@ -3,7 +3,6 @@ package io.blackbricks.todomanager.photoPicker;
 import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 
@@ -11,10 +10,7 @@ import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.photoPicker.model.PhotoPickerPresentation;
-import io.blackbricks.todomanager.taskList.DaggerTaskListComponent;
 
 /**
  * Created by yegorkryndach on 10/05/16.
@@ -57,7 +53,7 @@ public class PhotoPickerFragment extends BaseLceFragment<FrameLayout, PhotoPicke
     @Override
     protected void injectDependencies() {
         photoPickerComponent = DaggerPhotoPickerComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         photoPickerComponent.inject(this);
     }

@@ -1,17 +1,15 @@
 package io.blackbricks.todomanager.menu;
 
-import javax.inject.Singleton;
-
 import dagger.Component;
 import io.blackbricks.todomanager.dagger.ActivityScope;
-import io.blackbricks.todomanager.dagger.ToDoManagerAppComponent;
+import io.blackbricks.todomanager.dagger.AppComponent;
 
 /**
  * Created by yegorkryndach on 16/04/16.
  */
 @ActivityScope
 @Component(
-        dependencies = ToDoManagerAppComponent.class
+        dependencies = AppComponent.class
 )
 public interface MenuComponent {
     MenuPresenter presenter();

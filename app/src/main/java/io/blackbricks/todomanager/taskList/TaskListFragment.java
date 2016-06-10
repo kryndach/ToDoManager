@@ -2,7 +2,6 @@ package io.blackbricks.todomanager.taskList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,13 +14,10 @@ import android.widget.LinearLayout;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
-import com.melnykov.fab.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,12 +28,9 @@ import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.model.Filter;
-import io.blackbricks.todomanager.model.Group;
 import io.blackbricks.todomanager.model.Task;
 import io.blackbricks.todomanager.taskList.model.TaskListPresentation;
 
@@ -137,7 +130,7 @@ public class TaskListFragment extends BaseLceFragment<LinearLayout, TaskListPres
     @Override
     protected void injectDependencies() {
         taskListComponent = DaggerTaskListComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         taskListComponent.inject(this);
     }

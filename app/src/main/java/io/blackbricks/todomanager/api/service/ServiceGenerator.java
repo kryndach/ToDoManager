@@ -1,7 +1,11 @@
-package io.blackbricks.todomanager.api;
+package io.blackbricks.todomanager.api.service;
+
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 
 import java.io.IOException;
 
+import io.blackbricks.todomanager.ToDoManagerApp;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

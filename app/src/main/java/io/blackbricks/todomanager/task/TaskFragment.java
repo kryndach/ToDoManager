@@ -1,27 +1,16 @@
 package io.blackbricks.todomanager.task;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
 import android.app.TimePickerDialog;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.databinding.DataBindingUtil;
-import android.databinding.adapters.FrameLayoutBindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -53,24 +41,18 @@ import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.base.view.BaseLceFragment;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
 import io.blackbricks.todomanager.databinding.FragmentTaskBinding;
 import io.blackbricks.todomanager.model.Attachment;
@@ -229,7 +211,7 @@ public class TaskFragment extends BaseLceFragment<FrameLayout, TaskPresentation,
     @Override
     protected void injectDependencies() {
         taskComponent = DaggerTaskComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         taskComponent.inject(this);
     }

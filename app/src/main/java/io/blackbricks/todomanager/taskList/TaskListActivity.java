@@ -2,8 +2,6 @@ package io.blackbricks.todomanager.taskList;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -20,8 +18,6 @@ import butterknife.Bind;
 import io.blackbricks.todomanager.R;
 import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.base.view.BaseActivity;
-import io.blackbricks.todomanager.dagger.ToDoManagerModule;
-import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.events.TaskListEnterEvent;
 import io.blackbricks.todomanager.events.TaskListPushEvent;
 import io.blackbricks.todomanager.model.Filter;
@@ -173,7 +169,7 @@ public class TaskListActivity extends BaseActivity {
     @Override
     protected void injectDependencies() {
         taskListComponent = DaggerTaskListComponent.builder()
-                .toDoManagerAppComponent(ToDoManagerApp.getAppComponent())
+                .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         taskListComponent.inject(this);
     }

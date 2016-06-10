@@ -17,8 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 @Module
-public class ApiModule {
-    public static final String API_BASE_URL = "http://52.33.102.206:80";
+public class NetModule {
+
+    private String mBaseUrl;
+
+    public NetModule(String baseUrl) {
+        this.mBaseUrl = baseUrl;
+    }
 
     @Provides
     @Singleton
@@ -37,7 +42,7 @@ public class ApiModule {
     Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(API_BASE_URL)
+                .baseUrl(mBaseUrl)
                 .client(okHttpClient)
                 .build();
     }

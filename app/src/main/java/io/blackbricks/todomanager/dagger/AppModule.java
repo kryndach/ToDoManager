@@ -26,10 +26,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class AppModule {
 
-    private final ToDoManagerApp app;
+    private final ToDoManagerApp mApp;
 
     public AppModule(ToDoManagerApp app) {
-        this.app = app;
+        this.mApp = app;
     }
 
     @Provides
@@ -41,6 +41,6 @@ public class AppModule {
     @Provides
     @Singleton
     Context provideContext() {
-        return app;
+        return mApp;
     }
 }

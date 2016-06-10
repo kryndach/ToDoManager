@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import io.blackbricks.todomanager.IntentStarter;
-import io.blackbricks.todomanager.api.ApiModule;
+import io.blackbricks.todomanager.api.NetModule;
 import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
@@ -24,7 +24,7 @@ import io.blackbricks.todomanager.photoPicker.model.PhotoPickerProvider;
  */
 @Singleton
 @Component(
-        modules = {AppModule.class, DatabaseModule.class, ApiModule.class}
+        modules = {AppModule.class, DatabaseModule.class, NetModule.class}
 )
 public interface AppComponent {
     // Singletons

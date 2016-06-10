@@ -21,7 +21,7 @@ public class Attachment implements Parcelable {
     public static final String image_extension = ".jpg";
 
     @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
-    Integer id;
+    Integer attachmentId;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.ATTACHMENT_FILE_PATH_COLUMN)
     String path;
@@ -33,13 +33,13 @@ public class Attachment implements Parcelable {
     }
 
     private Attachment(Builder builder) {
-        id = builder.id;
+        attachmentId = builder.attachmentId;
         path = builder.path;
-        taskId = builder.taskId;
+        setTaskId(builder.taskId);
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getAttachmentId() {
+        return attachmentId;
     }
 
     public String getPath() {
@@ -77,16 +77,11 @@ public class Attachment implements Parcelable {
     };
 
     public static final class Builder {
-        private Integer id;
         private String path;
         private Integer taskId;
+        private Integer attachmentId;
 
         public Builder() {
-        }
-
-        public Builder id(Integer val) {
-            id = val;
-            return this;
         }
 
         public Builder path(String val) {
@@ -101,6 +96,11 @@ public class Attachment implements Parcelable {
 
         public Attachment build() {
             return new Attachment(this);
+        }
+
+        public Builder attachmentId(Integer val) {
+            attachmentId = val;
+            return this;
         }
     }
 }

@@ -42,7 +42,7 @@ public class Task extends BaseObservable implements Parcelable {
     }
 
     @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
-    Integer id;
+    Integer taskId;
 
     @Bindable
     @StorIOSQLiteColumn(name = DatabaseHelper.TASK_DATE_ALARM_COLUMN)
@@ -80,7 +80,7 @@ public class Task extends BaseObservable implements Parcelable {
     }
 
     private Task(Builder builder) {
-        setId(builder.id);
+        taskId = builder.taskId;
         dateAlarm = builder.dateAlarm;
         dateCreated = builder.dateCreated;
         dateDeadline = builder.dateDeadline;
@@ -92,8 +92,8 @@ public class Task extends BaseObservable implements Parcelable {
         setGroupId(builder.groupId);
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTaskId() {
+        return taskId;
     }
 
     public String getDescription() {
@@ -137,8 +137,8 @@ public class Task extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.title);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     public void setDescription(String description) {
@@ -179,7 +179,6 @@ public class Task extends BaseObservable implements Parcelable {
     }
 
     public static final class Builder {
-        private Integer id;
         private Long dateAlarm;
         private Long dateCreated;
         private Long dateDeadline;
@@ -189,13 +188,9 @@ public class Task extends BaseObservable implements Parcelable {
         private Integer status;
         private String title;
         private Integer groupId;
+        private Integer taskId;
 
         public Builder() {
-        }
-
-        public Builder id(Integer val) {
-            id = val;
-            return this;
         }
 
         public Builder dateAlarm(Date val) {
@@ -228,6 +223,11 @@ public class Task extends BaseObservable implements Parcelable {
             return this;
         }
 
+        public Builder status(Integer val) {
+            status = val;
+            return this;
+        }
+
         public Builder status(Status val) {
             status = val.getValue();
             return this;
@@ -245,6 +245,31 @@ public class Task extends BaseObservable implements Parcelable {
 
         public Task build() {
             return new Task(this);
+        }
+
+        public Builder taskId(Integer val) {
+            taskId = val;
+            return this;
+        }
+
+        public Builder dateAlarm(Long val) {
+            dateAlarm = val;
+            return this;
+        }
+
+        public Builder dateCreated(Long val) {
+            dateCreated = val;
+            return this;
+        }
+
+        public Builder dateDeadline(Long val) {
+            dateDeadline = val;
+            return this;
+        }
+
+        public Builder dateStatusUpdated(Long val) {
+            dateStatusUpdated = val;
+            return this;
         }
     }
 

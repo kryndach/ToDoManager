@@ -19,7 +19,7 @@ import io.blackbricks.todomanager.database.DatabaseHelper;
 public class Group implements Parcelable {
 
     @StorIOSQLiteColumn(name = DatabaseHelper.ID_COLUMN, key = true)
-    Integer id;
+    Integer groupId;
 
     @StorIOSQLiteColumn(name = DatabaseHelper.GROUP_NAME_COLUMN)
     String name;
@@ -37,15 +37,15 @@ public class Group implements Parcelable {
     }
 
     private Group(Builder builder) {
-        id = builder.id;
+        setGroupId(builder.groupId);
         name = builder.name;
-        order = builder.order;
+        setOrder(builder.order);
         taskCount = builder.taskCount;
         hotTaskCount = builder.hotTaskCount;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getGroupId() {
+        return groupId;
     }
 
     public String getName() {
@@ -64,8 +64,8 @@ public class Group implements Parcelable {
         return hotTaskCount;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public void setOrder(Integer order) {
@@ -104,18 +104,13 @@ public class Group implements Parcelable {
     };
 
     public static final class Builder {
-        private Integer id;
         private String name;
         private Integer order;
         private Integer taskCount;
         private Integer hotTaskCount;
+        private Integer groupId;
 
         public Builder() {
-        }
-
-        public Builder id(Integer val) {
-            id = val;
-            return this;
         }
 
         public Builder name(String val) {
@@ -140,6 +135,11 @@ public class Group implements Parcelable {
 
         public Group build() {
             return new Group(this);
+        }
+
+        public Builder groupId(Integer val) {
+            groupId = val;
+            return this;
         }
     }
 }

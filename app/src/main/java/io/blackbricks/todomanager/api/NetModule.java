@@ -3,6 +3,7 @@ package io.blackbricks.todomanager.api;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.blackbricks.todomanager.api.service.AuthService;
+import io.blackbricks.todomanager.api.service.TaskService;
+import io.blackbricks.todomanager.model.Task;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -47,11 +50,15 @@ public class NetModule {
     @Provides
     @Named(AUTH_TOKEN)
     String authToken(SharedPreferences sharedPreferences) {
-        return null;
+        return sharedPreferences.getString(AUTH_TOKEN, null);
     }
 
     @Provides
     Retrofit provideRetrofit(@Named(AUTH_TOKEN) String authToken) {
+        return getRetrofit(authToken);
+    }
+
+    private Retrofit getRetrofit(String authToken) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new AuthInterceptor(mAppKey, authToken))
                 .build();
@@ -64,8 +71,21 @@ public class NetModule {
     }
 
     @Provides
-    AuthService provideAuthService(Retrofit retrofit){
+    @Singleton
+    AuthService provideAuthService(){
+        Retrofit retrofit = getRetrofit(null);
         return retrofit.create(AuthService.class);
+    }
+
+    @Provides
+    @Singleton
+    UserSessionManager provideUserSessionManager(AuthService authService, SharedPreferences sharedPreferences){
+        return new UserSessionManager(authService, sharedPreferences);
+    }
+
+    @Provides
+    TaskService provideTaskService(Retrofit retrofit){
+        return retrofit.create(TaskService.class);
     }
 
 }

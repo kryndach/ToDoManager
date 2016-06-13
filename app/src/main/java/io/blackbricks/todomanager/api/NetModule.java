@@ -6,14 +6,18 @@ import android.preference.PreferenceManager;
 
 import java.io.IOException;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.blackbricks.todomanager.api.service.AuthService;
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.Route;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,6 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
+
+    public static final String AUTH_TOKEN = "auth_token";
 
     private String mBaseUrl;
     private String mAppKey;
@@ -39,36 +45,27 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
-    OkHttpClient.Builder provideOkHttpClient() {
-        return new OkHttpClient.Builder();
+    @Named(AUTH_TOKEN)
+    String authToken(SharedPreferences sharedPreferences) {
+        return null;
     }
 
     @Provides
-    Retrofit provideRetrofit(OkHttpClient.Builder okHttpClientBuilder, SharedPreferences sharedPreferences) {
-        OkHttpClient okHttpClient = okHttpClientBuilder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header(ApiConstants.APP_KEY_HEADER, mAppKey)
-                        .method(original.method(), original.body());
-
-                if (authToken != null) {
-                    requestBuilder.header(ApiConstants.SESSION_KEY_HEADER, authToken);
-                }
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
-        }).build();
+    Retrofit provideRetrofit(@Named(AUTH_TOKEN) String authToken) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new AuthInterceptor(mAppKey, authToken))
+                .build();
 
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(mBaseUrl)
                 .client(okHttpClient)
                 .build();
+    }
+
+    @Provides
+    AuthService provideAuthService(Retrofit retrofit){
+        return retrofit.create(AuthService.class);
     }
 
 }

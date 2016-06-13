@@ -13,5 +13,5 @@ import io.blackbricks.todomanager.dagger.AppComponent;
         dependencies = AppComponent.class
 )
 public interface LoginComponent {
-    void inject(LoginFragment loginFragment);
+    void inject(LoginActivity loginActivity);
 }

@@ -3,11 +3,11 @@
 
     <data>
         <variable
-            name="loginPresentation"
-            type="io.blackbricks.todomanager.auth.login.model.LoginPresentation" />
+            name="presenter"
+            type="io.blackbricks.todomanager.auth.login.LoginPresenter" />
 
         <variable
-            name="loginHandlers"
+            name="handler"
             type="io.blackbricks.todomanager.auth.login.LoginActivity" />
     </data>
 
@@ -15,6 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@={presenter.loginPresentation.username"
+            android:hint="UserName"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@={presenter.loginPresentation.password"
+            android:hint="Password"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{handler.onClickLogin}"/>
 
     </LinearLayout>
 

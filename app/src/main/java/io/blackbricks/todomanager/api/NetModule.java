@@ -85,6 +85,7 @@ public class NetModule {
     }
 
     @Provides
+    @Singleton
     TokenService provideTokenService(AuthService authService, UserSessionManager userSessionManager){
         return new TokenService(authService, userSessionManager);
     }

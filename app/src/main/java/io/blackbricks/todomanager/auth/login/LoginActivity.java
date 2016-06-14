@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.auth.login;
 
 import android.os.Bundle;
+import android.view.View;
 
 import javax.inject.Inject;
 
@@ -31,5 +32,9 @@ public class LoginActivity extends BaseActivity {
                 .appComponent(ToDoManagerApp.getAppComponent())
                 .build();
         mLoginComponent.inject(this);
+    }
+
+    public void onClickLogin(View view) {
+        mLoginPresenter.login();
     }
 }

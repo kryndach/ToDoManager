@@ -12,6 +12,7 @@ import dagger.Component;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.api.NetModule;
 import io.blackbricks.todomanager.api.TokenService;
+import io.blackbricks.todomanager.api.UserSessionManager;
 import io.blackbricks.todomanager.api.service.AuthService;
 import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.database.DatabaseModule;
@@ -43,6 +44,7 @@ public interface AppComponent {
     Retrofit retrofit();
     AuthService authService();
     TokenService tokenService();
+    UserSessionManager userSessionManager();
 
     // Providers
     MenuProvider menuProvider();

@@ -78,6 +78,7 @@ dependencies {
     compile 'com.github.chenupt:DragTopLayout:1.2.1'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
+    compile 'com.github.ybq:Android-SpinKit:1.0.4'
 
     //Image libraries
     compile 'com.mlsdev.rximagepicker:library:1.1.5'

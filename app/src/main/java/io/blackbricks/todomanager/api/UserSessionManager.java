@@ -7,7 +7,9 @@ import javax.inject.Singleton;
 
 import io.blackbricks.todomanager.api.service.AuthService;
 import okhttp3.ResponseBody;
+import retrofit.RetrofitError;
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by yegorkryndach on 13/06/16.
@@ -15,12 +17,11 @@ import rx.Observable;
 public class UserSessionManager {
     public static final String USER_NAME = "user_name";
     public static final String PASSWORD = "password";
+    public static final String TOKEN = "token";
 
-    private AuthService mAuthService;
     private SharedPreferences mSharedPreferences;
 
-    public UserSessionManager(AuthService mAuthService, SharedPreferences mSharedPreferences) {
-        this.mAuthService = mAuthService;
+    public UserSessionManager(SharedPreferences mSharedPreferences) {
         this.mSharedPreferences = mSharedPreferences;
     }
 
@@ -39,8 +40,14 @@ public class UserSessionManager {
         editor.commit();
     }
 
-    public Observable<ResponseBody> refreshToken() {
-        return null;
+    public String getToken(){
+        return mSharedPreferences.getString(TOKEN, null);
+    }
+
+    public void setToken(String token) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(TOKEN, token);
+        editor.commit();
     }
 
 }

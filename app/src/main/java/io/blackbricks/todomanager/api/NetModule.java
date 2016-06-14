@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.blackbricks.todomanager.api.service.AuthService;
+import io.blackbricks.todomanager.api.service.GroupService;
 import io.blackbricks.todomanager.api.service.TaskService;
 import io.blackbricks.todomanager.model.Task;
 import okhttp3.Authenticator;
@@ -48,9 +49,15 @@ public class NetModule {
     }
 
     @Provides
+    @Singleton
+    UserSessionManager provideUserSessionManager(SharedPreferences sharedPreferences){
+        return new UserSessionManager(sharedPreferences);
+    }
+
+    @Provides
     @Named(AUTH_TOKEN)
-    String authToken(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getString(AUTH_TOKEN, null);
+    String authToken(UserSessionManager userSessionManager) {
+        return userSessionManager.getToken();
     }
 
     @Provides
@@ -78,9 +85,13 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
-    UserSessionManager provideUserSessionManager(AuthService authService, SharedPreferences sharedPreferences){
-        return new UserSessionManager(authService, sharedPreferences);
+    TokenService provideTokenService(AuthService authService, UserSessionManager userSessionManager){
+        return new TokenService(authService, userSessionManager);
+    }
+
+    @Provides
+    GroupService provideGroupService(Retrofit retrofit){
+        return retrofit.create(GroupService.class);
     }
 
     @Provides

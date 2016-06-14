@@ -28,6 +28,7 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
 
     @Inject
     public LoginPresenter() {
+        mLoginPresentation = new LoginPresentation();
     }
 
     public LoginPresentation getLoginPresentation() {
@@ -43,12 +44,12 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                 .subscribe(new Action1<LoginResponse>() {
                     @Override
                     public void call(LoginResponse loginResponse) {
-
+;
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+;
                     }
                 });
     }

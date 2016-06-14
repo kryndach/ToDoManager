@@ -1,6 +1,9 @@
 package io.blackbricks.todomanager.auth.login;
 
+import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -10,6 +13,7 @@ import io.blackbricks.todomanager.ToDoManagerApp;
 import io.blackbricks.todomanager.api.response.LoginResponse;
 import io.blackbricks.todomanager.api.service.AuthService;
 import io.blackbricks.todomanager.base.view.BaseActivity;
+import io.blackbricks.todomanager.databinding.ActivityLoginBinding;
 import rx.functions.Action1;
 
 /**
@@ -18,12 +22,15 @@ import rx.functions.Action1;
 public class LoginActivity extends BaseActivity {
 
     private LoginComponent mLoginComponent;
-    private LoginPresenter mLoginPresenter;
+    @Inject
+    LoginPresenter mLoginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding.setHandler(this);
+        binding.setPresenter(mLoginPresenter);
     }
 
     @Override

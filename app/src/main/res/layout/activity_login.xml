@@ -18,12 +18,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@={presenter.loginPresentation.username"
+            android:text="@={presenter.loginPresentation.username}"
             android:hint="UserName"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@={presenter.loginPresentation.password"
+            android:text="@={presenter.loginPresentation.password}"
             android:hint="Password"/>
         <Button
             android:layout_width="wrap_content"

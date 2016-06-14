@@ -1,5 +1,7 @@
 package io.blackbricks.todomanager.dagger;
 
+import android.content.Context;
+
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 
 import org.greenrobot.eventbus.EventBus;
@@ -9,6 +11,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 import io.blackbricks.todomanager.IntentStarter;
 import io.blackbricks.todomanager.api.NetModule;
+import io.blackbricks.todomanager.api.TokenService;
+import io.blackbricks.todomanager.api.service.AuthService;
 import io.blackbricks.todomanager.background.Alarm;
 import io.blackbricks.todomanager.database.DatabaseModule;
 import io.blackbricks.todomanager.database.DatabaseOperationHelper;
@@ -29,6 +33,7 @@ import retrofit2.Retrofit;
 )
 public interface AppComponent {
     // Singletons
+    Context context();
     IntentStarter intentStarter();
     EventBus eventBus();
     StorIOSQLite storio();
@@ -36,6 +41,8 @@ public interface AppComponent {
     DatabaseOperationHelper dbOperationHelper();
 
     Retrofit retrofit();
+    AuthService authService();
+    TokenService tokenService();
 
     // Providers
     MenuProvider menuProvider();

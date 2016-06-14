@@ -1,6 +1,7 @@
 package io.blackbricks.todomanager.auth.login;
 
 import dagger.Component;
+import io.blackbricks.todomanager.api.NetModule;
 import io.blackbricks.todomanager.dagger.ActivityScope;
 import io.blackbricks.todomanager.dagger.AppComponent;
 
@@ -14,4 +15,5 @@ import io.blackbricks.todomanager.dagger.AppComponent;
 )
 public interface LoginComponent {
     void inject(LoginActivity loginActivity);
+    LoginPresenter loginPresenter();
 }
